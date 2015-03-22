@@ -1,0 +1,4 @@
+<apaplmas>
+  <environment name="space" file="geoSenseMW.jar"></environment>
+  <agent name="a1" file="pursuer.2apl"/>
+</apaplmas>

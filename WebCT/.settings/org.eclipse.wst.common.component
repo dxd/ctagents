@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="WebCT">
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/gameconfigs"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/gui"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/agents"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebSrc"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/experiments"/>
+        <property name="context-root" value="WebCT"/>
+        <property name="java-output-path" value="/WebCT/build/classes"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jvanzyl
+Build-Jdk: 1.4.2_09
+Extension-Name: geronimo-jms_1.1_spec
+Implementation-Title: geronimo-jms_1.1_spec
+Implementation-Version: 1.0
+

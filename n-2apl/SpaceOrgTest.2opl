@@ -1,0 +1,80 @@
+%Pursuer:
+Facts:
+
+norm(
+    enter_water,
+    Thing, // the subject agent
+    ( agent(Thing), water(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce_300(Thing)]) // prohibition format
+    ). 
+
+    
+agent(a1).
+
+water(15,15).
+water(15,16).
+water(16,15).
+water(16,16).
+
+
+notifyAgent(Agent,Event):-
+   @external(geoSenseMW,notifyAgent(Agent,Event),_).
+
+do_sanction([not(H)|T]):- retract(H),do_sanction(T).
+do_sanction([H|T]):- uniqueassertz(H),do_sanction(T).
+do_sanction([]).
+
+do_reduce_300(Agent):-  
+   //points(Agent, Health),
+   //NewHealth is Health - P,
+   clock(Now),
+   @external(geoSenseMW,write(points(Agent,Now,300),-1),_).
+
+listTrue([H|T]):- H, listTrue(T).
+listTrue([]).
+
+clock(0).
+at(15,15,a1).
+
+Effects:
+
+{clock(Old)} time(New) {not clock(Old), clock(New)}
+{true} time(X) {clock(X)}
+
+{at(X1,Y1,Agent),coin(X,Y)} position(Agent, cell(X,Y), Clock) {not at(X1,Y1,Agent), at(X,Y,Agent), not coin(X,Y)}
+{at(X1,Y1,Agent)} position(Agent, cell(X,Y), Clock) {not at(X1,Y1,Agent), at(X,Y,Agent)}
+{true} position(Agent, cell(X,Y), Clock) {at(X,Y,Agent)}
+
+{reading(X,Y,Value1,Agent,Clock1)} reading(Agent, cell(X,Y), Value, Clock) {not reading(X,Y,Value1,Agent,Clock1), reading(X,Y,Value,Agent,Clock)}
+{true} reading(Agent, cell(X,Y), Value, Clock) { reading(X,Y,Value,Agent,Clock)}
+
+{true} coin(cell(X,Y), Clock, Agent) {coin(X,Y)}
+
+{true} cargo(cell(X,Y), Clock) {cargo(X,Y)}
+
+{points(Agent,OldValue)} points(Agent, Clock, Value) {not points(Agent,OldValue), points(Agent,Value)}
+{true} points(Agent, Clock, Value) {points(Agent,Value)}
+
+
+
+
+Temporal norms:
+agent_directed(Label,Agent,obligation(ListA,Deadline,Sanction)): 
+	[norm(Label,Agent,Pre,obligation(ListA,Deadline,Sanction)) and Pre, 
+	O(listTrue(ListA)), 
+	time_past(Deadline)]
+
+agent_directed(Label,Agent,prohibition(ListA,Sanction)): 
+	[norm(Label,Agent,Pre,prohibition(ListA,Sanction)) and Pre, 
+	F(listTrue(ListA)), 
+	false]
+
+Sanction rules:
+reduce_300(Agent) => not reduce_300(Agent), do_reduce_300(Agent).
+
+viol(agent_directed(Label,Agent,prohibition(State,Sanction)))  => reduce_300(Agent), not viol(agent_directed(Label,Agent,prohibition(State,Sanction))).
+obey(agent_directed(Label,Agent,Deontic)) => not obey(agent_directed(Label,Agent,Deontic)).
+
+//@quick_scheme_fix_hack
+//@scheme(agent_directed(A,B,prohibition(C,D)),(@countsas,norm(A,B,E,prohibition(C,D)),E),(listTrue(C)),false,(false),false,[plus(viol(agent_directed(A,B,prohibition(C,D))))|[]],[plus(obey(agent_directed(A,B,prohibition(C,D))))|[]])
+

@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {1}Event history}{1}{section.1}
+\contentsline {section}{\numberline {2}Network traffic}{2}{section.2}
+\contentsline {section}{\numberline {3}Prolog states}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Prolog state 0}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Prolog state 1}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Prolog state 2}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Prolog state 3}{9}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Prolog state 4}{11}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Prolog state 5}{14}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Prolog state 6}{16}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}Prolog state 7}{18}{subsection.3.8}

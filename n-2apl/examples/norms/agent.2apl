@@ -1,0 +1,143 @@
+BeliefUpdates:
+  { clock(Old) } UpdateClock(New) { not clock(Old), clock(New) }
+  { true } AddReading(at(X,Y),Value,Agent,Clock) { reading(at(X,Y),Value,Agent,Clock) }
+  { position(X,Y) } UpdatePosition(X1,Y1) { not position(X,Y), position(X1,Y1) }
+  { points(X) } UpdatePoints(X1) { not points(X), points(X1) }
+
+PC-rules:
+
+///////////// Moving
+
+moveTo(X,Y) <- position(X2,Y2) and Y2 < Y and raise(Y2,NewY) | { 
+    updatePos(X2,NewY); moveTo(X,Y)
+}
+moveTo(X,Y) <- position(X2,Y2) and X2 < X and raise(X2,NewX) | { 
+    updatePos(NewX,Y2); moveTo(X,Y)
+}
+moveTo(X,Y) <- position(X2,Y2) and X2 > X and lower(X2,NewX) | { 
+    updatePos(NewX,Y2); moveTo(X,Y)
+}
+moveTo(X,Y) <- position(X2,Y2) and Y2 > Y and lower(Y2,NewY) | { 
+    updatePos(X2,NewY); moveTo(X,Y)
+}
+moveTo(X,Y) <- position(X,Y) | { skip }
+
+updatePos(NewX,NewY) <- position(X,Y) | {
+    
+    B(clock(Clock));
+    UpdatePosition(NewX,NewY);
+    @space(write(status(position(NewX,NewY),Clock),-1),_)
+    
+} 
+
+
+event(obligation([Goal],Deadline,[Sanction]),space) <- true | {
+   adoptObligation(Goal, Deadline, Sanction)
+}
+
+event(prohibition([State],[Sanction]),space) <- true | {
+    adoptProhibition(State,Sanction)
+}
+
+event(reading(at(X,Y),Value,Agent,Clock),space) <- true | {
+   AddReading(at(X,Y),Value,Agent,Clock)
+}
+
+event(clock(Clock),space) <- true | {
+   UpdateClock(Clock)
+}
+event(points(Points),space) <- true | {
+   UpdatePoints(Points)
+}
+
+adoptProhibition(at(X,Y,_,_), reduce(_,Value)) <- true | {
+    aprohibition(position(X,Y) -> reduce(Value))
+}
+
+adoptObligation(at(X,Y,_), D, reduce(_,Value)) <- true | {
+    adopta(at(X,Y) : D -> reduce(Value))
+}
+
+adoptProhibition(coin(X,Y,A), reduce(_,Value)) <- true | {
+    aprohibition(coin(X,Y,A) -> reduce(Value))
+}
+
+adoptObligation(coin(X,Y,_,A), D, reduce(_,Value)) <- true | {
+    adopta(coin(X,Y,A) : D -> reduce(Value))
+}
+
+adoptProhibition(coin(A), reduce(_,Value)) <- true | {
+    aprohibition(coin(_,_,_) -> reduce(Value))
+}
+
+adoptObligation(coin(A), D, reduce(_,Value)) <- true | {
+    adopta(placeCoin : D -> reduce(Value))
+}
+
+adoptProhibition(cargo(X,Y,_,_), reduce(_,Value)) <- true | {
+    aprohibition(cargo(X,Y) -> reduce(Value))
+}
+
+adoptObligation(cargo(X,Y,_,_), D, reduce(_,Value)) <- true | {
+    adopta(drop(X,Y) : D -> reduce(Value))
+}
+
+adoptObligation(cargo(A), D, reduce(_,Value)) <- true | {
+    adopta(dropLoad : D -> reduce(Value))
+}
+
+adoptProhibition(cargo(A), reduce(_,Value)) <- true | {
+    aprohibition(cargo(A,_) -> reduce(Value))
+}
+
+
+adoptProhibition(reading(X,Y,_), reduce(_,Value)) <- true | {
+    aprohibition(reading(X,Y) -> reduce(Value))
+}
+
+
+adoptObligation(reading(X,Y,_,_), D, reduce(_,Value)) <- true | {
+    adopta(reading(X,Y) : D -> reduce(Value))
+}
+
+adoptObligation(reading(A), D, reduce(_,Value)) <- true | {
+    adopta(makeReading : D -> reduce(Value))
+}
+
+adoptObligation(makeReading(X,Y), D, reduce(_,Value)) <- true | {
+    adopta(makeReading(X,Y) : D -> reduce(Value))
+}
+
+adoptProhibition(investigate(X,Y,_,_,_), reduce(_,Value)) <- true | {
+    aprohibition(investigate(X,Y) -> reduce(Value))
+}
+
+adoptObligation(investigate(X,Y,_,_,_), D, reduce(_,Value)) <- true | {
+    adopta(investigate(X,Y) : D -> reduce(Value))
+}
+
+adoptObligation(west(X,Y,_), D, reduce(_,Value)) <- true | {
+    adopta(westreading(X,Y) : D -> reduce(Value))
+}
+adoptObligation(east(X,Y,_), D, reduce(_,Value)) <- true | {
+    adopta(eastreading(X,Y) : D -> reduce(Value))
+}
+adoptObligation(north(X,Y,_), D, reduce(_,Value)) <- true | {
+    adopta(northreading(X,Y) : D -> reduce(Value))
+}
+adoptObligation(south(X,Y,_), D, reduce(_,Value)) <- true | {
+    adopta(southreading(X,Y) : D -> reduce(Value))
+}
+adoptObligation(surround(X,Y), D, reduce(Group,Sanction)) <- true | {
+    adopta(surround(X,Y) : D -> reduce(Sanction))
+}
+adoptObligation(atleast(agent_sanctions(G),Sanction), D, sanction_group(Group,Sanction)) <- true | {
+    adopta(sanction_agents(agent_sanctions(G),Sanction) : D -> reduce(Sanction))
+}
+
+Sanctions:
+	reduce(100) -> 5,
+	reduce(200) -> 4,
+	reduce(300) -> 3,
+	reduce(400) -> 2, 
+	reduce(500) -> 1

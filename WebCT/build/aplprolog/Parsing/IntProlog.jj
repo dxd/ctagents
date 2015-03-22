@@ -1,0 +1,562 @@
+options{
+  STATIC = false;
+}
+
+PARSER_BEGIN(IntProlog)
+package aplprolog.Parsing;
+import java.io.StringReader; 
+import java.util.HashMap;
+import aplprolog.datastructures.PrimIntArrayList;
+import aplprolog.datastructures.PrimIntKeyHashMap;
+import aplprolog.prolog.IntHarvester;
+import aplprolog.prolog.StringStorage;
+/**
+ * The parser to convert <code>String</code> objects to integer arrays. Viewing the "IntProlog.jj" file is advised. 
+ * 
+ * @author Bas Testerink, Utrecht University, The Netherlands
+ * 
+ */
+public class IntProlog {
+	// rules: parsed rules, splits: split points of subgoals in current query/rule
+	// varIndices: indices inside the current array where variable id's are
+	// vars: mapping from string var names in the query to integer id's
+	// name_arity & nextIsHead: bookkeeping for adding rule
+	// strStor: mapping from String id to String and back
+	public PrimIntKeyHashMap<PrimIntKeyHashMap<PrimIntArrayList>> rules = new PrimIntKeyHashMap<PrimIntKeyHashMap<PrimIntArrayList>>(PrimIntKeyHashMap.OBJ);
+	public PrimIntArrayList array = new PrimIntArrayList(true), splits = new PrimIntArrayList(true);
+	public HashMap<Integer,PrimIntArrayList> varIndices = new HashMap<Integer, PrimIntArrayList>();
+	public HashMap<String,Integer> vars = new HashMap<String,Integer>();
+	public int[] name_arity = new int[]{0,0};
+	public boolean nextIsHead = false;
+	public StringStorage strStor;
+ 
+ /** Main entry point. Contains now solely some testing code. */
+  public static void main(String args[]) throws ParseException {
+    IntProlog parser = new IntProlog(System.in);
+	StringStorage strStor = new StringStorage();
+	parser.strStor = strStor;
+	//parser.addBuiltInStrings();
+    parser.parseRulebase(strStor);
+	//System.out.println(parser.arStr(parser.parseFact("a(A).",strStor)));
+	//System.out.println(parser.arStr(parser.parseQuery("A is -2.",strStor)));
+  }
+  
+  /**
+  * Parse a collection of facts/rules.
+  * @param strStor String mapping.
+  */
+  public void parseRulebase(StringStorage strStor){
+    this.strStor = strStor;
+	try{
+		Rules();
+	}catch(ParseException e){System.out.println(e);}
+  }
+  
+  /**
+  * Parse a query. Resulting array will always have a 0 at the beginning of the splits (required for the resolution mechanism).
+  * @param strStor String mapping.
+  */
+  public int[] parseQuery(String q, StringStorage strStor) throws ParseException {
+	this.strStor = strStor;
+	ReInit(new StringReader("true :- "+q)); // add dummy head
+	Rule(); // parse the query
+	for(int var = vars.size()-1; var >= 0; var--){ // add overhead variable integers
+		PrimIntArrayList indices = varIndices.get(var);
+		for(int i = indices.pointer-1; i >= 0; i--) array.addInt(indices.intdata[i]-3); // remove the length of "true" from the indices
+		array.addInt(indices.pointer);
+	}
+	array.addInt(vars.size());
+	for(int split = splits.pointer-1; split >= 0; split--) // add overhead split integers 
+		array.addInt(splits.intdata[split]-3); // remove the length of "true" from the indices
+	array.addInt(splits.pointer);
+	return getPrimArray(3);
+  }
+  
+  /**
+  * Parse a term/fact.
+  * @param f Fact to be parsed.
+  * @param strStor String mapping.
+  */
+  public int[] parseFact(String f, StringStorage strStor, boolean withOverhead){
+	try{
+		this.strStor = strStor;
+		ReInit(new StringReader(f));
+		Rule(); // parse it
+        if(withOverhead){
+        	addVarOverhead(); // add overhead integers
+            addSplitsOverhead();
+        }
+		return getPrimArray(0); // return result
+	}catch(ParseException e){System.out.println(e);}
+	return null;
+  }
+  
+  public int[] parseTerm(String f, StringStorage strStor){
+	try{
+		this.strStor = strStor;
+		ReInit(new StringReader(f));
+		makeReadyForNextRule();
+		Argument(); // parse it
+		return getPrimArray(0); // return result
+	}catch(ParseException e){System.out.println(e);}
+	return null;
+  }
+  
+  /**
+  * Pure for testing, real built-in strings and evaluation happens in the built-in class and aplprolog.prolog.BuiltIn.java.
+  */
+  public void addBuiltInStrings(){
+	String[] intercepts = new String[]{"=","\\=","var","atom","integer","float","atomic","compound","nonvar","number","@=<","==","\\==","@<","@>","@>=","functor","arg","=..","copy_term"," is ","=:=","=\\=","<","=<",">",">=","clause","current_predicate","asserta","assertz","retract","abolish","findall","bagof","setof","once","repeat","atom_length","atom_concat","sub_atom","atom_chars","atom_codes","char_code","number_chars","number_codes","random","true","int_to_atom","fail"};
+	String[] functions = new String[]{"+","-","*","/"," div "," rem "," mod ","abs","sign","float_integer_part","float_fractional_part","float","floor","truncate","round","**","^","sin","cos","atan","exp","log","sqrt",">>","<<","/\\","\\/","\\","max","min","integer"," xor ","tan","asin","acos","pi","e"};
+	for(String s : intercepts)strStor.add(s);
+	for(String s : functions)strStor.add(s);
+  }
+  
+  /**
+  * Clear out the rule-related data.
+  */
+  public void makeReadyForNextRule(){
+	array.clear();
+	vars.clear();
+	varIndices.clear();
+	splits.clear();
+  }
+  
+  /**
+  * Clear out rule base related data.
+  */
+  public void makeReadyForNextRuleBase(){
+	rules.clear();
+	nextIsHead = true;
+  }
+  
+  /**
+  * Get the id of a string, given the current string mapping. If it is not encountered yet,
+  * then add it to the string mapping.
+  * @param s String to get the id from.
+  */
+  public int strID(String s){
+	Integer id = strStor.getInt(s);
+	if(id==null) id = strStor.add(s);
+	return id;
+  } 
+  
+  /**
+  * Get the integer representation of the variable with String identifier v. Add it
+  * to the variable map if needed, and keep track of where it was found in the array.
+  * @param v String name of the variable.
+  */
+  public int handleVar(String v){
+  		if(v.equals("_"))v+="G"+vars.size(); // anonymous variables share names in notation
+		if(vars.get(v)==null) vars.put(v,vars.size()); // add it if needed
+		int id = vars.get(v);
+		if(varIndices.get(id)==null)varIndices.put(id,new PrimIntArrayList(true));
+		varIndices.get(id).addInt(array.pointer); // remember where the variable was found
+		return id;
+	}
+  
+  /**
+  * Adds the current array as a rule to the rule base.
+  */
+  public void addRule(){
+	// space in rule base
+	PrimIntKeyHashMap<PrimIntArrayList> name = rules.getObj(name_arity[0]);
+	if(name==null){ name = new PrimIntKeyHashMap<PrimIntArrayList>(PrimIntKeyHashMap.OBJ); rules.putObj(name_arity[0],name); }
+	PrimIntArrayList arity = name.getObj(name_arity[1]);
+	if(arity==null){ arity = new PrimIntArrayList(false); name.putObj(name_arity[1],arity);}
+	
+	// splits and var indices (overhead integers)
+	addVarOverhead();
+	addSplitsOverhead();
+	
+	// conversion arraylist -> primitive array
+	arity.addAr(getPrimArray(0));
+	//System.out.println(strStor.getString(name_arity[0]) + "/"+name_arity[1]+": "+array);
+  }
+  
+  /**
+  * Adds integers about variable positions in the array.
+  */
+  public void addVarOverhead(){
+	for(int var = vars.size()-1; var >= 0; var--){
+		PrimIntArrayList indices = varIndices.get(var);
+		for(int i = indices.pointer-1; i >= 0; i--) array.addInt(indices.intdata[i]);
+		array.addInt(indices.pointer);
+	}
+	array.addInt(vars.size());
+  }
+  
+  /**
+  * Adds integers about split positions in the array.
+  */
+  public void addSplitsOverhead(){
+	for(int split = splits.pointer-1; split >= 0; split--) 
+		array.addInt(splits.intdata[split]);
+	array.addInt(splits.pointer);
+  }
+  
+  /**
+  * Convert the working arraylist to a primitive array.
+  */
+  public int[] getPrimArray(int start){
+	int[] primArray = new int[array.pointer-start];
+	for(int i = 0; i < primArray.length; i++) 
+		primArray[i] = array.intdata[i+start];
+	return primArray;
+  }
+  
+  /**
+  * Output function: convert int[] to String.
+  */
+  public String arStr(int[] ar){
+		if(ar==null) return "NULL";
+		String s = "[";
+		for(int i = 0; i < ar.length; i++){
+			s+=ar[i];
+			if(i!=ar.length-1)s+=",";
+		}
+		return s + "]";
+  }
+}
+
+PARSER_END(IntProlog)
+
+/* WHITE SPACE */
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* COMMENTS */
+
+MORE :
+{
+  "//" : IN_SINGLE_LINE_COMMENT
+|
+  "%" : IN_SINGLE_LINE_COMMENT_STD_PROLOG
+|
+  <"/**" ~["/"]> { input_stream.backup(1); } : IN_FORMAL_COMMENT
+|
+  "/*" : IN_MULTI_LINE_COMMENT
+}
+
+<IN_SINGLE_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "\n" | "\r" | "\r\n" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT_STD_PROLOG>
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT_STD_PROLOG: "\n" | "\r" | "\r\n" > : DEFAULT
+}
+
+<IN_FORMAL_COMMENT>
+SPECIAL_TOKEN :
+{
+  <FORMAL_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_MULTI_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+  <MULTI_LINE_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT,IN_SINGLE_LINE_COMMENT_STD_PROLOG,IN_FORMAL_COMMENT,IN_MULTI_LINE_COMMENT>
+MORE :
+{
+  < ~[] >
+}
+
+/* LITERALS */
+
+TOKEN :
+{
+  < INTEGER_LITERAL:
+        <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
+|
+  < FLOATING_POINT_LITERAL:
+        (["0"-"9"])+ ("." (["0"-"9"])+)? (<EXPONENT>)?
+  >
+|
+  < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+|
+  < CHARACTER_LITERAL:
+      "'"
+      (   (~["'","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )+
+      "'"
+  >
+|
+  < STRING_LITERAL:
+      "\""
+      (   (~["\"","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )*
+      "\""
+  >
+}
+
+/* IDENTIFIERS */
+
+TOKEN :
+{
+  < STD_IDENTIFIER: (["@","a"-"z"] (["a"-"z","A"-"Z","0"-"9","_"])*)>
+| < VAR_IDENTIFIER: ["A"-"Z","_"] (["a"-"z","A"-"Z","0"-"9","_"])* >
+}
+
+/* SEPARATORS */
+
+TOKEN :
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < BANG: "!" >
+}
+
+/* OPERATORS */
+
+TOKEN :
+{
+  < ADD: "+" >
+| < SUBTRACT: "-" >
+| < IMPLY: "->" >
+| < MULTIPLY: "*" >
+| < POWER: "**" >
+| < DIVIDE: "/" > 
+| < BITAND: "/\\" >
+| < UNIFICATION: "=" >
+| < ARITHUNIF: "=:=" >
+| < ARITHNOTUNIF: "=\\=" >
+| < EQLT: "=<" >
+| < TERMDECOMPOSITION: "=.." >
+| < EQUALS: "==" >
+| < BACKSLASH: "\\" >
+| < NOT: "\\+" >
+| < BITOR: "\\/" >
+| < NOTUNIFIABLE: "\\=" >
+| < NOTEQUALS: "\\==" > 
+| < TERMGTEQ: "@>=" >
+| < TERMEQLT: "@=<" >
+| < TERMLT: "@<" >
+| < TERMGT: "@>" >
+| < TERMEQ: "@==" >
+| < TERMNEQ: "@\\=" >
+| < LT: "<" >
+| < SHIFTLEFT: "<<" >
+| < GT: ">" >
+| < SHIFTRIGHT: ">>" >
+| < GTEQ: ">=" >
+| < ASSIGN: " is " >
+| < POWER2: "^" >
+| < XOR: " xor " >
+| < REMAINDER: " rem " >
+| < INTDIVIDE: " div " >
+| < MODULO: " mod " >
+| < COLON: ":" >
+| < RULEIMPLY: ":-" >
+| < BAR: "|" >
+} 
+		
+void Rules() :
+{makeReadyForNextRuleBase();}
+{ 	(Rule()
+		{	nextIsHead = true;
+			addRule();
+		}
+	)* <EOF> 
+}
+
+void Rule() : 
+{ makeReadyForNextRule(); }
+{ 
+	[PosLiteral() {splits.addInt(array.pointer);}] 
+	[	<RULEIMPLY> Argument() {splits.addInt(array.pointer);} 
+		(<COMMA> Argument() {splits.addInt(array.pointer);})*
+	] <DOT>
+}
+
+void PosLiteral() : 
+{ Token t; int currentSize = 0; int nrArgs = 0; boolean thisIsHead = nextIsHead; nextIsHead = false;}
+{ 
+	(t=<STD_IDENTIFIER>|t=<CHARACTER_LITERAL>|t=<IMPLY>|t=<SEMICOLON>|t=<BAR>)
+		{
+			array.addInt(IntHarvester.PREDICATE); 
+			array.addInt(strID(t.image));
+			currentSize = array.pointer;
+			array.addInt(0);
+			if(thisIsHead){
+				name_arity[0] = strID(t.image);
+				name_arity[1] = 0;
+			}
+		}
+	[nrArgs=Arguments() 
+		{
+			array.intdata[currentSize] = nrArgs; 
+			if(thisIsHead)name_arity[1] = nrArgs;
+		}
+	]
+}
+
+void NegLiteral() : 
+{}
+{ 
+	<NOT> 
+	{
+		array.addInt(IntHarvester.PREDICATE); 
+		array.addInt(strID("not"));
+		array.addInt(1);
+	}
+	(LOOKAHEAD(Expression())Expression()|PosLiteral()|Parenthesized()|Variable())
+}
+
+int Arguments() :
+{int counter = 1;}
+{
+	<LPAREN> Argument() (<COMMA> Argument() {counter++;})* <RPAREN> 
+	{return counter;}
+}
+
+void Argument() :
+{}
+{
+	LOOKAHEAD(Expression())Expression()|NegativeNumber()|PosLiteral()|NegLiteral()|Number()|Variable()|Cut()|Parenthesized()|List()
+}
+
+void Parenthesized() :
+{int currentSize = 0; int nrArgs = 0;}
+{
+	{
+		array.addInt(IntHarvester.PARENTHESIZED);
+		currentSize = array.pointer;
+		array.addInt(1); 
+	}
+	nrArgs = Arguments()
+	{
+		array.intdata[currentSize] = nrArgs;
+	}
+}
+
+void List() :
+{int counter = 0; int currentSize = 0; int nrArgs = 0; boolean hasTail = false;}
+{
+	{
+		array.addInt(IntHarvester.LIST);
+		currentSize = array.pointer;
+		array.addInt(0);
+	}
+	<LBRACKET>
+		[ Argument() {nrArgs++;} (<COMMA> Argument() {nrArgs++;})*
+		[<BAR> (List()|Variable()) {hasTail = true;}] ]
+			{
+				array.intdata[currentSize] = nrArgs; 
+				if(nrArgs>0&&!hasTail){
+					array.addInt(IntHarvester.LIST);
+					array.addInt(0);
+				}
+			}
+	<RBRACKET>
+}
+
+void Number() :
+{Token t;}
+{
+	(t=<INTEGER_LITERAL>|t=<FLOATING_POINT_LITERAL>)
+	{
+		array.addInt(IntHarvester.NUMBER);
+		double d = Double.parseDouble(t.image);
+		long l = Double.doubleToLongBits(d);
+		int a = (int)(l>>>32);
+		int b = (int)((l<<32)>>>32);
+		array.addInt(a);
+		array.addInt(b);
+	}
+}
+
+void Variable() :
+{Token t;}
+{
+	t=<VAR_IDENTIFIER> 
+	{
+		array.addInt(IntHarvester.VARIABLE);
+		array.addInt(handleVar(t.image));
+	}
+}
+
+void Cut() :
+{}
+{
+	<BANG>
+	{
+		array.addInt(IntHarvester.CUT);
+		array.addInt(0);
+	}
+}
+
+Integer Operator() : /* Any operator, type check on arguments happens at runtime (you have to check it anyway when looking inside variables), to keep parser simple. */
+{Token t;}
+{
+	(t=<ADD>|t=<SUBTRACT>|t=<IMPLY>|t=<MULTIPLY>|t=<POWER>|t=<DIVIDE>|t=<BITAND>|t=<UNIFICATION>|t=<ARITHUNIF>|t=<ARITHNOTUNIF>|t=<EQLT>|
+	t=<TERMDECOMPOSITION>|t=<EQUALS>|t=<BACKSLASH>|t=<BITOR>|t=<NOTUNIFIABLE>|t=<NOTEQUALS>|t=<TERMGTEQ>|t=<TERMEQLT>|t=<TERMLT>|t=<TERMGT>|
+	t=<TERMEQ>|t=<TERMNEQ>|t=<LT>|t=<SHIFTLEFT>|t=<GT>|t=<SHIFTRIGHT>|t=<GTEQ>|t=<ASSIGN>|t=<POWER2>|t=<XOR>|t=<REMAINDER>|t=<INTDIVIDE>|t=<MODULO>|
+	t=<COLON>|t=<RULEIMPLY>|t=<SEMICOLON>)
+	{return strID(t.image);}
+} 
+
+void Expression() :
+{Integer opid; int currentSize = 0;}
+{
+	{ 
+		array.addInt(IntHarvester.PREDICATE);
+		currentSize = array.pointer;
+		array.addInt(-1);
+		array.addInt(2);
+	}
+	(NegativeNumber()|PosLiteral()|NegLiteral()|Number()|Variable()|Cut()|Parenthesized()|List()) opid=Operator() Argument()
+	{array.intdata[currentSize] = opid;}
+}
+
+void NegativeNumber() :
+{}
+{
+	{ 
+		array.addInt(IntHarvester.PREDICATE); 
+		array.addInt(strID("-"));
+		array.addInt(1);
+	}
+	"-" Argument()
+}

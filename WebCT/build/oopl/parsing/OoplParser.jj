@@ -1,0 +1,504 @@
+options{
+  STATIC = false;
+}
+
+PARSER_BEGIN(IntOOPL)
+package oopl.parsing;
+import java.io.StringReader; 
+import java.util.HashMap;
+import aplprolog.datastructures.PrimIntArrayList;
+import aplprolog.datastructures.PrimIntKeyHashMap;
+import aplprolog.prolog.IntHarvester;
+import aplprolog.prolog.StringStorage;
+import aplprolog.prolog.Prolog;
+/**
+ * The parser to convert <code>String</code> objects to integer arrays. Viewing the "oopl.jj" file is advised. 
+ * 
+ * @author Bas Testerink, Utrecht University, The Netherlands
+ * 
+ */
+public class IntOOPL {
+	public PrologToInts pti;
+	public DooplToInts dti;
+	public OoplToInts oti;
+ /** Main entry point. Contains now solely some testing code. */
+  public static void main(String args[]) throws ParseException {
+    IntOOPL parser = new IntOOPL(System.in);
+    Prolog p = new Prolog();
+    PrologToInts pti = new PrologToInts(p.strStorage);
+    parser.pti = pti;
+    parser.dti = new DooplToInts(pti);
+    parser.oti = new OoplToInts(pti);
+    parser.COMBI();
+  }
+  
+  public void initToInts(){
+  	Prolog p = new Prolog();
+  	pti = new PrologToInts(p.strStorage);
+  	dti = new DooplToInts(pti);
+  	oti = new OoplToInts(pti);
+  	pti.new_base();
+  }
+  
+  /**
+  * Parse a term/fact.
+  * @param f Fact to be parsed.
+  * @param strStor String mapping.
+  */
+   public int[] parseFact(String f, StringStorage strStor){
+	try{
+		if(pti==null) initToInts();
+        pti.clear_overhead();
+		pti.strStor = strStor;
+		ReInit(new StringReader(f));
+		Rule(); // parse it
+		pti.addVarOverhead(); // add overhead integers
+		pti.addSplitsOverhead();
+		return pti.getPrimArray(0); // return result
+	}catch(ParseException e){System.out.println(e);}
+	return null;
+  }
+  
+  /**
+  * Parse a collection of facts/rules/norms.
+  * @param strStor String mapping.
+  */
+  public void parseOOPLConfiguration(StringStorage strStor, String type){
+    if(pti==null) initToInts();
+    pti.strStor = strStor;
+	try{
+		if(type.equals("COMBI")) COMBI();
+		else if(type.equals("DOOPL")) DOOPL();
+		else if(type.equals("OOPL")) OOPL();
+		else if(type.equals("PROLOG")) Prolog();
+	}catch(ParseException e){System.out.println(e);}
+  }
+}
+PARSER_END(IntOOPL)
+
+/* WHITE SPACE */
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* COMMENTS */
+
+MORE :
+{
+  "//" : IN_SINGLE_LINE_COMMENT
+|
+  "%" : IN_SINGLE_LINE_COMMENT_STD_PROLOG
+|
+  <"/**" ~["/"]> { input_stream.backup(1); } : IN_FORMAL_COMMENT
+|
+  "/*" : IN_MULTI_LINE_COMMENT
+}
+
+<IN_SINGLE_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "\n" | "\r" | "\r\n" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT_STD_PROLOG>
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT_STD_PROLOG: "\n" | "\r" | "\r\n" > : DEFAULT
+}
+
+<IN_FORMAL_COMMENT>
+SPECIAL_TOKEN :
+{
+  <FORMAL_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_MULTI_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+  <MULTI_LINE_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT,IN_SINGLE_LINE_COMMENT_STD_PROLOG,IN_FORMAL_COMMENT,IN_MULTI_LINE_COMMENT>
+MORE :
+{
+  < ~[] >
+}
+
+/* LITERALS */
+
+TOKEN :
+{
+  < INTEGER_LITERAL:
+        <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
+|
+  < FLOATING_POINT_LITERAL:
+        (["0"-"9"])+ ("." (["0"-"9"])+)? (<EXPONENT>)?
+  >
+|
+  < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+|
+  < CHARACTER_LITERAL:
+      "'"
+      (   (~["'","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )+
+      "'"
+  >
+|
+  < STRING_LITERAL:
+      "\""
+      (   (~["\"","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )*
+      "\""
+  >
+}
+
+/* IDENTIFIERS */
+
+TOKEN :
+{
+  < STD_IDENTIFIER: (["a"-"z","@"] (["a"-"z","A"-"Z","0"-"9","_"])*)>
+| < VAR_IDENTIFIER: ["A"-"Z","_"] (["a"-"z","A"-"Z","0"-"9","_"])* >
+}
+
+/* SEPARATORS */
+
+TOKEN :
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < BANG: "!" >
+| < NOTSPACE: "not " >
+}
+
+/* OPERATORS */
+
+TOKEN :
+{
+  < ADD: "+" >
+| < SUBTRACT: "-" >
+| < IMPLY: "->" >
+| < MULTIPLY: "*" >
+| < POWER: "**" >
+| < DIVIDE: "/" > 
+| < BITAND: "/\\" >
+| < UNIFICATION: "=" >
+| < ARITHUNIF: "=:=" >
+| < ARITHNOTUNIF: "=\\=" >
+| < EQLT: "=<" >
+| < TERMDECOMPOSITION: "=.." >
+| < EQUALS: "==" >
+| < BACKSLASH: "\\" >
+| < NOT: "\\+" >
+| < BITOR: "\\/" >
+| < NOTUNIFIABLE: "\\=" >
+| < NOTEQUALS: "\\==" > 
+| < TERMGTEQ: "@>=" >
+| < TERMEQLT: "@=<" >
+| < TERMLT: "@<" >
+| < TERMGT: "@>" >
+| < TERMEQ: "@==" >
+| < TERMNEQ: "@\\=" >
+| < LT: "<" >
+| < SHIFTLEFT: "<<" >
+| < GT: ">" >
+| < SHIFTRIGHT: ">>" >
+| < GTEQ: ">=" >
+| < ASSIGN: " is " >
+| < POWER2: "^" >
+| < XOR: " xor " >
+| < REMAINDER: " rem " >
+| < INTDIVIDE: " div " >
+| < MODULO: " mod " >
+| < COLON: ":" >
+| < BAR: "|" >
+| < NORMIMPLY: "=>" >
+| < NORMAND: "and " >
+| < DOLLAR: "$" >
+| < SPACEOR: "or " >
+| < AMP: "& " >
+}  
+
+//////////////
+/// Prolog ///
+//////////////
+
+void Argument() :
+{}
+{
+	(LOOKAHEAD(Infix())Infix()|LOOKAHEAD(Number())Number()|Predicate()|Parenthesized()|Cut()|Var()|List())
+}
+	
+// Number
+void Number() :
+{Token n; double m = 1;}
+{
+	[<SUBTRACT> {m=-1d;}](n=<INTEGER_LITERAL>|n=<FLOATING_POINT_LITERAL>)
+	{pti.new_num(n,m);}
+}
+ 
+void Predicate() :
+{Token h; int counter = 0; int curSize = 0;}
+{
+	((<NOT>|<NOTSPACE>) {curSize = pti.new_predicate("not"); pti.replace(curSize,1);} Predicate()) |LOOKAHEAD(2)
+	(<SUBTRACT> {curSize = pti.new_predicate("-"); pti.replace(curSize,1);} (Predicate()|Var())) |
+	((h=<STD_IDENTIFIER>|h=<CHARACTER_LITERAL>|h=Operator()) 
+	{curSize = pti.new_predicate(h.image);}
+	[<LPAREN> Argument() {counter++;} (<COMMA> Argument(){counter++;})* <RPAREN>] 
+	{pti.replace(curSize,counter);})
+}
+
+Token Operator() :
+{Token t;}
+{
+	(t=<ADD>|t=<SUBTRACT>|t=<IMPLY>|t=<MULTIPLY>|t=<POWER>|t=<DIVIDE>|t=<BITAND>|t=<UNIFICATION>|t=<ARITHUNIF>|t=<ARITHNOTUNIF>|t=<EQLT>|
+	t=<TERMDECOMPOSITION>|t=<EQUALS>|t=<BACKSLASH>|t=<BITOR>|t=<NOTUNIFIABLE>|t=<NOTEQUALS>|t=<TERMGTEQ>|t=<TERMEQLT>|t=<TERMLT>|t=<TERMGT>|
+	t=<TERMEQ>|t=<TERMNEQ>|t=<LT>|t=<SHIFTLEFT>|t=<GT>|t=<SHIFTRIGHT>|t=<GTEQ>|t=<ASSIGN>|t=<POWER2>|t=<XOR>|t=<REMAINDER>|t=<INTDIVIDE>|t=<MODULO>|
+	t=<COLON>|t=<SEMICOLON>)
+	{return t;}
+} 
+ 
+void Bodypart() :
+{}
+{
+	(LOOKAHEAD(Infix())Infix()|Predicate()|Parenthesized()|Cut()|Var())
+}
+
+void Infix() :
+{int curSize; Token o;}
+{
+	{curSize = pti.new_predicate("_");}
+	(LOOKAHEAD(Number())Number()|Predicate()|Parenthesized()|Cut()|Var()|List()) o=Operator() Argument()
+	{pti.replace(curSize-1,pti.strID(o.image));
+	 pti.replace(curSize,2);}
+}
+ 
+void List() :
+{int curSize=0; int counter=0;}
+{
+	{curSize = pti.new_list();}
+	<LBRACKET>[Argument() {counter++;}]
+	counter=ListRest(counter)
+	{pti.finish_list(curSize,counter);}
+}
+int ListRest(int before) :
+{int counter=0;}
+{
+	(Tail() <RBRACKET> {return before*-1;} )| 
+	(<COMMA> Argument() counter=ListRest(before+1) {return counter;} ) |
+	(<RBRACKET> {return before;})
+}
+void Tail() :
+{}
+{
+	<BAR> (List()|Var())
+}
+	 
+void Parenthesized() :
+{int counter = 0; int curSize = 0;}
+{
+	{curSize=pti.new_parenthesized();}
+	<LPAREN> Argument() {counter++;} (<COMMA> Argument(){counter++;})* <RPAREN>
+	{pti.replace(curSize,counter);}
+}
+ 
+void Var() :
+{Token t;}
+{
+	t=<VAR_IDENTIFIER>
+	{pti.handle_var(t.image);}
+}
+ 
+void Cut() :
+{}
+{
+	<BANG> {pti.new_cut();}
+}
+
+void Rule() :
+{}
+{
+	Predicate() {pti.add_split();}
+	[<COLON><SUBTRACT> Bodypart() {pti.add_split();}
+	(<COMMA> Bodypart() {pti.add_split();})*] <DOT>
+}
+
+void Prolog() :
+{pti.new_base();}
+{
+	(Rule(){pti.add_rule();})* <EOF>
+}
+
+////////////////////////////////
+/// Distributed OOPL (DOOPL) ///
+////////////////////////////////
+
+void DOOPL_Literal() :
+{Token t=null;}
+{
+	[DOOPL_Label()] 
+	[LOOKAHEAD(2)(t=<ADD>|t=<SUBTRACT>)] {dti.wrap_literal(t);} 
+	Predicate()
+}
+
+void DOOPL_Label() :
+{Token t; boolean isVar = false;}
+{
+	<DOLLAR> (t=<STD_IDENTIFIER>|t=<CHARACTER_LITERAL>|(t=<VAR_IDENTIFIER>{isVar=true;})) <COLON>
+	{dti.add_label(t.image,isVar);}
+}
+
+void DOOPL_Bodypart() :
+{}
+{
+	[DOOPL_Label()] Bodypart()
+}
+
+void DOOPL_Update() :
+{int counter = 0; int curSize = 0; int headStart = 0; int headEnd = 0;}
+{
+	("update{" | "update "<LBRACE>)
+		{dti.new_update(); headStart = pti.array.pointer;}
+		"head:" Predicate() <DOT>
+		{headEnd = pti.array.pointer; curSize = pti.new_parenthesized();}
+		["precondition:" {dti.inPre();} DOOPL_Bodypart() {counter++;} (<COMMA> DOOPL_Bodypart() {counter++;})* <DOT> {dti.outPre();}]
+		{dti.end_parenthesized(curSize,counter,"true"); dti.shove_to_end(headStart,headEnd); curSize = pti.new_list(); counter = 0;}
+		"postcondition:" DOOPL_Literal() {counter++;} (<SEMICOLON> DOOPL_Literal(){counter++;})* <DOT>
+		{pti.finish_list(curSize,counter);}
+	<RBRACE>
+	{pti.fix_overhead(); pti.add_rule();}
+}
+
+void DOOPL_Norm() :
+{int counter = 0; int curSize = 0;}
+{
+	("norm{" | "norm "<LBRACE>)
+		{dti.new_norm();}
+		"name:" Predicate() <DOT>
+		{curSize = pti.new_parenthesized();}
+		["precondition:" {dti.inPre();} DOOPL_Bodypart(){counter++;} (<COMMA> DOOPL_Bodypart(){counter++;})* <DOT> {dti.outPre();}]
+		{dti.end_parenthesized(curSize,counter,"true"); curSize = pti.new_parenthesized(); counter = 0;}
+		["prohibition:" DOOPL_Bodypart(){counter++;} (<COMMA> DOOPL_Bodypart(){counter++;})* <DOT>]
+		{dti.end_parenthesized(curSize,counter,"false"); curSize = pti.new_parenthesized(); counter = 0;}
+		["obligation:" DOOPL_Bodypart(){counter++;} (<COMMA> DOOPL_Bodypart(){counter++;})* <DOT>]
+		{dti.end_parenthesized(curSize,counter,"false"); curSize = pti.new_parenthesized(); counter = 0;}
+		["deadline:" DOOPL_Bodypart(){counter++;} (<COMMA> DOOPL_Bodypart(){counter++;})* <DOT>]
+		{dti.end_parenthesized(curSize,counter,"false"); curSize = pti.new_parenthesized(); counter = 0;}
+		["expiration:" DOOPL_Bodypart(){counter++;} (<COMMA> DOOPL_Bodypart(){counter++;})* <DOT>]
+		{dti.end_parenthesized(curSize,counter,"false"); curSize = pti.new_list(); counter = 0;}
+		["violated:" DOOPL_Literal(){counter++;} (<SEMICOLON> DOOPL_Literal(){counter++;})* <DOT>]
+		{pti.finish_list(curSize,counter); curSize = pti.new_list(); counter = 0;}
+		["obeyed:" DOOPL_Literal(){counter++;} (<SEMICOLON> DOOPL_Literal(){counter++;})* <DOT>]
+		{pti.finish_list(curSize,counter);}
+	<RBRACE>
+	{pti.fix_overhead(); pti.add_rule();}
+}
+
+void DOOPL() :
+{pti.new_base();}
+{
+	(DOOPL_Update()|DOOPL_Norm()|(Rule(){pti.add_rule();}))* <EOF>
+}
+
+/////////////////////
+/// Original OOPL ///
+/////////////////////
+
+void OOPL_Literal() :
+{Token t = null;}
+{
+	[LOOKAHEAD(2)t=<NOTSPACE>] {dti.wrap_literal(t==null?new Token(0,"+"):new Token(0,"-"));} Predicate()
+}
+
+void OOPL_Effect() :
+{int curSize = 0; int counter = 0;}
+{
+	{dti.new_update(); curSize = pti.new_parenthesized();}
+	[<LBRACE> Bodypart(){counter++;} ((<NORMAND>|<COMMA>) Bodypart(){counter++;})* <RBRACE>] 
+	{dti.end_parenthesized(curSize,counter,"true"); counter = 0;}
+		Predicate() 
+	{curSize = pti.new_list();}
+	<LBRACE> OOPL_Literal(){counter++;} ((<NORMAND>|<COMMA>) OOPL_Literal(){counter++;})* <RBRACE>
+	{pti.finish_list(curSize,counter); pti.fix_overhead(); pti.add_rule();}
+}
+
+void OOPL_Temporal() :
+{int counter = 1; int curSize = 0; Token t; int headStart = 0; int headEnd = 0;}
+{
+	{dti.new_norm(); headStart = pti.array.pointer;}
+	Predicate() <COLON> <LBRACKET>
+	{headEnd = pti.array.pointer; curSize = pti.new_parenthesized(); pti.new_predicate("@countsas"); }
+	Bodypart(){counter++;} (<NORMAND> Bodypart(){counter++;})* <COMMA> (t="O("|t="F(")
+	{dti.end_parenthesized(curSize,counter,"true"); counter = 0; curSize = pti.new_parenthesized();}
+	Bodypart(){counter++;} (<NORMAND> Bodypart(){counter++;})* <RPAREN> <COMMA>
+	{dti.end_parenthesized(curSize,counter,"true"); oti.deontic(curSize,t); curSize = pti.new_parenthesized(); counter=0;}
+	Bodypart(){counter++;} (<NORMAND> Bodypart(){counter++;})*
+	{dti.end_parenthesized(curSize,counter,"true"); oti.close_temporal(headStart,headEnd);}
+	<RBRACKET>
+	{pti.fix_overhead(); pti.add_rule();}
+}
+ 
+void OOPL_Imply(String type) :
+{int counter = 2; int curSize = 0;}
+{
+	{oti.new_imply(); curSize = pti.new_parenthesized(); pti.new_predicate(type);}
+	Bodypart() ((<NORMAND>|<COMMA>) Bodypart(){counter++;})* 
+	{dti.end_parenthesized(curSize,counter,"true"); counter = 1; oti.middle_imply(); curSize = pti.new_list();}
+	<NORMIMPLY> OOPL_Literal() ((<NORMAND>|<COMMA>) OOPL_Literal(){counter++;})* <DOT>
+	{pti.finish_list(curSize,counter); oti.finish_imply();}
+}
+
+void OOPL():
+{pti.new_base();}
+{
+	["Facts:" (Rule(){pti.add_rule();})*]
+	["Effects:" (OOPL_Effect())*]
+	["Counts-as:" (OOPL_Imply("@countsas"))*]
+	["Temporal norms:" (OOPL_Temporal())*]
+	["Sanction rules:" (OOPL_Imply("@sanction"))*]
+	<EOF>
+}
+
+void COMBI():
+{pti.new_base();}
+{
+	(Rule(){pti.add_rule();})*
+	["Facts:" (Rule(){pti.add_rule();})*]
+	["Effects:" (OOPL_Effect()|DOOPL_Update())*]
+	["Norms:" (LOOKAHEAD(OOPL_Temporal())OOPL_Temporal()|OOPL_Imply("@countsas")|DOOPL_Norm())*]
+	["Sanction rules:" (OOPL_Imply("@sanction"))*]
+	<EOF>
+}

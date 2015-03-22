@@ -1,0 +1,66 @@
+Include: agent.2apl
+
+BeliefUpdates:
+  { clock(Clock) } UpdateCargos(X,Y) { cargo(at(X,Y),Clock) }
+
+Beliefs:   
+  raise(X,NewX):- NewX is X + 1.
+  lower(X,NewX):- NewX is X - 1.
+  points(1000).
+  position(19,19).
+  clock(0).
+  
+Goals:
+  at(2,2) :: 2000 >> 3,
+  dropLoad :: 2000 >> 3
+ 
+
+PG-rules:
+
+dropLoad <- position(X,Y) | {
+
+   [drop(X,Y); 
+    dropgoal(dropLoad)]
+    
+} : 1
+
+at(X,Y) <- true | {
+
+   [moveToTruck(X,Y); 
+    dropgoal(at(X,Y))]
+    
+} : 1000
+
+PC-rules:
+
+drop(X,Y) <- true | {
+
+	B(clock(Clock));
+    UpdateCargos(X,Y);
+    @space(write(cargo(position(X,Y),Clock),-1),_)
+} 
+
+drop() <- position(X,Y) | {
+
+	B(clock(Clock));
+    UpdateCargos(X,Y);
+    @space(write(cargo(position(X,Y),Clock),-1),_)
+} 
+
+moveToTruck(X,Y) <- position(X2,Y2) and X2 < X and raise(X2,NewX) | { 
+    updatePos(NewX,Y2); 
+    moveToTruck(X,Y)
+}
+moveToTruck(X,Y) <- position(X2,Y2) and X2 > X and lower(X2,NewX) | { 
+    updatePos(NewX,Y2); 
+    moveToTruck(X,Y)
+}
+moveToTruck(X,Y) <- position(X2,Y2) and Y2 > Y and lower(Y2,NewY) | { 
+    updatePos(X2,NewY); 
+    moveToTruck(X,Y)
+}
+moveToTruck(X,Y) <- position(X2,Y2) and Y2 < Y and raise(Y2,NewY) | { 
+    updatePos(X2,NewY); 
+    moveToTruck(X,Y)
+}
+moveToTruck(X,Y) <- position(X,Y) | { skip }

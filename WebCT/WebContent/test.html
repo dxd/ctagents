@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="css/dd.css" />
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/jquery.dd.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.9.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.notify.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="css/pepper-grinder/jquery-ui-1.8.9.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/ui.notify.css" />
+
+<script type="text/javascript">
+function addNotification(textMsg) {
+	$("#notifyContainer").notify("create", {
+	    title: 'Test Notification',
+	    text: textMsg
+	});
+}
+
+</script>
+
+</head>
+
+<body>
+<div id ="div1">this is a test</div>
+<br>
+<br>
+<br>
+<br>
+<div id ="div2">this is a test</div>
+
+<script type="text/javascript">
+ var div1 = $("#div1");
+ var div2 = $("#div2");
+ 
+ var pos1 = div1.position();
+ var pos2 = div2.position();
+ 
+ alert(pos1.top);
+ alert(pos2.top);
+</script>
+</body>
+</html>

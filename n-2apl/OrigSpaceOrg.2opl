@@ -1,0 +1,288 @@
+Facts:
+    
+%Truck:
+
+norm(
+    enter_water(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), water(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+    game_area(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), not_area(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,500)]) // prohibition format
+    ).  
+        
+norm(
+    drop_load(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), cargo(X,Y)), // precondition
+    prohibition([cargo(X,Y)],[reduce(Thing,400)]) // obligation format
+    ).
+    
+%Controller:
+
+norm(
+    place_coin_near(Thing),
+    Thing, // the subject agent
+    ( controller(Thing), coin(X,Y), NewX is X + 1, NewY is Y + 1, gameArea(X,Y)), // precondition
+    prohibition([coin(NewX,NewY)],[reduce(Thing,200)]) // prohibition format
+    ). 
+
+norm(
+    place_coin_water(Thing),
+    Thing, // the subject agent
+    ( controller(Thing), agent(A1), water(X,Y)), // precondition
+    prohibition([coin(X,Y,A1)],[reduce(Thing,300)]) // prohibition format
+    ).   
+
+norm(
+    place_coin(Thing),//place coin for an agent
+    Thing, // the subject agent
+    ( controller(Thing), time_since(NewTime), int(NewTime),agent(A) ), // precondition
+    obligation([coin(A)],now+15,[reduce(Thing,100)]) // obligation format
+    ).
+
+
+%Pursuer:
+
+norm(
+    read_on_the_same_place(Thing),
+    Thing, // the subject agent
+    ( agent(Thing), reading(X,Y, Value,Thing,Time), NewTime is Time + 1), // precondition
+    prohibition([reading(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+    enter_water(Thing),
+    Thing, // the subject agent
+    ( agent(Thing), water(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+   collect_coin(Thing), //sending to all pursuers
+    Thing, // the subject agent
+    ( agent(Thing), coin(X,Y) ), // precondition
+    obligation([makeReading(X,Y)],now+15,[reduce(Thing,400)]) // obligation format
+   ).
+    
+norm(
+    surround_coin(Thing), //sending to all pursuers
+    Thing, // the subject agent
+    ( agent(Thing), coin(X,Y) ), // precondition
+    obligation([surround(X,Y)],now+15,[reduce(Thing,400)]) // obligation format
+    ).
+    
+//norm(
+//    collect_coin(Thing), //sending to group of agents
+//    Thing, // the subject agent
+//    ( [a1,a2,a3,a4], coin(X,Y) ), // precondition
+//    obligation([makeGroupReading(X,Y)],now+15,[reduce(400)]) // obligation format
+//    ).
+    
+agent(a1).
+agent(a2).
+agent(a3).
+agent(a4).
+
+truck(t1).
+
+movable(A) :- agent(A).
+movable(A) :- truck(A).
+
+controller(c1).
+
+coordinator(c2).
+    
+
+time_past(Time):- clock(Now), Now > Time.
+time_since(Time):- clock(Now), Time > Now.
+
+not_area(X,Y):-
+	X is 20, int(Y), Y > 0, Y < 20;
+	
+not_area(X,Y):-
+	Y is 20, int(X), X > 0, X < 20;
+
+area(X,Y):-
+	int(X), int(Y), X > 0, Y > 0, X < 21, Y < 21.
+	
+water(15,15).
+water(15,16).
+water(16,15).
+water(16,16).
+
+surround(X,Y) :-
+	East is X + 1, North is Y + 1, West is X - 1, South is Y - 1,
+	reading(East,Y),
+	reading(West,Y),
+	reading(X,North),
+	reading(X,South).
+	
+reading(X,Y):- reading(X,Y,_,_,_);
+
+makeGroupReading(X,Y) :-
+	East is X + 1, North is Y + 1, West is X - 1, South is Y - 1,
+	makeReading(East,Y),
+	makeReading(West,Y),
+	makeReading(X,North),
+	makeReading(X,South).
+
+tooFar(AX, AY, X, Y) :- false.
+
+// norm for clocks:
+//clocked_norm(
+//    collect_coin(Thing), //sending all agents
+//    Thing, // the subject agent
+//    (clock(Now),Deadline is Now+10), // The clock field
+ //   ( agent(Thing), coin(X,Y)), // precondition
+//    obligation([makeReading(X,Y)],Deadline,[reduce(Thing,400)]) // obligation format
+//    ).
+
+notifyAgent(Agent,Event):-
+   @external(geoSenseMW,notifyAgent(Agent,Event),_).
+
+do_sanction([not(H)|T]):- retract(H),do_sanction(T).
+do_sanction([H|T]):- uniqueassertz(H),do_sanction(T).
+do_sanction([]).
+
+do_reduce_health(Agent,P):- 
+   points(Agent, Health),
+   NewHealth is Health - P,
+   clock(Now),
+   @external(geoSenseMW,write(points(Agent,Now,NewHealth),-1),_).
+
+listTrue([H|T]):- H, listTrue(T).
+listTrue([]).
+
+clock(0).
+
+Effects:
+
+{clock(Old)} time(New) {not clock(Old), clock(New)}
+{true} time(X) {clock(X)}
+
+{at(X1,Y1,Agent)} position(Agent, cell(X,Y), Clock) {not at(X1,Y1,Agent), at(X,Y,Agent), not coin(X,Y)}
+{true} position(Agent, cell(X,Y), Clock) {at(X,Y,Agent)}
+
+{reading(X,Y,Value1,Agent,Clock1)} reading(Agent, cell(X,Y), Value, Clock) {not reading(X,Y,Value1,Agent,Clock1), reading(X,Y,Value,Agent,Clock)}
+{true} reading(Agent, cell(X,Y), Value, Clock) { reading(X,Y,Value,Agent,Clock)}
+
+{true} coin(cell(X,Y), Clock, Agent) {coin(X,Y)}
+
+{true} cargo(cell(X,Y), Clock) {cargo(X,Y)}
+
+{points(Agent,OldValue)} points(Agent, Clock, Value) {not points(Agent,OldValue), points(Agent,Value)}
+{true} points(Agent, Clock, Value) {points(Agent,Value)}
+
+
+
+
+Temporal norms:
+agent_directed(Label,Agent,obligation(ListA,Deadline,Sanction)): 
+	[norm(Label,Agent,Pre,obligation(ListA,Deadline,Sanction)) and Pre, 
+	O(listTrue(ListA)), 
+	time_past(Deadline)]
+
+agent_directed(Label,Agent,prohibition(ListA,Sanction)): 
+	[norm(Label,Agent,Pre,prohibition(ListA,Sanction)) and Pre, 
+	F(listTrue(ListA)), 
+	false]
+
+Sanction rules:
+reduce(Agent,X) and do_reduce_health(Agent,X) and notifyAgent(Agent,changed(status)) => not reduce(Agent,X).
+
+viol(agent_directed(Label,Agent,prohibition(State,Sanction))), do_sanction(Sanction)  => not viol(agent_directed(Label,Agent,prohibition(State,Sanction))).
+obey(agent_directed(Label,Agent,Deontic)) => not obey(agent_directed(Label,Agent,Deontic)).
+
+//@quick_scheme_fix_hack
+%Truck:
+
+norm(
+    enter_water(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), water(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+    game_area(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), not_area(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,500)]) // prohibition format
+    ).  
+        
+norm(
+    drop_load(Thing),
+    Thing, // the subject agent
+    ( truck(Thing), cargo(X,Y)), // precondition
+    prohibition([cargo(X,Y)],[reduce(Thing,400)]) // obligation format
+    ).
+    
+%Controller:
+
+norm(
+    place_coin_near(Thing),
+    Thing, // the subject agent
+    ( controller(Thing), coin(X,Y), NewX is X + 1, NewY is Y + 1, gameArea(X,Y)), // precondition
+    prohibition([coin(NewX,NewY)],[reduce(Thing,200)]) // prohibition format
+    ). 
+
+norm(
+    place_coin_water(Thing),
+    Thing, // the subject agent
+    ( controller(Thing), agent(A1), water(X,Y)), // precondition
+    prohibition([coin(X,Y,A1)],[reduce(Thing,300)]) // prohibition format
+    ).   
+
+norm(
+    place_coin(Thing),//place coin for an agent
+    Thing, // the subject agent
+    ( controller(Thing),agent(A) ), // precondition
+    obligation([coin(A)],now+15,[reduce(Thing,100)]) // obligation format
+    ).
+
+
+%Pursuer:
+
+norm(
+    read_on_the_same_place(Thing),
+    Thing, // the subject agent
+    ( agent(Thing), reading(X,Y, Value,Thing,Time), NewTime is Time + 1), // precondition
+    prohibition([reading(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+    enter_water(Thing),
+    Thing, // the subject agent
+    ( agent(Thing), water(X,Y)), // precondition
+    prohibition([at(X,Y,Thing)],[reduce(Thing,300)]) // prohibition format
+    ). 
+    
+norm(
+   collect_coin(Thing), //sending to all pursuers
+    Thing, // the subject agent
+    ( agent(Thing), coin(X,Y) ), // precondition
+    obligation([makeReading(X,Y)],now+15,[reduce(Thing,400)]) // obligation format
+   ).
+    
+norm(
+    surround_coin(Thing), //sending to all pursuers
+    Thing, // the subject agent
+    ( agent(Thing), coin(X,Y) ), // precondition
+    obligation([surround(X,Y)],now+15,[reduce(Thing,400)]) // obligation format
+    ).
+    
+//norm(
+//    collect_coin(Thing), //sending to group of agents
+//    Thing, // the subject agent
+//    ( [a1,a2,a3,a4], coin(X,Y) ), // precondition
+//    obligation([makeGroupReading(X,Y)],now+15,[reduce(400)]) // obligation format
+//    ).
+
+
+

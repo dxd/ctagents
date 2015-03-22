@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE gs-deployment SYSTEM "java://gs-deploy-desc.dtd">
+<gs-deployment Name="PU ServiceBean">
+    <Codebase Adaptive="yes">$[com.gigaspaces.system.codeserver]</Codebase>
+
+    <ServiceBean Name="PU">
+
+        <Interfaces>
+            <Interface>org.openspaces.pu.container.servicegrid.PUServiceBean</Interface>
+            <Resources>
+                <JAR>gs-dl.jar</JAR>
+            </Resources>
+        </Interfaces>
+        <ImplementationClass>org.openspaces.pu.container.servicegrid.PUServiceBeanImpl
+        </ImplementationClass>
+
+        <Maintain>1</Maintain>
+
+        <FaultDetectionHandler
+                ClassName="org.openspaces.pu.container.servicegrid.PUFaultDetectionHandler">
+            <Configuration>
+                <Component
+                        Name="org.openspaces.pu.container.servicegrid.PUFaultDetectionHandler">
+                    <Parameter Name="invocationDelay" Value="5000"/>
+                    <Parameter Name="retryCount" Value="3"/>
+                    <Parameter Name="retryDelay" Value="500"/>
+                </Component>
+            </Configuration>
+        </FaultDetectionHandler>
+    </ServiceBean>
+
+</gs-deployment>
+
+

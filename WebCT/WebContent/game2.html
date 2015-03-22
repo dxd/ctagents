@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Color Trails - Web Application</title>
+<link rel="stylesheet" type="text/css"
+	href="css/pepper-grinder/jquery-ui-1.8.9.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="css/StyleSheet.css" />
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.9.custom.min.js"></script>
+<script type="text/javascript" src="js/grid.locale-en.js"></script>
+<script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="js/extjs.js"></script>
+<script type="text/javascript" src="js/jScript.js"></script>
+
+
+</head>
+<body>
+<div id="container">
+<div id="navigation">
+<ul>
+
+</ul>
+</div>
+<div id="content-container">
+<div id="section-navigation">
+<table border="1">
+	<tr>
+		<td>
+		<div id="TimeLeft"></div>
+		<div id="progressbar"><script>
+	$("#progressbar").progressbar({
+		value : 100
+	});
+	Init(game);
+	setInterval("updateProgressBar()", 1000);
+</script></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<div id="CommunicationPhase"></div>
+		<div id="ExchangePhase"></div>
+		<div id="MovementPhase"></div>
+		<div id="FeedbackPhase"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table id="PlayerChips">
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table>
+			<tr>
+				<td align=left>Player: <select id="playerSelect"
+					onchange="getPlayersGoal()"
+					style="width: 90px; margin: 0px 10px 5px 0px;">
+					<option value=0>choose player</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Goal: <select id="goalSelect"
+					style="width: 60px; margin: 0px 10px 5px 0px;">
+					<option value=0>select</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Steps: <select id="numStepsPathFinder" style="width: 40px">
+					<option value=1>1</option>
+					<option value=2>2</option>
+					<option value=3>3</option>
+					<option value=4>4</option>
+					<option value=5>5</option>
+					<option value=6>6</option>
+					<option value=7>7</option>
+					<option value=8>8</option>
+					<option value=9>9</option>
+					<option value=10>10</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>
+				<button onclick="findPath()">Path Finder</button>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<div id="pathFinderContainer"></div>
+<!--end proposal area--> <!-- Source point for window animations. -->
+<div id="divSource" class="cssSource"></div>
+</div>
+
+
+<div id="content">
+<div id="GameBoard">
+<table id="GameBoardTable">
+	<tr>
+		<td></td>
+	</tr>
+</table>
+</div>
+<div id="proposals">
+<table id="tblProposals"></table>
+</div>
+</div>
+<div id="aside">
+<!--
+<div id="ProposalsArea"></div>
+<table id="chipsProposalPlayerCustom"></table>
+-->
+</div>
+</div>
+</div>
+
+<div id="dialog" title="About WebCT"></div>
+
+<script type="text/javascript">
+	createGameBoard();
+	addColors();
+	createGoals();
+	PlayerChips();
+	loadProposalsTable();
+	//proposalArea();
+	insertIntoPlayerSelect();
+	insertIntoGoalSelect();
+	//setInterval("UpdateServer()", 5000);
+</script>
+
+</body>
+</html>

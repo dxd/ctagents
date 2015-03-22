@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jvanzyl
+Build-Jdk: 1.4.2_09
+Extension-Name: geronimo-j2ee-management_1.0_spec
+Implementation-Title: geronimo-j2ee-management_1.0_spec
+Implementation-Version: 1.0
+

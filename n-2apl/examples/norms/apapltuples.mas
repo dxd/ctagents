@@ -1,0 +1,8 @@
+<apaplmas>
+  <environment name="space" file="envCT.jar"></environment>
+  <agent name="a1" file="pursuer.2apl"/>
+   <agent name="a2" file="pursuer1.2apl"/>
+    <agent name="a3" file="pursuer2.2apl"/>
+    <agent name="a4" file="pursuer3.2apl"/>
+     <agent name="c1" file="controller.2apl"/>
+</apaplmas>

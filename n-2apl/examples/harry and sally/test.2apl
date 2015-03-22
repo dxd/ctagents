@@ -1,0 +1,62 @@
+BeliefUpdates:
+        {person(Pers)} Atep(X)  {not person(Pers) , person(X)}
+        {}  Addp(X) {person(X)}
+Goals:
+	crouch(1)
+
+PG-rules:
+	crouch(1) <- true | {
+		@apal_ros_ei(pos(crouch),Return);
+		dropgoal(crouch(1))
+	}
+	
+PC-rules:
+	event(heard(zero), apal_ros_ei) <- true | {
+		@apal_ros_ei(pos(zero),Return)
+	}
+        event(heard(sitdown), apal_ros_ei) <- true | {
+		@apal_ros_ei(pos(crouch),Return)
+	}
+        event(heard(standup), apal_ros_ei) <- true | {
+		@apal_ros_ei(pos(init),Return)
+	}
+        event(heard(rightup), apal_ros_ei) <- true | {
+		@apal_ros_ei(rhu(1),Return)
+	}
+        event(heard(rightdown), apal_ros_ei) <- true | {
+		@apal_ros_ei(rhd(1),Return)
+	}
+        event(heard(leftup), apal_ros_ei) <- true | {
+		@apal_ros_ei(lhu(1),Return)
+	}
+        event(heard(leftdown), apal_ros_ei) <- true | {
+		@apal_ros_ei(lhd(1),Return)
+	}
+
+        event(heard(remembermax), apal_ros_ei) <- true | {
+		@apal_ros_ei(add_face(max),Return)
+	}
+        event(heard(rememberjohn), apal_ros_ei) <- true | {
+		@apal_ros_ei(add_face(john),Return)
+	}
+        event(heard(danger), apal_ros_ei) <- true | {
+		@apal_ros_ei(retrain(1),Return)
+	}
+        event(heard(hey), apal_ros_ei) <- true | {
+		@apal_ros_ei(face_rec(1),Return)
+	}
+    event(saw(X), apal_ros_ei) <- true | {
+		skip;
+		if B(not person(X)) then {
+                        @apal_ros_ei(say(X),Return);  
+                        if B(not person(Q)) then {Addp(X)}
+                        else {Atep(T)}
+                }    
+	} 
+
+
+
+
+
+
+

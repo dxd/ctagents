@@ -1,0 +1,6 @@
+setenv HOST tcp://127.0.0.1:8088
+setenv CONFIGDIR gameconfigs
+add configuration InterruptionConfig
+new game config InterruptionConfig  players 50 60
+list games
+list configurations

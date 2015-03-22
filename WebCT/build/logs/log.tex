@@ -1,0 +1,676 @@
+\documentclass[11pt]{article}\usepackage[utf8]{inputenc}\usepackage{geometry}
+\geometry{a4paper}\usepackage{graphicx} \usepackage{booktabs}
+\usepackage{array}
+\usepackage{paralist}
+\usepackage{verbatim}
+
+\usepackage{listings} 
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape}
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage[titles,subfigure]{tocloft} 
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
+\usepackage{hyperref} 
+\title{2OPL Organization log}
+\author{2OPL interpreter}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Event history}
+
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+0&\texttt{move(agent0,0.0,1.0)}&true&2012-03-05 13:18:00\\ [1ex] \hline
+1&\texttt{move(agent0,1.0,0.0)}&true&2012-03-05 13:18:01\\ [1ex] \hline
+2&\texttt{move(agent0,0.0,1.0)}&true&2012-03-05 13:18:01\\ [1ex] \hline
+3&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:02\\ [1ex] \hline
+4&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:03\\ [1ex] \hline
+5&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:04\\ [1ex] \hline
+6&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:05\\ [1ex] \hline
+7&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:06\\ [1ex] \hline
+\end{tabular}
+\caption{Event history}
+\label{events}  
+\end{table}
+
+\section{Network traffic}
+
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Content} & \textbf{Sender} & \textbf{Date} \\ [0.5ex] 
+\hline
+\end{tabular}
+\caption{Event history}
+\label{events}  
+\end{table}
+
+\section{Prolog states}
+\clearpage 
+\subsection{Prolog state 0}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+0&\texttt{move(agent0,0.0,1.0)}&true&2012-03-05 13:18:00\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: position
+% position/3:
+position(gold,2.0,3.0)
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,1.0,2.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,1.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: alive
+% alive/1:
+alive(wumpus)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(some_wumpus_died,true,keep)
+@ni(gold,(@pre_lbl(a,has(agent0,gold))),keep)
+@ni(gold2,true,keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 1}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+1&\texttt{move(agent0,1.0,0.0)}&true&2012-03-05 13:18:01\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: position
+% position/3:
+position(gold,2.0,3.0)
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,2.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,2.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: alive
+% alive/1:
+alive(wumpus)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(some_wumpus_died,true,keep)
+@ni(gold,(@pre_lbl(a,has(agent0,gold))),keep)
+@ni(gold2,true,keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 2}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+2&\texttt{move(agent0,0.0,1.0)}&true&2012-03-05 13:18:01\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: position
+% position/3:
+position(gold,2.0,3.0)
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: alive
+% alive/1:
+alive(wumpus)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(some_wumpus_died,true,keep)
+@ni(gold,(@pre_lbl(a,has(agent0,gold))),keep)
+@ni(gold2,true,keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 3}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+3&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:02\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: position
+% position/3:
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+position(gold,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: alive
+% alive/1:
+alive(wumpus)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(some_wumpus_died,true,keep)
+@ni(gold2,true,keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 4}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+4&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:03\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: @countsas
+% @countsas/0:
+@countsas
+
+% Rules with string id: position
+% position/3:
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+position(gold,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: alive
+% alive/1:
+alive(wumpus)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(some_wumpus_died,true,keep)
+@ni(gold2,true,remove)
+@ni(gold,(@pre_lbl(a,has(agent0,gold))),keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 5}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+5&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:04\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: @countsas
+% @countsas/0:
+@countsas
+
+% Rules with string id: position
+% position/3:
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+position(gold,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 6}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+6&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:05\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: @countsas
+% @countsas/0:
+@countsas
+
+% Rules with string id: position
+% position/3:
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+position(gold,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(gold2,true,keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+\clearpage 
+\subsection{Prolog state 7}
+\begin{table}[ht]
+\centering 
+\begin{tabular}{l l l l} 
+\textbf{\#} & \textbf{Event} & \textbf{Regimented} & \textbf{Date} \\ [0.5ex] 
+\hline
+7&\texttt{gripper(agent0,pickup)}&true&2012-03-05 13:18:06\\ [1ex] \hline\end{tabular}
+\end{table}
+The state after this event:
+
+\lstset{breaklines=true}\begin{lstlisting}[language=Prolog, numbers=left]
+% Rules with string id: @id
+% @id/1:
+@id(b)
+
+% Rules with string id: @countsas
+% @countsas/0:
+@countsas
+@countsas
+
+% Rules with string id: position
+% position/3:
+position(pit,3.0,1.0)
+position(pit,3.0,3.0)
+position(pit,4.0,4.0)
+position(wumpus,1.0,3.0)
+position(agent0,2.0,3.0)
+
+% Rules with string id: steps
+% steps/2:
+steps(agent0,3.0)
+
+% Rules with string id: grade
+% grade/1:
+grade(1.0)
+
+% Rules with string id: standing_on_gold
+% standing_on_gold/0:
+standing_on_gold :- position(agent0,A,B),position(gold,A,B), is (C,+(A,B)),>(C,2.0).
+
+% Rules with string id: standing_on_wumpus
+% standing_on_wumpus/0:
+standing_on_wumpus :- alive(wumpus),position(agent0,A,B),position(wumpus,A,B).
+
+% Rules with string id: standing_on_pit
+% standing_on_pit/0:
+standing_on_pit :- position(agent0,A,B),position(pit,A,B).
+
+% Rules with string id: has
+% has/2:
+has(agent0,gold)
+
+% Rules with string id: @connected
+% @connected/3:
+@connected(a,'192.168.1.109',6789.0)
+@connected(c,'192.168.1.109',6787.0)
+
+% Rules with string id: @scheme
+% @scheme/8:
+@scheme(some_wumpus_died,true,(@lbl(A,not(alive(wumpus)))),false,false,false,[update(bombard_wumpus)|[]],[])
+@scheme(gold,(@pre_lbl(a,has(agent0,gold))),(has(agent0,gold)),false,(@lbl(a,not(has(agent0,gold)))),false,[update(force_drop)|[]],[])
+@scheme(gold2,true,false,(has(agent0,gold)),false,false,[],[@lbl(c,update(bombard_wumpus))|[]])
+
+% Rules with string id: @ni
+% @ni/3:
+@ni(gold2,true,remove)
+@ni(some_wumpus_died,true,keep)
+@ni(gold,(@pre_lbl(a,has(agent0,gold))),keep)
+
+% Rules with string id: @update
+% @update/3:
+@update((position(A,B,C), is (D,+(B,E)), is (F,+(C,G)),steps(A,H), is (I,+(H,1.0))),move(A,E,G),[min(position(A,B,C)),plus(position(A,D,F)),min(steps(A,H)),plus(steps(A,I))|[]])
+@update((position(gold,A,B),position(C,A,B)),gripper(C,pickup),[plus(has(C,gold)),min(position(gold,A,B))|[]])
+@update((has(A,gold),position(A,B,C)),gripper(A,drop),[min(has(A,gold)),plus(position(gold,B,C))|[]])
+@update((has(A,gold),position(A,B,C)),force_drop,[min(has(A,gold)),plus(position(gold,B,C)),update(@external(gui,gripper,D))|[]])
+@update(true,bombard_wumpus,[update(@external(gui,bombard_wumpus,A)),min(alive(wumpus))|[]])
+@update((grade(A), is (B,+(A,C)),int_to_atom(C,D),atom_concat(E,D,F)),update_grade(G,E,C),[min(grade(A)),plus(grade(B)),update(@external(gui,show_notice(G,F),H))|[]])
+@update((grade(A)),notify_grade,[update(update_grade(grade,'The end result: ',A))|[]])
+
+\end{lstlisting}
+
+\end{document}

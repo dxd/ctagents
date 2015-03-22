@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ctgui.original.PhaseInfoDisplay">
+  <grid id="7502d" binding="infoDisplayPanel" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="76" y="99" width="310" height="286"/>
+      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="2cd3b" class="javax.swing.JTextField" binding="phasesTitle">
+        <constraints>
+          <xy x="0" y="0" width="200" height="176"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <requestFocusEnabled value="false"/>
+          <text value="Phases"/>
+        </properties>
+      </component>
+      <component id="69cf8" class="javax.swing.JTextField" binding="timeTitle">
+        <constraints>
+          <xy x="200" y="0" width="110" height="176"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <horizontalAlignment value="0"/>
+          <text value="Time Left"/>
+        </properties>
+      </component>
+      <component id="8d115" class="javax.swing.JTextField" binding="phase1title">
+        <constraints>
+          <xy x="0" y="176" width="200" height="22"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="e19f5" class="javax.swing.JTextField" binding="phase2title">
+        <constraints>
+          <xy x="0" y="198" width="200" height="22"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="5282c" class="javax.swing.JTextField" binding="phase3title">
+        <constraints>
+          <xy x="0" y="220" width="200" height="22"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="38b43" class="javax.swing.JTextField" binding="phase4title">
+        <constraints>
+          <xy x="0" y="242" width="200" height="22"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="eecdf" class="javax.swing.JTextField" binding="phase5title">
+        <constraints>
+          <xy x="0" y="264" width="200" height="22"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="170" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="d5f1f" class="javax.swing.JTextField" binding="phase1time">
+        <constraints>
+          <xy x="200" y="176" width="110" height="22"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="9b639" class="javax.swing.JTextField" binding="phase2time">
+        <constraints>
+          <xy x="200" y="198" width="110" height="22"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="5607a" class="javax.swing.JTextField" binding="phase3time">
+        <constraints>
+          <xy x="200" y="220" width="110" height="22"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="f1fd3" class="javax.swing.JTextField" binding="phase4time">
+        <constraints>
+          <xy x="200" y="242" width="110" height="22"/>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+      <component id="3d683" class="javax.swing.JTextField" binding="phase5time">
+        <constraints>
+          <xy x="200" y="264" width="110" height="22"/>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+            <preferred-size width="80" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <horizontalAlignment value="0"/>
+          <text value="  "/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

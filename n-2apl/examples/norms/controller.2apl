@@ -1,0 +1,42 @@
+Include: agent.2apl
+
+BeliefUpdates:
+  { clock(Clock) } UpdateCoins(X,Y,Agent) { coin(at(X,Y),Agent,Clock) }
+
+Beliefs:   
+  raise(X,NewX):- NewX is X + 1.
+  lower(X,NewX):- NewX is X - 1.
+  clock(0).
+  points(1000).
+  
+Goals:
+  placeCoin(8,6,a1) :: 20000 >> 1,
+  placeCoin(16,16,a2) :: 20000 >> 2,
+  placeCoin(2,2,a3) :: 20000 >> 3
+ 
+
+PG-rules:
+
+placeCoin(X,Y,Agent) <- true | {
+
+   [coin(X,Y,Agent); 
+    dropgoal(placeCoin(X,Y,Agent))]
+    
+} : 1
+
+placeCoin <- true | {
+
+   
+   coin(5,5,all); 
+    dropgoal(placeCoin)
+    
+} : 1
+
+PC-rules:
+
+coin(X,Y,Agent) <- true | {
+
+    B(clock(Clock));
+    UpdateCoins(X,Y,Agent);
+    @space(write(coin(position(X,Y),Clock,Agent),-1),_)
+} 

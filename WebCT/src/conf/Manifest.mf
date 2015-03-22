@@ -1,0 +1,1 @@
+Main-Class: edu.harvard.eecs.airg.coloredtrails.shared.app.FrontEnd

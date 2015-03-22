@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.2
+Created-By: 1.4.2_07-b05 (Sun Microsystems Inc.)
+Bundle-Vendor: Apache Software Foundation
+Bundle-Activator: org.apache.derby.osgi.EmbeddedActivator
+Bundle-Name: Apache Derby 10.1
+Bundle-Version: 10.1.3000001.417277
+DynamicImport-Package: *
+Export-Package: org.apache.derby.authentication,org.apache.derby.datab
+ ase,org.apache.derby.io,org.apache.derby.jdbc,org.apache.derby.vti
+Sealed: true
+
+Name: org/apache/derby/impl/tools/sysinfo/
+Sealed: false
+
+Name: org/apache/derby/iapi/services/info/
+Sealed: false
+
+Name: org/apache/derby/jdbc/
+Sealed: false
+
+Name: org/apache/derby/iapi/services/context/
+Sealed: false
+
+Name: org/apache/derby/info/
+Sealed: false
+
+Name: org/apache/derby/iapi/error/
+Sealed: false
+
+Name: org/apache/derby/iapi/services/i18n/
+Sealed: false
+
+Name: org/apache/derby/impl/jdbc/
+Sealed: false
+
+Name: org/apache/derby/iapi/tools/i18n/
+Sealed: false
+
+Name: org/apache/derby/loc/
+Sealed: false
+
+Name: org/apache/derby/tools
+Sealed: false
+

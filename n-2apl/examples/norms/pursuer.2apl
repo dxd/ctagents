@@ -1,0 +1,64 @@
+Include: agent.2apl
+
+Beliefs:   
+  raise(X,NewX):- NewX is X + 1.
+  lower(X,NewX):- NewX is X - 1.
+
+  points(1000).
+  position(3, 3).
+  clock(0).
+  
+Goals:
+  //randomize :: 200 >> 1,
+  at(6,6) :: 20 >> 7, 
+  reading(5,5) :: 30 >> 1
+ 
+
+PG-rules:
+
+at(X,Y) <- true | {
+
+   [moveTo(X,Y);
+    dropgoal(at(X,Y))]
+    
+} : 100
+
+reading(X,Y) <- true | {
+
+   [moveTo(X,Y); 
+   readingP(X,Y);
+   dropgoal(reading(X,Y))]
+    
+} : 10000
+
+westreading(X,Y) <- true | {
+
+   [B(lower(X,EX));
+   moveTo(EX,Y); 
+   readingP(EX,Y);
+   dropgoal(reading(EX,Y))]
+    
+} : 10000
+
+makeReading <- position(X,Y) | {
+
+   [readingP(X,Y); 
+   dropgoal(makeReading)]
+    
+} : 100
+
+makeReading(X,Y) <- true | {
+
+   [moveTo(X,Y);
+   readingP(X,Y); 
+   dropgoal(makeReading(X,Y))]
+    
+} : 100
+
+PC-rules:
+
+readingP(X,Y) <- true | {
+
+    @space(write(readingRequest(position(X,Y)),-1),Z)
+
+} 

@@ -1,0 +1,33 @@
+Include: person.2apl
+
+Goals:
+  search( blockWorld )
+
+Plans:
+	@blockworld( associateWith(robot1), _ );
+  @blockworld( enter( 8, 8, red ), _ )
+
+PC-rules:
+event(bombAt(9,8),_) <- true |{ print(asdf)}
+  
+PG-rules:
+  search( blockWorld ) <- true |
+  {
+    B(is( X, int( random( 15 ) ) ));
+    B(is( Y, int( random( 15 ) ) ));
+    goto( X, Y );
+    @blockworld( senseBombs(), BOMBS );
+    if B( BOMBS = [actionresult(  [[default,X1,Y1]|REST]  )] ) then
+    { send( harry, inform, bombAt( X1, Y1 ) )
+    }
+  }
+/*
+Obligations:
+	something(4) : 20000 -> something(6)
+
+Prohibitions:
+	something(3) -> something(1)
+	
+Sanctions:
+	something(5) -> 2, something(10) -> 1
+	*/

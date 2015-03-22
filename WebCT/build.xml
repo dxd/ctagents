@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="coloredtrails" default="all" basedir=".">
+
+
+    <property name="runtime.jar" value="ct3.jar"/>
+    <property name="src" location="src"/>
+	<property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="project.lib" location="lib"/>
+	<property name="project.lib.jar" location="${project.lib}/jars"/>
+	<property name="project.lib.conf" location="${project.lib}/conf"/>
+	<property name="project.lib.gameconfigs" location="gameconfigs"/>
+	<property name="project.lib.images" location="${project.lib}/images"/>
+    <property name="project.classes" location="${build}"/>
+	<property name="project.tools" location="tools"/>
+	<property name="project.tools.bin" location="${project.tools}/bin"/>
+	<property name="project.doc" location="doc"/>
+	<property name="project.doc.java" location="${project.doc}/javadoc"/>
+    <property name="project.src" location="src"/>
+    <property name="experiments.src" location="experiments"/> 
+	<property name="project.gui" location="gui"/>
+	<property name="project.agents" location="agents"/>
+    <property name="project.webctrl" location="webctrl"/>
+    <property name="project.web" location="webctrl/web"/>
+    <property name="project.webinf" location="webctrl/web/WEB-INF"/>	
+	
+
+    <path id="project.classpath">
+        <fileset dir=".">
+            <include name="lib/jars/*.jar"/>
+        </fileset>
+    	
+    </path>
+
+
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <available property="unjar.done" file="${build}/org/apache/log4j/Appender.class"/>
+
+    <target name="unjar" depends="init" description="unjar the jars" unless="unjar.done">
+        <unjar src="${project.lib.jar}/commons-codec-1.3.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/forms_rt.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/apache-activemq-5.0-SNAPSHOT.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/log4j-1.2.14.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/gs-openspaces.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/gs-runtime.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/spring-beans-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-aop-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-asm-3.1.3.RELEASE.jar" dest="${build}"/>
+        <unjar src="${project.lib.jar}/spring-aspects-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-context-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-context-support-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-core-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-expression-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/spring-tx-3.1.3.RELEASE.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/tuplespace.jar" dest="${build}"/>
+    	<unjar src="${project.lib.jar}/2opl.jar" dest="${build}"/>
+        <property name="unjar.done" value="true" />
+    </target>
+
+
+    <target name="compile" depends="unjar"
+        description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <mkdir dir="${build}/gnu/getopt"/>
+        <copy todir="${build}/gnu/getopt">
+            <fileset dir="${src}/gnu/getopt">
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
+
+        <taskdef
+                name="uidesigner"
+                classname="com.intellij.uiDesigner.ant.Javac2"
+                classpathref="project.classpath"/>
+
+        <uidesigner
+            destdir="${project.classes}"
+            debug="on"
+            source="1.5">
+            <src path="${project.src}"/>
+        	<src path="${project.gui}"/>
+        	<src path="${project.agents}"/>
+		<src path="${experiments.src}"/>
+            <include name="**/*.java"/>
+            <include name="**/*.form"/>
+            <classpath refid="project.classpath"/>
+            <classpath path="${project.src}"/>
+            <classpath path="${project.classes}"/>
+            <exclude name="misc/**"/>
+            <exclude name="docs/**"/>
+        </uidesigner>
+    </target>
+
+    <!--<available property="dist.done" file="dist/ct3.jar"/>-->
+    <target name="dist" depends="compile" 
+        description="generate the distribution" unless="dist.done">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        <copy todir="${build}/images">
+            <fileset dir="${project.lib.images}"/>
+        </copy>
+    	
+        <copy todir="${build}/">
+            <fileset dir="${project.lib.conf}"/>
+        </copy>
+    	
+        <jar jarfile="${dist}/${runtime.jar}" basedir="${build}"
+            manifest="${src}/conf/Manifest.mf"/>
+
+        <copy file="${project.doc}/LICENSES.txt" tofile="${dist}/LICENSES.txt"/>
+		
+    </target>
+
+
+   <target name="webctrl" depends="dist">
+       <mkdir dir = "${project.webinf}/classes"/>
+       <copy todir="${project.webinf}/lib" file="dist/ct3.jar"/>
+       <javac srcdir="${project.webctrl}/src"
+        classpath="${project.webinf}/lib/servlet-api.jar:${project.webinf}/lib/ct3.jar:${project.webinf}/lib/struts-core.jar:${project.webinf}/lib/ct3.jar"
+        destdir = "${project.webinf}/classes"/>
+       <war warfile="${project.webctrl}/webctrl.war" webxml = "${project.webinf}/web.xml">
+               <fileset dir="${project.web}">
+		<exclude name="${project.webinf}/web.xml"/> 
+	       </fileset>
+       </war>
+   </target>
+
+	<target name="javadoc">
+	<javadoc access="public" author="true" 
+			 classpath="${project.classes}"
+			 destdir="${project.doc.java}"
+			 doctitle="Colored Trails 3 Framework"
+			 nodeprecated="false" nodeprecatedlist="false"
+			 noindex="false" defaultexcludes="yes"
+			 excludepackagenames="ooga.graphics.*,jshell.util.*"
+			 nonavbar="false" notree="false"
+			 packagenames="ctagents.example1,src.edu.harvard.eecs.airg.coloredtrails,src.edu.harvard.eecs.airg.coloredtrails.client.ui,edu.harvard.eecs.airg.coloredtrails.server,edu.harvard.eecs.airg.coloredtrails.alglib,edu.harvard.eecs.airg.coloredtrails.shared.app,edu.harvard.eecs.airg.coloredtrails.agent,edu.harvard.eecs.airg.coloredtrails.admin,edu.harvard.eecs.airg.coloredtrails.shared.exceptions,edu.harvard.eecs.airg.coloredtrails.shared.discourse,harvard.eecs.airg.coloredtrails.client.ui.discourse,edu.harvard.eecs.airg.coloredtrails.client,edu.harvard.eecs.airg.coloredtrails.shared,harvard.eecs.airg.coloredtrails.shared.types,edu.harvard.eecs.airg.coloredtrails.controller"
+			 splitindex="true" use="true"
+			 version="true">
+        <sourcepath>
+            <pathelement path="src"/>
+        </sourcepath>
+	    <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="/tmp"/>
+	    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+		
+	</javadoc>
+	</target>
+	
+	
+	<target name="gameconfig" depends="compile">
+		 <javac srcdir="${project.lib.gameconfigs}"
+		         destdir="${project.lib.gameconfigs}"
+		         classpath="${project.classes}"
+		         debug="on"
+		  />
+	</target>
+	
+	
+	<target name="experiments" depends="compile">
+		 <javac srcdir="${experiments.src}"
+		         classpath="${project.classes}"
+		         debug="on"
+		  />
+	</target>
+
+	
+	
+	
+	
+	<target name="all" depends="dist,gameconfig">
+	</target>
+	
+    <target name="clean"
+        description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    	<delete dir="${project.doc.java}"/>
+    	<delete>
+    	<fileset dir="${project.lib.gameconfigs}" includes="*.class"/>
+		</delete>
+        <delete file="${project.webctrl}/webctrl.war"/>
+        <delete dir = "${project.web}/WEB-INF/classes"/>
+        <delete file="${project.web}/WEB-INF/lib/ct3.jar"/>
+    </target>
+
+	
+	
+	
+	
+	
+	<!-- ================================= 
+          target: runserver              
+         ================================= -->
+    <target name="runserver" description="runs the server">
+    	<java jar="${dist}/${runtime.jar}" fork="true">
+    		<arg value="-s"/>
+    	</java>
+    </target>
+	
+    <!-- =================================
+             target: runctrl
+            ================================= -->
+       <target name="runctrl" description="runs the controller">
+           <java jar="${dist}/${runtime.jar}" fork="true">
+               <arg value="-t"/>
+           </java>
+
+       </target>
+	
+	<!-- ================================= 
+          target: runadmin              
+         ================================= -->
+    <target name="runadmin" description="runs the admin client">
+    	<java jar="${dist}/${runtime.jar}" fork="true" input="${configfile}">
+    		<arg value="-a"/>
+    	</java>
+    	
+    </target>
+
+<!-- ================================= 
+          target: runclient1             
+         ================================= -->
+    <target name="runclient1" depends="compile" description="--> runs original client 1">
+    	<java jar="${dist}/${runtime.jar}" fork="true">
+    		<arg line="-c ctgui.original.GUI"/>
+    		<arg line="--pin 10"/>
+    	</java>     
+    </target>
+	
+	
+	<!-- ================================= 
+	          target: runclient2              
+	         ================================= -->
+	    <target name="runclient2" depends="compile" description="--> runs original client 2">
+	    	<java jar="${dist}/${runtime.jar}" fork="true">
+	    		<arg line="-c ctgui.original.GUI"/>
+	    		<arg line="--pin 20"/>
+	    	</java>
+	    </target>
+
+    <target name="runclient3" depends="compile" description="--> runs original client 2">
+	    	<java jar="${dist}/${runtime.jar}" fork="true">
+	    		<arg line="-c ctgui.original.GUI"/>
+	    		<arg line="--pin 30"/>
+	    	</java>
+	    </target>
+
+    <target name="runclient4" depends="compile" description="--> runs original client 2">
+	    	<java jar="${dist}/${runtime.jar}" fork="true">
+	    		<arg line="-c ctgui.original.GUI"/>
+	    		<arg line="--pin 40"/>
+	    	</java>
+	    </target>
+	
+    <target name="runinterruptgui" depends="compile" description="--> runs original client 1">
+    	<java jar="${dist}/${runtime.jar}" fork="true">
+    		<arg line="-c ctgui.example.interruptible.GUI"/>
+    		<arg line="--pin 10"/>
+    		<arg line="--client_localport 8010"/>
+    	</java>     
+    </target>
+	
+	
+	<!-- ================================= 
+	          target: runagentadaptor: an example agent  
+			  must pass $clientid prop:
+			 ant runagent -Dclientid=10 
+			 TODO: check that the ant user passes this property otherwise
+			        exit the task.	           
+	         ================================= -->	
+    <target name="runagentadaptor" depends="compile" description="--> runs example adaptor agents">
+    	<java classname="ctagents.example1.SimpleAgentAdaptorFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+    </target>
+
+
+<!-- =================================
+	     target: ex2agents
+     ================================= -->
+<target name="ex2agents" depends="compile" description="--> runs agents in Example 2">
+    	<java classname="ctagents.example2.SimplePlayerFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+<!-- =================================
+	     target: ex2agents PROPOSER ONLY
+     ================================= -->
+<target name="ex2agentsP" depends="compile" description="--> runs agents in Example 2">
+    	<java classname="ctagents.example2.SimpleProposerFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+<!-- =================================
+	     target: ex2agents RESPONDER ONLY
+     ================================= -->
+<target name="ex2agentsR" depends="compile" description="--> runs agents in Example 2">
+    	<java classname="ctagents.example2.SimpleResponderFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+
+<!-- =================================
+	     target: ex3agents
+     ================================= -->
+<target name="ex3agents" depends="compile" description="--> runs agents in Example 3">
+    	<java classname="ctagents.example3.PRFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+<!-- =================================
+	     target: ex3agents PROPOSER ONLY
+     ================================= -->
+<target name="ex3agentsP" depends="compile" description="--> runs agents in Example 3">
+    	<java classname="ctagents.example3.PRProposerFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+<!-- =================================
+	     target: ex3agents RESPONDER ONLY
+     ================================= -->
+<target name="ex3agentsR" depends="compile" description="--> runs agents in Example 3">
+    	<java classname="ctagents.example3.PRResponderFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>     
+</target>
+
+<!-- =================================
+	     target: ex2agents
+     ================================= -->
+<target name="ex4agents" depends="compile" description="--> runs agents in Example 2">
+    	<java classname="ctagents.example4.PhaseLoopFrontEnd" classpath="${dist}/${runtime.jar}" fork="true">
+    		<arg line="${clientid}"/>
+    	</java>
+</target>
+
+</project>

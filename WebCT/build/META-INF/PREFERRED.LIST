@@ -1,0 +1,319 @@
+PreferredResources-Version: 1.0
+
+Name: com/sun/jini/discovery/DiscoveryConstraints$ConnectionAbsoluteTimeReducer.class
+Preferred: true
+
+Name: com/sun/jini/discovery/DiscoveryConstraints$ConstraintReducer.class
+Preferred: true
+
+Name: com/sun/jini/discovery/DiscoveryConstraints$MaxValueReducer.class
+Preferred: true
+
+Name: com/sun/jini/discovery/DiscoveryConstraints$MulticastMaxPacketSizeReducer.class
+Preferred: true
+
+Name: com/sun/jini/discovery/DiscoveryV1.class
+Preferred: true
+
+Name: com/sun/jini/discovery/DiscoveryV2.class
+Preferred: true
+
+Name: com/sun/jini/logging/LogManager$Probe.class
+Preferred: true
+
+Name: com/sun/jini/logging/LogManager.class
+Preferred: false
+
+Name: net/jini/activation/ActivatableInvocationHandler$1.class
+Preferred: true
+
+Name: net/jini/activation/ActivatableInvocationHandler$2.class
+Preferred: true
+
+Name: net/jini/activation/ActivatableInvocationHandler$Failure.class
+Preferred: true
+
+Name: net/jini/activation/ActivationGroup$1.class
+Preferred: true
+
+Name: net/jini/config/Configuration$1.class
+Preferred: true
+
+Name: net/jini/config/Configuration$2.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$1.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$ArrayConstructor.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$Call.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$Cast.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$ClassLiteral.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$ConstructorCall.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$Entry.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$Literal.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$MethodCall.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$NameRef.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$ParseNode.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$Parser.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$PushbackStreamTokenizer.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$StringConcatenation.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$StringLiteral.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationFile$ThisRef.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationProvider$1.class
+Preferred: true
+
+Name: net/jini/config/ConfigurationProvider$2.class
+Preferred: true
+
+Name: net/jini/config/UnicodeEscapesDecodingReader.class
+Preferred: true
+
+Name: net/jini/config/Utilities.class
+Preferred: true
+
+Name: net/jini/constraint/BasicMethodConstraints$1.class
+Preferred: true
+
+Name: net/jini/core/constraint/ArraySet.class
+Preferred: true
+
+Name: net/jini/core/constraint/Constraint.class
+Preferred: true
+
+Name: net/jini/discovery/Constants.class
+Preferred: true
+
+Name: net/jini/discovery/ConstrainableLookupLocator$1.class
+Preferred: true
+
+Name: net/jini/export/ServerContext$1.class
+Preferred: true
+
+Name: net/jini/id/UuidFactory$Impl.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$1.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$FromMOInputStream.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$HeaderBitMap.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$MarshalledInstanceInputStream.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$MarshalledInstanceOutputStream.class
+Preferred: true
+
+Name: net/jini/io/MarshalledInstance$ToMOInputStream.class
+Preferred: true
+
+Name: net/jini/io/MarshalledObject.class
+Preferred: true
+
+Name: net/jini/loader/ClassLoading$1.class
+Preferred: true
+
+Name: net/jini/loader/ClassLoading$2.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassLoader$1.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassLoader$2.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassLoader$3.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassLoader$4.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$1.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$2.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$3.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$4.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$5.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$LoaderEntry.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredClassProvider$LoaderKey.class
+Preferred: true
+
+Name: net/jini/loader/pref/PreferredFactoryClassLoader.class
+Preferred: true
+
+Name: net/jini/security/AuthenticationPermission$Data.class
+Preferred: true
+
+Name: net/jini/security/GrantPermission$1.class
+Preferred: true
+
+Name: net/jini/security/GrantPermission$Implier.class
+Preferred: true
+
+Name: net/jini/security/GrantPermission$PermissionInfo.class
+Preferred: true
+
+Name: net/jini/security/Security$1.class
+Preferred: true
+
+Name: net/jini/security/Security$2.class
+Preferred: true
+
+Name: net/jini/security/Security$3.class
+Preferred: true
+
+Name: net/jini/security/Security$4.class
+Preferred: true
+
+Name: net/jini/security/Security$5.class
+Preferred: true
+
+Name: net/jini/security/Security$6.class
+Preferred: true
+
+Name: net/jini/security/Security$7.class
+Preferred: true
+
+Name: net/jini/security/Security$8.class
+Preferred: true
+
+Name: net/jini/security/Security$ClassContextAccess.class
+Preferred: true
+
+Name: net/jini/security/Security$Context.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$1.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$2.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$3.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$DomainPermissions.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$Grants.class
+Preferred: true
+
+Name: net/jini/security/policy/DynamicPolicyProvider$WeakGroup.class
+Preferred: true
+
+Name: net/jini/security/policy/PolicyFileProvider$1.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/BasicUntrustedObjectSecurityContext$1.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/BasicUntrustedObjectSecurityContext$2.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/BasicUntrustedObjectSecurityContext$Combiner.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustExporter$ProxyTrustImpl.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustExporter$Reaper.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustExporter$WeakRef.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$1.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$2.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$3.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$4.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$5.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$6.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$7.class
+Preferred: true
+
+Name: net/jini/security/proxytrust/ProxyTrustVerifier$MOStream.class
+Preferred: true
+
+Name: net/jini/url/httpmd/DelegatingHttpURLConnection.class
+Preferred: true
+
+Name: net/jini/url/httpmd/HttpmdURLConnection.class
+Preferred: true
+
+Name: net/jini/url/httpmd/HttpmdUtil$1.class
+Preferred: true
+
+Name: net/jini/url/httpmd/MdInputStream.class
+Preferred: true
+
+Name: com/sun/jini/config/*
+Preferred: false
+
+Name: com/sun/jini/discovery/*
+Preferred: false
+
+Name: com/sun/jini/discovery/plaintext/*
+Preferred: false
+
+Name: net/jini/admin/*
+Preferred: true
+
+Name: com/sun/jini/-
+Preferred: true

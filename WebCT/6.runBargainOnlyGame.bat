@@ -1,0 +1,1 @@
+ant runadmin -Dconfigfile=lib/adminconfig/BO.txt

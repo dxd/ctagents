@@ -1,0 +1,5 @@
+strategyPreparationPhTime = 10
+revelationTime = 30
+communicationPhTime = 20
+counterOfferPhTime = 20
+feedbackPhase = 20

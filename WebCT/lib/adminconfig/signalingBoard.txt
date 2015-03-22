@@ -1,0 +1,25 @@
+<boardtype> asym </boardtype>
+<colors> CTRed CTPurple CTGreen grey78 </colors>
+<rows> 6 </rows>
+<columns> 4 </columns>
+<squaresColors>	
+3 0 0 3
+2 0 0 1
+3 0 0 3
+3 0 0 3
+2 0 0 1
+3 0 0 3 
+</squareColors>
+<firstPlayerGoalPosition> 0 0 </firstPlayerGoalPosition>
+<firstVisible> false </firstVisible> 
+<firstPlayerPossibleGoal1> 50  0 0 </firstPlayerPossibleGoal1>
+<firstPlayerPossibleGoal2> 50 2 0 </firstPlayerPossibleGoal2>
+<secondPlayerGoalPosition> 3 3 </secondPlayerGoalPosition>
+<secondVisible> false </secondVisible> 
+<secondPlayerPossibleGoal1> 50 3 3 </secondPlayerPossibleGoal1>
+<secondPlayerPossibleGoal2> 50 5 3 </secondPlayerPossibleGoal2>
+<numberOfPlayers> 2 </numberOfPlayers>
+<firstPlayerChips> 0 10 0 14 </firstPlayerChips>
+<firstPlayerStartingPos> 5 0 </firstPlayerStartingPos>
+<secondPlayerChips> 0 0 10 14 </secondPlayerChips>
+<secondPlayerStartingPos> 0 3 </secondPlayerStartingPos>

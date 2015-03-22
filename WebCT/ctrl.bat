@@ -1,0 +1,1 @@
+java -classpath dist/ct3.jar;gameconfigs/ ExperimentController -config WebCTChipRevelationConfig

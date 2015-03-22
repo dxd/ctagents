@@ -1,0 +1,350 @@
+/*
+ * This file contains default GigaSpaces XAP configuration
+ * definitions for the following core services :
+ *  1. Grid Service Container
+ *  2. Grid Service Monitor
+ *  3. Jini Lookup Service
+ * 	4. GigaSpaces transport
+ *  5. Reggie and Mahalo Jini services
+ */
+
+/* ----------------------------------------------------------------------------
+ * Imports for software support which make the declaration of these properties
+ * easier to read and declare
+ * ---------- ----------------------------------------------------------------*/
+import com.gigaspaces.start.SystemConfig;
+import org.jini.rio.boot.BootUtil;
+
+/* -----------------------------------------------------------------------------
+ * Declare Gigaspaces Grid Configuration
+ * ---------------------------------------------------------------------------*/
+com.gigaspaces.grid{
+    groups = new String[]{"${com.gs.jini_lus.groups}"};
+}
+
+/* -----------------------------------------------------------------------------
+ * GigaSpaces LRMI Communication Protocol Configuration
+ * For more details please refer to the Wiki documentation page
+ * at http://www.gigaspaces.com/wiki/display/XAP91/Communication+Protocol
+ * ---------------------------------------------------------------------------*/
+com.gigaspaces.transport {
+	
+    bindHost = BootUtil.getHostAddressFromProperty("java.rmi.server.hostname");
+    // examples for port values can be: "1950" or "1950,1958" or "1700-1800" or "1700-1800,2000-2100,2500"
+	bindPort = System.getProperty("com.gs.transport_protocol.lrmi.bind-port", "0");
+	
+	minThreads  = Integer.parseInt( System.getProperty("com.gs.transport_protocol.lrmi.min-threads", "1") );
+	maxThreads  = Integer.parseInt( System.getProperty("com.gs.transport_protocol.lrmi.max-threads", "128") );
+	maxConnPool = Integer.parseInt( System.getProperty("com.gs.transport_protocol.lrmi.max-conn-pool", "1024") );
+	readSelectorThreads = Integer.parseInt( System.getProperty("com.gs.transport_protocol.lrmi.selector.threads", "4") );
+		
+	//LRMI Watchdog parameters
+	watchdogRequestTimeout 	 = System.getProperty("com.gs.transport_protocol.lrmi.request_timeout", "30s");
+	watchdogListeningTimeout = System.getProperty("com.gs.transport_protocol.lrmi.listening_timeout", "5m");
+	watchdogIdleConnectionTimeout = System.getProperty("com.gs.transport_protocol.lrmi.idle_connection_timeout", "15m");
+	
+	//LRMI ThreadPool idle timeout default is 5 min.
+	threadPoolIdleTimeout = Long.parseLong(System.getProperty("com.gs.transport_protocol.lrmi.threadpool.idle_timeout", "300000"));
+
+	//LRMI timout on the Socket connect. Default connect timeout in seconds is 30.
+	socketConnectTimeout = System.getProperty("com.gs.transport_protocol.lrmi.connect_timeout", "30s");
+	 
+    nioConfig = new com.gigaspaces.config.lrmi.nio.NIOConfiguration( minThreads, /* min executors threads */
+                                                                     maxThreads, /* max executors threads */
+                                                                     maxConnPool, /* maxConnPool */
+                                                                     bindHost, /*  if null resolves to the localhost IP address */
+                                                                     bindPort, /* if 0 any next free port will be used for incoming client requests.*/
+                                                                     readSelectorThreads,
+                                                                     watchdogRequestTimeout,
+                                                                     watchdogListeningTimeout,
+                                                                     watchdogIdleConnectionTimeout,
+                                                                     threadPoolIdleTimeout,
+                                                                     socketConnectTimeout
+																	);
+																	
+    // uncomment the following next line to use Jrmp (RMI) exporter instead of GenericExporter (NIO based)
+    // defaultExporter = new net.jini.jrmp.JrmpExporter();
+    defaultExporter = new com.gigaspaces.lrmi.GenericExporter( nioConfig );
+}
+
+com.gigaspaces.grid.gsc {
+    initialLookupGroups = BootUtil.toArray("${com.gs.jini_lus.groups}");
+    //NOTE: in order to enable the Jini Locators unicast discovery and registration, verify
+	//the -Dcom.gs.jini_lus.locators=<host:port> is passed in the command line
+    initialLookupLocators= BootUtil.toLookupLocators("${com.gs.jini_lus.locators}");
+    serviceName = "Grid Service Container";
+    serviceComment = "GigaSpace Technologies Dynamic Grid Service Container";
+    provisionEnabled = Boolean.valueOf(true);
+    opStringName = "Service Grid Infrastructure";
+    jmxName = "com.gigaspaces.grid:type=GSC";
+
+    /* Configure a FaultDetectionHandler for the Grid Service Container */
+    fdh = "com.gigaspaces.grid.gsc.GSCFaultDetectionHandler";
+    configArg = new Object[]{new String[]{
+        "-",
+        "com.gigaspaces.grid.gsc.GSCFaultDetectionHandler.invocationDelay=10000",
+        "com.gigaspaces.grid.gsc.GSCFaultDetectionHandler.retryCount=0"}
+    };
+    faultDetectionHandler =
+        new org.jini.rio.core.ClassBundle(fdh,
+                                          null,  // load from classpath
+                                          new String[]{"setConfiguration"},
+                                          new Object[]{ configArg });
+}
+
+/* -----------------------------------------------------------------------------
+ * Declare the platform DL Jar. This property is checked when loading a
+ * bean (POJO), to ensure that the codebase has this jar defined. If the
+ * gs-dl.jar is not included as a <Resource> in the bean's <Interfaces>
+ * declaration it will be added.
+ * ---------------------------------------------------------------------------*/
+org.jini.rio.bean {
+    platformDLJars = new String[]{"gs-dl.jar"};
+}
+
+/* -----------------------------------------------------------------------------
+ * Declare that a GSContextFactory be created when instantiating services, and
+ * enable adaptive codebase support
+ * ---------------------------------------------------------------------------*/
+service.load {
+    classAnnotator = "com.gigaspaces.grid.gsc.AdaptiveClassAnnotator";
+}
+
+/* -----------------------------------------------------------------------------
+ * Declare Gigaspaces Grid Service Monitor Configuration
+ * ---------------------------------------------------------------------------*/
+org.jini.rio.monitor {
+    /* Set the groups to join */
+    initialLookupGroups = BootUtil.toArray("${com.gs.jini_lus.groups}");
+    //NOTE: in order to enable the Jini Locators unicast discovery and registration, verify
+	//the -Dcom.gs.jini_lus.locators=<host:port> is passed in the command line
+    initialLookupLocators= BootUtil.toLookupLocators("${com.gs.jini_lus.locators}");
+    serviceName = "Grid Service Manager";
+    serviceComment = "Grid Service Management";
+    opStringName = "Service Grid Infrastructure";
+    jmxName = "com.gigaspaces.grid:type=GSM";
+
+    // Delays next attempts to re-provision a service after it failed to allocate it on all of the
+    // existing GSCs. If a new GSC is brought up, a re-provision request will attempt immediately.
+    // Otherwise, after the specified delay, it will retry to provision the service on all existing
+    // GSCs. Default is 10 min.
+    pendingRequestDelay = 600000;
+
+    /* Configure a FaultDetectionHandler for the Grid Service Monitor */
+    fdh = "com.gigaspaces.grid.gsm.GSMFaultDetectionHandler";
+    configArg = new Object[]{new String[]{
+        "-",
+        "com.gigaspaces.grid.gsm.GSMFaultDetectionHandler.invocationDelay=10000",
+        "com.gigaspaces.grid.gsm.GSMFaultDetectionHandler.retryCount=0"}
+    };
+    faultDetectionHandler =
+        new org.jini.rio.core.ClassBundle(fdh,
+                                          null,  // load from classpath
+                                          new String[]{"setConfiguration"},
+                                          new Object[]{ configArg });
+}
+
+/* -----------------------------------------------------------------------------
+ * Jini Lookup Service Configuration
+ * For more details refer to http://java.sun.com/products/jini/2.1/doc/api/com/sun/jini/reggie/package-summary.html#configuration
+ * ---------------------------------------------------------------------------*/
+com.sun.jini.reggie {
+    //Specifies initial groups for this lookup service to be a member of.
+    initialMemberGroups = BootUtil.toArray("${com.gs.jini_lus.groups}");
+
+    //Specifies initial list of locators indicating other lookup services with which to register.
+    //NOTE: in order to enable the Jini Locators unicast discovery and registration, verify
+    //the -Dcom.gs.jini_lus.locators=<host:port> is passed in the command line
+    initialLookupLocators = BootUtil.toLookupLocators("${com.gs.jini_lus.locators}");
+
+    //Specifies the host name for unicast discovery, which is advertised in multicast announcements
+    //and unicast discovery responses.
+    unicastDiscoveryHost =
+        BootUtil.getHostAddressFromProperty("java.rmi.server.hostname");
+
+    //Specifies the initial number of the port on which to listen for unicast discovery queries.
+    //If the port number is 0, then an arbitrary port is selected (with preference given to 4170, if available).
+    //This entry is obtained once at service start
+    //initialUnicastDiscoveryPort = 1222;
+
+    //Specifies initial attributes to use when registering with lookup services (including self)
+    initialLookupAttributes =
+        new net.jini.core.entry.Entry[] {
+            new net.jini.lookup.entry.Name("Lookup"),
+            new org.jini.rio.entry.OperationalStringEntry(
+                                               "Service Grid Infrastructure")
+        };
+
+    //Specifies the exporter to use to export this service.
+    serverExporter = com.gigaspaces.transport.defaultExporter;
+
+    //Internal Reggie task managers (applies to GigaRegistrar)
+    commTaskManager = new com.sun.jini.thread.TaskManager(40, 15000, 2.0F, "Reggie Comm Task", 10);
+    eventTaskManagerPool = 5;
+    eventTaskManager = new com.sun.jini.thread.TaskManager(8, 15000, 2.0F, "Reggie Event Task", 10);
+    
+    //Specifies if a cache miss should indicate the non existence of a Space service within reggie
+    useCacheForSpaceMiss = Boolean.valueOf(true);
+}
+
+net.jini.discovery.LookupLocatorDiscovery {
+	taskManager = new com.sun.jini.thread.TaskManager(15, 30000, 3.0F, "LookupLocatorDiscovery Task", 10);
+}
+
+net.jini.lease.LeaseRenewalManager {
+	taskManager = new com.sun.jini.thread.TaskManager(11, 15000, 1.0F, "LeaseRenewalManager Task", 10);
+}
+
+net.jini.lookup.JoinManager {
+	taskManager = new com.sun.jini.thread.TaskManager(15, 30000, 1.0F, "JoinManager Task", 10);
+}
+/* -----------------------------------------------------------------------------
+ * Jini Transaction Manager - Mahalo Service Configuration
+ * For more details refer to http://java.sun.com/products/jini/2.1/doc/api/com/sun/jini/mahalo/package-summary.html#configuration
+ * ---------------------------------------------------------------------------*/
+ com.sun.jini.mahalo {
+	persistenceDirectory = ".";
+    unicastDiscoveryHost =
+        BootUtil.getHostAddressFromProperty("java.rmi.server.hostname");
+	// Set the groups for mahalo to advertise
+	initialMemberGroups = BootUtil.toArray(System.getProperty("com.gs.jini_lus.groups", ""));
+	initialLookupGroups = BootUtil.toArray(System.getProperty("com.gs.jini_lus.groups", ""));
+
+	//Specifies the initial number of the port on which to listen for unicast discovery queries. 
+	//If the port number is 0, then an arbitrary port is selected (with preference given to 4160, if available). 
+	//This entry is obtained once at service start
+	//initialUnicastDiscoveryPort = 1222;
+	
+	//NOTE: in order to enable the Jini Locators unicast discovery and registration, verify
+	//the -Dcom.gs.jini_lus.locators=<host:port> is passed in the command line
+    initialLookupLocators = BootUtil.toLookupLocators(System.getProperty("com.gs.jini_lus.locators", ""));
+	serverExporter = com.gigaspaces.transport.defaultExporter;
+}
+
+com.gigaspaces.grid.lookup{
+    randomBound = 0;
+}
+
+/* -----------------------------------------------------------------------------
+ * Default exporter to use for the ServiceDiscoveryManager is the same as the
+ * exporter declared above
+ * ---------------------------------------------------------------------------*/
+net.jini.lookup.ServiceDiscoveryManager {
+    eventListenerExporter = com.gigaspaces.transport.defaultExporter;
+	cacheTaskManager = new com.sun.jini.thread.TaskManager(10, 15000, 1.0F, "SDM Cache Task", 10);
+	discardTaskManager = new com.sun.jini.thread.TaskManager(10, 15000, 1.0F, "SDM Discard Task", 10);
+}
+
+net.jini.discovery.LookupDiscovery {
+	    /*
+		 * Setup for Multi Network-Interface cards
+		 * ---------------------------------------------------------------
+		 * Each network interface that is represented by an element in the
+		 * array corresponding to this configuration item will be used to send
+		 * and receive multicast packets when this utility is participating in the
+		 * multicast discovery process. When not set, this utility will use all
+		 * of the network interfaces in the system. When this entry is set to a
+		 * zero length array, multicast discovery is effectively disabled. And
+		 * when set to null, the interface to which the operating system
+		 * defaults will be used.
+		 *
+		 * Hence, to use a specific network card, call getByName which searches
+		 * for the network interface with the specified name.
+		 */
+	    //multicastInterfaces = null;
+	    //multicastInterfaces = new java.net.NetworkInterface[]{};
+	    //multicastInterfaces = new java.net.NetworkInterface[] { java.net.NetworkInterface.getByName("${java.rmi.server.hostname}") };
+		multicastAnnouncementInterval = 5000;
+
+	taskManager = new com.sun.jini.thread.TaskManager(15, 30000, 3.0F, "LookupDiscovery Task", 10);
+}
+
+/* --------------------  Compute Resource configuration  ---------------------*/
+/* -----------------------------------------------------------------------------
+ * Declare attributes for creating the ComputeResource object.
+ * ---------------------------------------------------------------------------*/
+org.jini.rio.boot {
+    /* The compute resource configuration simply refers to this file.
+     * To change this, an override should be used to reference a different file,
+     * or overrides used to modify declared (or additional) properties */
+    computeResourceConfig =
+        "${com.gs.home}${/}config${/}services${/}services.config";
+    computeResource =
+        new org.jini.rio.qos.ComputeResource(
+            SystemConfig.appendOverrides(computeResourceConfig),
+                                        (net.jini.config.Configuration)$data);
+}
+
+/* -----------------------------------------------------------------------------
+ * The exporter to declare as the *default* exporter for services and utilities
+ * ---------------------------------------------------------------------------*/
+org.jini.rio {
+    defaultExporter = com.gigaspaces.transport.defaultExporter;
+}
+
+/* -----------------------------------------------------------------------------
+ * Declare ComputeResource properties
+ * ---------------------------------------------------------------------------*/
+org.jini.rio.qos {
+    host = BootUtil.getHostAddressFromProperty("java.rmi.server.hostname");
+    address = java.net.InetAddress.getByName(host);
+
+    systemCapabilitiesLoader =
+        new com.gigaspaces.management.SystemCapabilities();
+
+    /* Report every 30 seconds. This is how often the compute resource
+     * informs registered Observers of a state change. A state change is
+     * determined if any of the MeasurableCapability components contained within
+     * this ComputeResource provide an update in the interval specified by the
+     * reportInterval property */
+    reportInterval = 30000;
+
+    /* Declare platform capabilities */
+    platformCapabilities =
+        new org.jini.rio.qos.capability.PlatformCapability[] {
+            new org.jini.rio.qos.capability.software.SoftwareSupport (
+                new Object[]{org.jini.rio.qos.capability.software.SoftwareSupport.NAME,         "Jini",
+                             org.jini.rio.qos.capability.software.SoftwareSupport.DESCRIPTION,  "Jini Technology",
+                             org.jini.rio.qos.capability.software.SoftwareSupport.MANUFACTURER, "Sun Microsystems",
+                             org.jini.rio.qos.capability.software.SoftwareSupport.VERSION,      "2.1"})
+        };
+
+}
+
+/* -----------------------------------------------------------------------------
+ * Configuration for the CPU measurableCapability
+ * ---------------------------------------------------------------------------*/
+com.gigaspaces.management.system.cpu {
+    /* Report every 30 seconds with a sample size of 2, which means a result
+     * will be produced every 60 seconds */
+    reportRate = 30000;
+    sampleSize = 2;
+    // Default CPU utilization high threshold watermark is 99%
+    thresholdValues = new org.jini.rio.core.ThresholdValues(0.0, 0.99);
+}
+
+com.gigaspaces.management.system.memory {
+    /* Report every 15 seconds with a sample size of 2, which means a result
+     * will be produced every 30 seconds */
+    reportRate = 15000;
+    sampleSize = 2;
+    // Default Memory utilization high threshold watermark is 99%
+    thresholdValues = new org.jini.rio.core.ThresholdValues(0.0, 0.99);
+}
+
+com.gigaspaces.management.system.disk {
+    /* Report every 60 seconds with a sample size of 2, which means a result
+     * will be produced every 120 seconds */
+    reportRate = 60000;
+    sampleSize = 2;
+    // Default Disk utilization high threshold watermark is 99%
+    thresholdValues = new org.jini.rio.core.ThresholdValues(0.0, 0.99);
+    enabled = false;
+}
+
+/* -----------------------------------------------------------------------------
+ * Configure the watchDataSourceExporter
+ * ---------------------------------------------------------------------------*/
+org.jini.rio.watch {
+    watchDataSourceExporter = org.jini.rio.defaultExporter;
+}

@@ -1,0 +1,6 @@
+setenv HOST tcp://127.0.0.1:8088
+setenv CONFIGDIR gameconfigs
+add configuration WebCTInputFileConfig
+new game config WebCTInputFileConfig  players 10 20
+list games
+list configurations

@@ -1,0 +1,6 @@
+setenv HOST tcp://127.0.0.1:8080
+setenv CONFIGDIR gameconfigs
+add configuration InputFileConfig
+new game config InputFileConfig  players 10 20
+list games
+list configurations
