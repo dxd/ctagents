@@ -438,15 +438,14 @@ function createGameBoard() {
 			// create column
 			newCell = newRow.insertCell(j);
 			newCell.id = "CellRow" + i + "Column" + j;
-			// newCell.innerText = i+", "+j;
+		// newCell.innerText = i+", "+j;
 			newCell.bgColor = "white";
-			newCell.onclick = function() { alert("nn"); };
-
+			newCell.ondblclick = move; //function() { alert(i+'-'+j);move(i,j); };
 			// create div
 			var newDiv = document.createElement("div");
 			newDiv.className = "cssDDContainer";
 			newDiv.id = "DivRow" + i + "Column" + j; // id of new div
-			newDiv.onclick = function() { alert("hh"); };
+			
 			var cell = document.getElementById("CellRow" + i + "Column" + j);
 			cell.appendChild(newDiv);
 		}
@@ -480,6 +479,25 @@ function createGameBoard() {
 }
 // END CREATE GAME BOARD
 
+function move(e)
+	{
+	var target = e.target || e.srcElement;
+	
+	var posx = target.id.substring(6, 7);
+	var posy = target.id.substring(13, 14);
+	//alert(posx+posy);
+	var stringJ = "{\"posx\" : \"" + posx + "\", \"posy\" : \"" + posy + "\"}";
+
+		jQuery.ajax({
+			type : "post",
+			url : "move.jsp",
+			data : "json=" + stringJ,
+			success : function(msg) {
+		   // alert(msg);
+			}
+		});
+
+	}
 // ADD COLORS TO BOARD
 function addColors() {
 	for ( var i = 0; i < game.borderColors.length; i++) {
@@ -1047,6 +1065,7 @@ function sendGoalRevelation(playerIDSend)
 	
 */
 }
+
 
 
 // Send revelation details to the sever

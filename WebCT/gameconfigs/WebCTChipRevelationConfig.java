@@ -45,7 +45,7 @@ public class WebCTChipRevelationConfig extends GameConfigDetailsRunnable
 	static Random localrand = new Random();
 
 	/** determines if there will be automatic movement */
-	boolean automaticMovement = true;
+	boolean automaticMovement = false;
 
 	/** determines if there will be chips revelation or not */
 	boolean EnableChipsRevelation = true;
@@ -142,10 +142,10 @@ public class WebCTChipRevelationConfig extends GameConfigDetailsRunnable
 
 		boolean ProposerCommunicationAllowed = false;
 		boolean ProposerTransfersAllowed = false;
-		boolean ProposerMovesAllowed = false;
+		boolean ProposerMovesAllowed = true;
 		boolean ResponderCommunicationAllowed = false;
 		boolean ResponderTransfersAllowed = false;
-		boolean ResponderMovesAllowed = false;
+		boolean ResponderMovesAllowed = true;
 
 		// FYI - for the first phase it won't work from here
 		if (phasename.equals("Communication Phase")) {
@@ -184,6 +184,7 @@ public class WebCTChipRevelationConfig extends GameConfigDetailsRunnable
 			if (Round == (NumRounds - 1) || wasProposalAccepted
 					|| goalReached()) {
 				System.out.println("Ending game");
+				assignScores();
 				((ServerPhases) gs.getPhases()).setLoop(false);
 				System.out
 						.println("Loop status: " + gs.getPhases().getIsLoop());
@@ -350,7 +351,7 @@ public class WebCTChipRevelationConfig extends GameConfigDetailsRunnable
 		ServerPhases ph = new ServerPhases(this);
 		ph.addPhase("Revelation Phase", 60);
 		ph.addPhase("Communication Phase", 60);
-		ph.addPhase("Movement Phase", 10);
+		ph.addPhase("Movement Phase", 60);
 		ph.addPhase("Feedback Phase", 10);
 
 		gs.setScoring(this.s);

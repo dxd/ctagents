@@ -33,6 +33,7 @@
          /* don't move if moves NOT allowed */
          res =  false;
      }
+     
 	 JSONObject JsonRes = new JSONObject();
 	 if (res)
 	 { 

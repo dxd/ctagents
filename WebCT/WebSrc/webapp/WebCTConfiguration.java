@@ -17,7 +17,7 @@ public class WebCTConfiguration {
 		Properties prop = new Properties();
 		try {
 			  
-			prop.load(new FileInputStream("c://webct.ini"));
+			prop.load(new FileInputStream("./webct.ini"));
 			
 			LogFileFullPath = prop.getProperty("LogFileFullPath");
 			IsChipRevelationGame = Boolean.parseBoolean(prop.getProperty("IsChipRevelationGame"));

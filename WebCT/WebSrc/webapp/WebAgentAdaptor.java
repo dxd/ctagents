@@ -384,6 +384,7 @@ public class WebAgentAdaptor implements GameStartEventListener,
 	}
 
 	public void gameStarted() {
+		
 		System.out.println("Game Started");
 		game_started = true;
 		System.out.println("we have "
