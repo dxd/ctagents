@@ -1,0 +1,40 @@
+2015-03-22 15:25:25,806  INFO [com.gigaspaces.localcache] - LocalCache#1-myGrid was created successfully. Total time: 449 milliseconds
+2015-03-22 16:06:01,506  WARNING [com.gigaspaces.localcache] - Failed to renew local space notify lease - LeaseRenewalEvent: 
+ class name: java.lang.Object
+ uid: 14e3fc74-29b2-404b-ab7c-6584c3017080
+ expiration: 1427038765939
+ left 1595567
+ event cause: null
+
+2015-03-22 16:06:01,543  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:02,207  SEVERE [edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands] - null; Caused by: javax.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:661)
+	at org.apache.activemq.ActiveMQSession.configureMessage(ActiveMQSession.java:647)
+	at org.apache.activemq.ActiveMQSession.createTextMessage(ActiveMQSession.java:380)
+	at edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands.clientDisconnected(CtrlCommands.java:386)
+	at edu.harvard.eecs.airg.coloredtrails.server.ClientState.updateState(ClientState.java:38)
+	at edu.harvard.eecs.airg.coloredtrails.server.ServerData.run(ServerData.java:446)
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+	at java.util.TimerThread.run(Timer.java:462)
+
+2015-03-22 16:06:07,858  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to initialize; Caused by: com.gigaspaces.internal.client.cache.SpaceCacheInitializationException: Failed to load space cache configuration
+2015-03-22 16:06:07,858  SEVERE [com.gigaspaces.localcache] - LocalCache#1-myGrid is disconnected.
+2015-03-22 16:06:07,858  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to connect to remote space - waiting 6000 millis before next attempt...
+2015-03-22 16:06:13,858  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:13,863  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to initialize; Caused by: com.gigaspaces.internal.client.cache.SpaceCacheInitializationException: Failed to load space cache configuration
+2015-03-22 16:06:13,864  SEVERE [com.gigaspaces.localcache] - LocalCache#1-myGrid is disconnected.
+2015-03-22 16:06:13,864  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to connect to remote space - waiting 6000 millis before next attempt...
+2015-03-22 16:06:19,864  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:19,871  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to initialize; Caused by: com.gigaspaces.internal.client.cache.SpaceCacheInitializationException: Failed to load space cache configuration
+2015-03-22 16:06:19,871  SEVERE [com.gigaspaces.localcache] - LocalCache#1-myGrid is disconnected.
+2015-03-22 16:06:19,872  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to connect to remote space - waiting 6000 millis before next attempt...
+2015-03-22 16:06:25,873  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:25,878  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to initialize; Caused by: com.gigaspaces.internal.client.cache.SpaceCacheInitializationException: Failed to load space cache configuration
+2015-03-22 16:06:25,878  SEVERE [com.gigaspaces.localcache] - LocalCache#1-myGrid is disconnected.
+2015-03-22 16:06:25,878  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to connect to remote space - waiting 6000 millis before next attempt...
+2015-03-22 16:06:31,878  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:31,884  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to initialize; Caused by: com.gigaspaces.internal.client.cache.SpaceCacheInitializationException: Failed to load space cache configuration
+2015-03-22 16:06:31,884  SEVERE [com.gigaspaces.localcache] - LocalCache#1-myGrid is disconnected.
+2015-03-22 16:06:31,884  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid failed to connect to remote space - waiting 6000 millis before next attempt...
+2015-03-22 16:06:37,884  WARNING [com.gigaspaces.localcache] - LocalCache#1-myGrid lost connection to remote space - attempting to reconnect...
+2015-03-22 16:06:38,197  INFO [com.gigaspaces.localcache] - LocalCache#1-myGrid is connected.

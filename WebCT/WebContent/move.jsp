@@ -11,7 +11,7 @@
  String id =  session.getAttribute("id").toString(); 
  WebAgentAdaptor player =ClinetControler.GetClinet(id);
 
- String jsonMsg =  request.getParameter("data");  // out.print(ClinetControler.GetClinet("1234").getUpdates());
+ String jsonMsg =  request.getParameter("json");  // out.print(ClinetControler.GetClinet("1234").getUpdates());
  if	(jsonMsg != null)
  {
 	 JSONObject object=  JSONObject.fromObject(jsonMsg);

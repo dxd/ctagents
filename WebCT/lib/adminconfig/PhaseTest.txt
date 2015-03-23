@@ -1,4 +1,4 @@
-setenv HOST tcp://127.0.0.1:8080
+setenv HOST tcp://127.0.0.1:8088
 setenv CONFIGDIR gameconfigs
 add configuration PhaseTestConfig
 new game config PhaseTestConfig  players 10 20

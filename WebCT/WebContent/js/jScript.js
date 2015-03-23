@@ -440,11 +440,13 @@ function createGameBoard() {
 			newCell.id = "CellRow" + i + "Column" + j;
 			// newCell.innerText = i+", "+j;
 			newCell.bgColor = "white";
+			newCell.onclick = function() { alert("nn"); };
 
 			// create div
 			var newDiv = document.createElement("div");
 			newDiv.className = "cssDDContainer";
 			newDiv.id = "DivRow" + i + "Column" + j; // id of new div
+			newDiv.onclick = function() { alert("hh"); };
 			var cell = document.getElementById("CellRow" + i + "Column" + j);
 			cell.appendChild(newDiv);
 		}

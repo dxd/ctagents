@@ -176,7 +176,7 @@ public class FrontEnd {
         	ct.start();
  
   	    	spaces = new mwspaces.CTsetup();
-  	    	spaces.initializeGS();
+  	    	//spaces.initializeGS();
   	    
 
         }

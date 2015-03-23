@@ -63,7 +63,7 @@ public class RobustGroupCliqueConfig extends GameConfigDetailsRunnable implement
     boolean automaticChipTransfer = true; 
     
     /** things to tweak */
-    private final int numPlayers = 3; // if you change this, be sure to also
+    private final int numPlayers = 2; // if you change this, be sure to also
                                       // change the number of players in your
                                       // admin config file / controller program.
     
