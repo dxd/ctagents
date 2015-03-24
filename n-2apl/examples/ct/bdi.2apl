@@ -1,0 +1,316 @@
+
+Beliefs:
+wingame :- reachedGoal. 
+reachedGoal :- goalPos(0,X,Y) , agentPos(X,Y).
+received(X,Y,closed) :- received(X,Y,closed(Z)).
+initialized :- event(game_initiatized), initialized(yes).
+initialized(no).
+
+
+Goals:
+initialized, wingame, update
+
+
+BeliefUpdates:
+//{message(TYPE,ID,open)}										CloseMessage(TYPE,ID,RESPONSE)	{not message(TYPE,ID,open), message(TYPE,ID,RESPONSE)}
+{true} 														Failed(X) 						{failed(X)}
+{chipsNeeded(OLD) or not chipsNeeded(OLD)}					GetChipsNeeded(NEW)				{not chipsNeeded(OLD), chipsNeeded(NEW)}
+{chipsRedundant(OLD) or not chipsRedundant(OLD)}			GetChipsRedundant(ID,NEW)		{not chipsRedundant(OLD), chipsRedundant(NEW)}
+{true}														GetAgentId(NEW)					{agentId(NEW)}
+{true} 														GetAgentPin(X)	 				{agentPin(X)}
+{agentPos(OLDX,OLDY) or not agentPos(OLDX,OLDY)} 			GetAgentPos(X,Y) 				{not agentPos(OLDX,OLDY), agentPos(X,Y)}
+{role(ID, OLD) or not role(ID, OLD)}						GetRole(ID, ROLE)				{not role(ID,OLD), role(ID,ROLE)}
+{goalId(ID) or not goald(ID)}								GetGoalId(NEWID)				{not goalId(ID), goalId(NEWID)}
+{goalPos(TYPE,OLDX,OLDY) or not goalPos(TYPE,OLDX,OLDY)}	GetGoalPos(TYPE,X,Y) 			{not goalPos(TYPE,OLDX,OLDY), goalPos(TYPE,X,Y)}
+{chips(PLAYER,CHIPSOLD) or not chips(PLAYER,CHIPSOLD)}		GetChips(PLAYER,CHIPS)			{not chips(PLAYER,CHIPSOLD), chips(PLAYER,CHIPS)}
+{agentChips(L) or not agentChips(L)}  						GetAgentChips(LNEW)				{not agentChips(L), agentChips(LNEW)}
+{opponentChips(L) or not opponentChips(L)}					GetOpponentChips(LNEW)			{not opponentChips(L), opponentChips(LNEW)}
+{true}														GetOpponentId(ID)				{opponentId(ID)}
+{true}														GetOpponentPin(PIN)				{opponentPin(PIN)}
+{phase(OLD) or not phase(OLD)}								GetPhase(Pp)						{not phase(OLD), phase(Pp)}
+{opponentPos(OLDX,OLDY) or not opponentPos(OLDX,OLDY)}		GetOpponentPos(X,Y)				{not opponentPos(OLDX,OLDY), opponentPos(X,Y)}
+{initialized(X)}											Initialize() 					{not intitialized(X), initialized(yes)}
+{score(ID,OLD) or not score(ID,OLD)}    					GetScore(ID,SCORE)				{not score (ID,OLD), score(ID,SCORE)}
+{scoreCurrentChips(ID,OLD) or not scoreCurrentChips(ID,OLD)}	GetScoreCurrentChips(ID,S)	{not scoreCurrentChips(ID,OLD), scoreCurrentChips(ID,S)}
+{scoreAfterExchange(ID,OLD) or not scoreAfterExchange(ID,OLD)}GetScoreAfterExchange(ID,SCORE)	{not scoreAfterExchange(ID,OLD), scoreAfterExchange(ID,SCORE)}
+{true}														MakeProposal(X)					{proposal(X)}
+{true}														MakeResponse(ID)				{response(ID)}
+{true}														MoveStepToGoal(MOVED)			{moved(MOVED)}
+{event(phasechange)}                                        Updated()                       {not event(phasechange)}
+{true}														ReceivedEvent(X)				{event(X)}
+{sent(Pp,ID,open)}											ReceivedMessage(RESPONSE,ID)	{not sent(Pp,ID,open), sent(Pp,ID,closed(RESPONSE))}
+{true}														ReceivedMessage(TYPE,ID,STATUS) {received(TYPE,ID,STATUS)}
+{requestChips(X,Y) or not requestChips(X,Y)}				RequestChips(PIN,CHIPS)			{not requestChips(X,Y), requestChips(PIN,CHIPS)}
+// sent a proposal
+{true}														Sent(TYPE,ID,STATUS)		    {sent(TYPE,ID,STATUS)}
+// sent an answer
+{received(proposal,ID,open)}								Sent(ANSWER,ID)					{not received(proposal,ID,open), received(proposal,ID,closed(ANSWER))}
+
+
+
+Plans:
+initialize()
+
+
+PG-rules:
+
+propose <- phase(communicationphase) | makeProposal()
+
+respond <- received(TYPE,ID,open) and phase(communicationphase) | makeResponse(ID)
+
+initialized <- event(game_initialized) | {
+    dropgoal(initialized);
+    Initialize()
+}
+
+update <- event(phasechange) | update()
+
+
+PC-rules:
+event(FUNCTION, NAME) <- true | {
+	@ctenv( functionToList(FUNCTION), LIST); 
+	if B(LIST=[TYPE,ID]) then { 
+		//Received a proposal
+		if B(TYPE=proposal) then {
+			ReceivedMessage(TYPE,ID,open);
+			//make response
+			adopta(received(TYPE,ID,closed))
+		}
+	}
+	else if B(LIST=[TYPE,ID,RESPONSE]) then {	
+		// Received a response
+		if B(TYPE=response) then {
+			ReceivedMessage(RESPONSE,ID)
+		}
+	}
+	else if B(LIST=[TYPE]) then {
+		// Received an event
+		ReceivedEvent(TYPE)
+	}	
+}
+
+// TODO: clear up?
+// extract multiple players from a list of closest players
+extractPlayers(X,Y,LIST) <- true | {
+	if B(not LIST=[]) then {
+		if B(LIST=[PLAYER|REST] or LIST=[[PLAYER]]) then {
+			if B(not PLAYER=[]) then {
+	    		if B(PLAYER=[NAME,COORX,COORY]) then {
+					// BROKEN: ClosePlayer(X,Y,[NAME]);
+					extractPlayers(X,Y,REST)
+				}
+			}
+		}
+	}
+}
+
+getId() <- true | {
+	@ctenv( getAgentId(), L1);
+	GetAgentId(L1)
+}
+
+getPhase() <- true | {
+	@ctenv( getPhase(), L1);
+	GetPhase(L1)
+}
+
+
+getPos() <- true | {
+	@ctenv( getAgentPos(), L1);
+	B(L1=[X,Y]);
+	GetAgentPos(X,Y)
+}
+
+
+// Returns the additional chips that the agent needs to reach its goal
+getChipsNeeded(OPPID) <- true | {
+	@ctenv( getChipsNeeded(OPPID), L1);
+	GetChipsNeeded(L1)
+}
+
+getChips() <- true | {
+	@ctenv( getAgentChips(), L1);
+	GetAgentChips(L1)
+}
+
+getChipsRedundant() <- agentId(ID) | {
+    @ctenv( getChipsRedundant(ID), L1);
+	GetChipsRedundant(ID,L1)
+}
+
+getOpponentChips() <- opponentPin(PIN) | {
+	@ctenv( getOpponentChips(PIN), L1);
+	GetOpponentChips(L1)
+}
+
+getGoalId(TYPE,X,Y) <- true | {
+	@ctenv( getGoalId(TYPE,X,Y), L1);
+	GetGoalId(L1)
+}
+
+getGoalId() <- goalPos(TYPE,X,Y) | {
+	@ctenv( getGoalId(TYPE,X,Y), L1);
+	GetGoalId(L1)
+}
+
+getGoalPos(TYPE) <- true | {
+	@ctenv( getGoalPos(TYPE), L1);
+	B(L1=[X,Y]);
+	GetGoalPos(TYPE,X,Y)
+}
+
+// TODO: can only deal with one opponent...
+getOpponentPin() <- true | {
+	@ctenv( getOpponentPin(), L1);
+	GetOpponentPin(L1)
+}
+
+// TODO: can only deal with one opponent... 
+getOpponentId() <- true | {
+	@ctenv( getOpponentId(), L1);
+	GetOpponentId(L1)
+}
+
+// TODO: can only deal with one opponent...
+getOpponentPos() <- true | {
+	@ctenv( getOpponentPos(), L1);
+	B(L1=[X,Y]);
+	GetOpponentPos(X,Y)	
+}
+
+getPin() <- true | {
+	@ctenv( getAgentPin(), PIN);
+	GetAgentPin(PIN)
+}
+
+
+
+
+getRole(ID) <- true | {
+	@ctenv( getRole(ID), ROLE);
+	GetRole(ID, ROLE)
+}
+
+getScoreAfterExchange(ID,MSGID) <- true | {
+	@ctenv( getScoreAfterExchange(ID,MSGID), L1);
+	GetScoreAfterExchange(ID,L1)
+}
+
+getScoreAfterExchange(ID,CHIPS) <- true | {
+	@ctenv( getScoreAfterExchange(ID,CHIPS), L1);
+	GetScoreAfterExchange(ID,L1)
+}
+
+getScore(ID) <- true | {
+	@ctenv( getScore(ID), L1);
+	GetScore(ID,L1)
+}	
+
+getScoreCurrentChips(ID) <- true | {
+	@ctenv( getScoreCurrentChips(ID), L1);
+	GetScoreCurrentChips(ID,L1)
+}
+
+initialize() <- initialized(no) | {
+	getPin(); 
+	getOpponentPin(); 
+	getId(); 
+	getOpponentId(); 
+	getPos();
+	getOpponentPos();
+	getGoalPos(0); 
+	getGoalId();
+    if B(agentId(MYID)) then {getRole(MYID)} ;
+	Initialize() 
+}
+
+moveStepToGoal(TYPE) <- agentPos(AX,AY) and goalId(ID) | {
+	@ctenv( moveStepToGoal(AX,AY,ID), L1);
+	MoveStepToGoal(L1)
+}
+
+// TODO: give a goalidentifier to requestChips
+requestChips(OPPPIN) <- opponentId(OPPID) | {
+	@ctenv(requestChips(OPPPIN,OPPID), LIST);
+	RequestChips(OPPID,LIST)
+}
+
+sendProposal(PIN, CHIPS) <- true | {
+	@ctenv( sendProposal(PIN,CHIPS), ID);
+	Sent(proposal,ID,open)
+}
+
+makeProposal()<- chipsRedundant(CHIPS) and opponentPin(PIN) | {
+	sendProposal(PIN, CHIPS)
+}
+
+makeResponse(MSGID) <- true | {
+sendResponse(accept,MSGID)
+}
+
+// send a response to the proposer of a proposal that is still open
+// the id of the proposer does not have to be included 
+// RESPONSE = {accept,reject}
+sendResponse(RESPONSE,MSGID) <- received(proposal,MSGID,open) | {
+	@ctenv( sendResponse(RESPONSE,MSGID), L1); 
+	Sent(RESPONSE,MSGID);
+	dropgoal(received(proposal,MSGID,closed))
+}	
+
+orientation() <- true | {
+	getChips();
+	getOpponentChips()
+}
+
+update() <- agentId(MYID) | {
+	getPhase();
+    getRole(MYID);
+    if B(event(phasechange)) then Updated()
+}
+
+
+PR-rules:
+@ctenv( moveStepToGoal(X,Y,Z,W), L1); REST <- true | {
+	MoveStepToGoal(no);
+	update();
+	REST
+}
+
+makeProposal(); REST <- true | {
+	REST
+}
+
+sendResponse(); REST <- true | {
+    REST
+}
+
+
+RemoveClosePlayer(X,Y); REST <- true | {
+	REST
+}
+
+getRole(ID); REST <- true | {
+    REST
+}
+
+extractPlayers(LIST); REST <- true | {
+	REST
+}
+
+sendProposal(PIN,CHIPS); REST <- true | {
+	REST
+}
+
+@ctenv(sendProposal(PIN,CHIPS), L1); Sent(X,Y,Z); REST <- true | {
+	Failed(sendProposal);
+	REST
+}
+
+@ctenv(requestChips(PIN,ID), L1); RequestChips(PARTNER,LIST); REST <- true | {
+	Failed(requestChips);
+	REST
+}
+
+Updated(); REST <- true | {
+    REST
+}

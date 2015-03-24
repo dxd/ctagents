@@ -11,7 +11,7 @@ Goals:
 initialized
 
 BeliefUpdates:
-//{message(TYPE,ID,open)}										CloseMessage(TYPE,ID,RESPONSE)	{not message(TYPE,ID,open), message(TYPE,ID,RESPONSE)}
+{message(TYPE,ID,open)}										CloseMessage(TYPE,ID,RESPONSE)	{not message(TYPE,ID,open), message(TYPE,ID,RESPONSE)}
 {true} 														Failed(X) 						{failed(X)}
 {chipsNeeded(OLD) or not chipsNeeded(OLD)}					ChipsNeeded(NEW)				{not chipsNeeded(OLD), chipsNeeded(NEW)}
 {true} 														GetAgentPin(X)	 				{agentPin(X)}

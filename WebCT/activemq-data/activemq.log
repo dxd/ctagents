@@ -6503,3 +6503,948 @@ java.io.EOFException
 2015-03-24 16:00:38,521 [MQ Session Task] DEBUG root                           - received a move request...: 20
 2015-03-24 16:00:45,947 [MQ Session Task] DEBUG root                           - received a move request...: 20
 2015-03-24 16:01:41,511 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 16:04:51,631 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 16:15:32,211 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:15:44,682 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:15:45,401 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:15:45,437 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:15:45,438 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:15:45,438 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:15:45,438 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:15:45,439 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:15:45,454 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:15:45,454 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:15:45,461 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:15:45,461 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:15:45,462 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 1
+2015-03-24 16:15:45,463 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.1
+2015-03-24 16:15:45,466 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:15:45,473 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:15:45,493 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [10]
+2015-03-24 16:15:45,495 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [20]
+2015-03-24 16:15:45,497 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:15:45,498 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:16:03,682 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:16:04,612 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:16:04,650 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:16:04,651 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:16:04,652 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:16:04,653 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:16:04,654 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:16:04,658 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:16:04,658 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:16:04,658 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:16:04,658 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:16:04,659 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:16:04,659 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:16:04,659 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:16:04,659 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 2
+2015-03-24 16:16:04,660 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.2
+2015-03-24 16:16:04,669 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:16:04,670 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:16:04,672 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:16:04,688 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:16:04,706 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [2] and player [10]
+2015-03-24 16:16:04,709 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [2] and player [20]
+2015-03-24 16:16:04,711 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:16:04,712 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:16:04,716 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  NEW_GAME
+2015-03-24 16:16:04,716 [MQ Session Task] INFO  root                           - Added new game:-1
+2015-03-24 16:16:04,717 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  LIST_GAMES
+2015-03-24 16:16:04,717 [MQ Session Task] INFO  root                           - list of games:Configuration Name: {WebCTChipRevelationConfig}
+Game ID: {0}
+Game Players: {10, pergameid: 0 ,20, pergameid: 1 ,}
+ Configuration Name: {WebCTChipRevelationConfig}
+Game ID: {1}
+Game Players: {20, pergameid: 1 ,10, pergameid: 0 ,}
+ Configuration Name: {WebCTChipRevelationConfig}
+Game ID: {2}
+Game Players: {10, pergameid: 0 ,20, pergameid: 1 ,}
+ 
+2015-03-24 16:16:04,719 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  Class Name: {WebCTChipRevelationConfig}
+ Class Name: {WebCTChipRevelationConfig}
+ Class Name: {WebCTChipRevelationConfig}
+ 
+2015-03-24 16:17:25,761 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56090-1427212045283-1:0) is shutting down
+2015-03-24 16:17:31,153 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:17:31,155 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:17:31,160 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:17:31,166 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:17:31,171 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Stopped
+2015-03-24 16:17:31,235 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56090-1427212045283-1:0) stopped
+2015-03-24 16:17:37,839 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 16:17:37,840 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 16:17:38,044 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 16:17:38,125 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 16:17:38,274 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 16:17:38,276 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 16:17:38,338 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.062 seconds.
+2015-03-24 16:17:38,825 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 16:17:38,832 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.cs.nott.ac.uk:8088
+2015-03-24 16:17:38,896 [main           ] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Started
+2015-03-24 16:17:38,901 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56472-1427213857881-1:0) started
+2015-03-24 16:17:38,916 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 16:17:38,986 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 16:17:39,098 [127.0.0.1:56476] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 16:17:39,099 [127.0.0.1:56476] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 16:17:39,099 [127.0.0.1:56476] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 16:17:39,241 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 16:17:39,247 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 16:17:39,249 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 16:18:02,522 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:18:27,807 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:18:27,809 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:18:27,810 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:18:27,811 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:18:46,315 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:19:05,044 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:19:05,490 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:19:05,506 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:19:05,507 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:19:05,510 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:19:05,511 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:19:05,514 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:19:05,514 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:19:05,517 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:19:05,517 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:19:05,518 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:19:05,521 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:19:05,521 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:19:05,522 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:19:05,522 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:19:05,525 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:19:05,527 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 16:19:05,527 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:19:05,528 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:19:05,530 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 16:19:05,547 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 16:19:05,550 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 16:19:05,553 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:19:05,555 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:19:05,717 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 16:19:05,719 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 16:19:05,730 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 16:19:05,733 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 16:19:13,178 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 16:19:13,179 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 16:19:13,179 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 16:21:16,203 [MQ Session Task] DEBUG root                           - received a move request...: 20
+2015-03-24 16:21:19,433 [MQ Session Task] DEBUG root                           - received a move request...: 20
+2015-03-24 16:22:16,083 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 16:23:26,397 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:23:38,922 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:23:39,252 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:23:39,265 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:23:39,266 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:23:39,266 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:23:39,266 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:23:39,267 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:23:39,270 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:23:39,270 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:23:39,270 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:23:39,271 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:23:39,271 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:23:39,271 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:23:39,271 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:23:39,271 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 1
+2015-03-24 16:23:39,272 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.1
+2015-03-24 16:23:39,274 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:23:39,277 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:23:39,278 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:23:39,278 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:23:39,290 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [10]
+2015-03-24 16:23:39,294 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [20]
+2015-03-24 16:23:39,296 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:23:39,296 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:23:39,440 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 16:23:39,440 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 16:23:39,449 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 16:23:39,451 [MQ Session Task] DEBUG root                           - sending game id = 1
+2015-03-24 16:24:07,044 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:25:14,464 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56472-1427213857881-1:0) is shutting down
+2015-03-24 16:25:18,964 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:25:18,964 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:25:18,970 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:25:18,976 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Stopped
+2015-03-24 16:25:18,997 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56472-1427213857881-1:0) stopped
+2015-03-24 16:25:28,798 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 16:25:28,799 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 16:25:28,993 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 16:25:29,060 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 16:25:29,165 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 16:25:29,167 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 16:25:29,209 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.042 seconds.
+2015-03-24 16:25:29,592 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 16:25:29,656 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.cs.nott.ac.uk:8088
+2015-03-24 16:25:29,659 [main           ] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Started
+2015-03-24 16:25:29,660 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56656-1427214328837-1:0) started
+2015-03-24 16:25:29,666 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 16:25:29,773 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 16:25:29,841 [127.0.0.1:56660] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 16:25:29,842 [127.0.0.1:56660] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 16:25:29,842 [127.0.0.1:56660] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 16:25:29,962 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 16:25:29,964 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 16:25:29,966 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 16:25:31,240 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:25:31,244 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:25:31,246 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:25:31,246 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:26:16,968 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:26:24,359 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:26:24,808 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:26:24,831 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:26:24,832 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:26:24,835 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:26:24,836 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:26:24,839 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:26:24,838 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:26:24,840 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:26:24,841 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:26:24,841 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:26:24,845 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:26:24,845 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:26:24,845 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:26:24,850 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 16:26:24,852 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 16:26:24,854 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:26:24,855 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:26:24,855 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:26:24,859 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:26:24,872 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 16:26:24,874 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 16:26:24,878 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:26:24,879 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:26:25,137 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 16:26:25,138 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 16:26:25,151 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 16:26:25,156 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 16:26:35,628 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 16:26:35,628 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 16:26:35,628 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 16:28:31,963 [MQ Session Task] DEBUG root                           - received a move request...: 20
+2015-03-24 16:30:04,333 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56656-1427214328837-1:0) is shutting down
+2015-03-24 16:30:09,697 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:30:09,718 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:30:09,763 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Stopped
+2015-03-24 16:30:09,817 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-56656-1427214328837-1:0) stopped
+2015-03-24 16:47:03,840 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 16:47:03,841 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 16:47:04,003 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 16:47:04,049 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 16:47:04,124 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 16:47:04,125 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 16:47:04,168 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.042 seconds.
+2015-03-24 16:47:04,401 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 16:47:04,441 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.cs.nott.ac.uk:8088
+2015-03-24 16:47:04,444 [main           ] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Started
+2015-03-24 16:47:04,444 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57051-1427215623863-1:0) started
+2015-03-24 16:47:04,448 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 16:47:04,524 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 16:47:04,566 [127.0.0.1:57054] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 16:47:04,567 [127.0.0.1:57054] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 16:47:04,567 [127.0.0.1:57054] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 16:47:04,661 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 16:47:04,662 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 16:47:04,662 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 16:47:05,839 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:47:05,841 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:48:25,058 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:48:35,758 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:48:36,547 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:48:36,575 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:48:36,576 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:48:36,577 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:48:36,578 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:48:36,581 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:48:36,585 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:48:36,585 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:48:36,586 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:48:36,586 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:48:36,591 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:48:36,591 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:48:36,592 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:48:36,597 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 16:48:36,598 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:48:36,598 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:48:36,600 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 16:48:36,600 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:48:36,618 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:48:36,657 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 16:48:36,659 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 16:48:36,661 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:48:36,664 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:48:36,866 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 16:48:36,869 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 16:48:36,881 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 16:48:36,884 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 16:48:44,656 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 16:48:44,656 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 16:48:44,656 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 16:52:35,155 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57051-1427215623863-1:0) is shutting down
+2015-03-24 16:52:39,480 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:52:39,489 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 16:52:39,502 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Stopped
+2015-03-24 16:52:39,519 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57051-1427215623863-1:0) stopped
+2015-03-24 16:52:54,604 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 16:52:54,606 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 16:52:55,025 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 16:52:55,242 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 16:52:55,469 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 16:52:55,473 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 16:52:55,563 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.088 seconds.
+2015-03-24 16:52:56,750 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 16:52:56,792 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.cs.nott.ac.uk:8088
+2015-03-24 16:52:56,899 [main           ] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Started
+2015-03-24 16:52:56,900 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57267-1427215974712-1:0) started
+2015-03-24 16:52:56,917 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 16:52:57,015 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 16:52:57,244 [127.0.0.1:57279] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 16:52:57,245 [127.0.0.1:57279] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 16:52:57,246 [127.0.0.1:57279] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 16:52:57,468 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 16:52:57,481 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 16:52:57,484 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 16:53:42,870 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 16:53:55,167 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:54:02,682 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:54:03,824 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 16:54:03,916 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 16:54:03,920 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 16:54:03,941 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 16:54:03,945 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 16:54:03,947 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 16:54:03,962 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 16:54:03,963 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 16:54:03,966 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 16:54:03,967 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 16:54:03,968 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 16:54:03,970 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 16:54:03,972 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 16:54:03,972 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 16:54:03,973 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 16:54:03,979 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 16:54:03,983 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 16:54:03,987 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 16:54:03,995 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 16:54:04,029 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 16:54:04,031 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 16:54:04,035 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 16:54:04,037 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 16:54:04,297 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 16:54:04,299 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 16:54:04,314 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 16:54:04,319 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 16:54:21,113 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 16:54:21,114 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 16:54:21,114 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 16:56:08,716 [MQ Session Task] DEBUG root                           - received a move request...: 20
+2015-03-24 16:56:11,566 [MQ Session Task] DEBUG root                           - received a move request...: 20
+2015-03-24 16:57:14,636 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 16:57:24,639 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:59:15,309 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:59:15,311 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:59:15,311 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:59:15,312 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 16:59:31,619 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:00:00,392 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:00:00,763 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:00:00,775 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 17:00:00,776 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 17:00:00,777 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 17:00:00,777 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 17:00:00,778 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 17:00:00,780 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 17:00:00,780 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 17:00:00,780 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 17:00:00,781 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 17:00:00,781 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 17:00:00,781 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 17:00:00,781 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 17:00:00,781 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 1
+2015-03-24 17:00:00,782 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.1
+2015-03-24 17:00:00,789 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 17:00:00,791 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 17:00:00,792 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 17:00:00,796 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 17:00:00,799 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [10]
+2015-03-24 17:00:00,802 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [1] and player [20]
+2015-03-24 17:00:00,804 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 17:00:00,805 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 17:00:00,806 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  NEW_GAME
+2015-03-24 17:00:00,806 [MQ Session Task] INFO  root                           - Added new game:-1
+2015-03-24 17:00:00,806 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  LIST_GAMES
+2015-03-24 17:00:00,912 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 17:00:00,913 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 17:00:00,918 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 17:00:00,920 [MQ Session Task] DEBUG root                           - sending game id = 1
+2015-03-24 17:00:05,246 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 17:00:05,246 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 17:00:05,246 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 17:00:24,743 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 17:03:01,232 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:18,913 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [128.243.23.149] of type 
+2015-03-24 17:03:35,124 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:35,125 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:35,126 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:35,127 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:35,128 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:35,129 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [128.243.23.149] of type 
+2015-03-24 17:03:36,314 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:03:37,656 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:03:37,707 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 17:03:37,712 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 17:03:37,714 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 17:03:37,715 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 17:03:37,717 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 17:03:37,734 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 17:03:37,734 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 17:03:37,734 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 17:03:37,735 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 17:03:37,735 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 17:03:37,736 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 17:03:37,736 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 17:03:37,736 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 17:03:37,736 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 17:03:37,737 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 2
+2015-03-24 17:03:37,737 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.2
+2015-03-24 17:03:37,742 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 17:03:37,747 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 17:03:37,764 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [2] and player [10]
+2015-03-24 17:03:37,772 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [2] and player [20]
+2015-03-24 17:03:37,774 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 17:03:37,776 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 17:03:37,962 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 17:03:37,963 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 17:03:37,965 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 17:03:37,996 [MQ Session Task] DEBUG root                           - sending game id = 2
+2015-03-24 17:03:43,546 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 17:03:43,546 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 17:03:43,546 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 17:04:51,093 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 17:04:51,094 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+2015-03-24 17:04:51,094 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 17:06:03,257 [MQ Session Task] DEBUG root                           - received a move request...: 10
+2015-03-24 17:06:04,912 [MQ Session Task] DEBUG root                           - received a move request...: 10
+2015-03-24 17:06:21,010 [WT-EventQueue-0] DEBUG root                           - Game ended id = 1
+2015-03-24 17:07:26,900 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57267-1427215974712-1:0) is shutting down
+2015-03-24 17:07:32,008 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:07:32,009 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:07:32,008 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:07:32,011 [243.23.149:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:07:32,015 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.cs.nott.ac.uk:8088 Stopped
+2015-03-24 17:07:32,027 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.cs.nott.ac.uk-57267-1427215974712-1:0) stopped
+2015-03-24 17:37:42,986 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 17:37:42,986 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 17:37:43,149 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 17:37:43,192 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 17:37:43,263 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 17:37:43,265 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 17:37:43,291 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.025 seconds.
+2015-03-24 17:37:43,512 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 17:37:43,554 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 17:37:43,556 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 17:37:43,556 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-58112-1427218663010-1:0) started
+2015-03-24 17:37:43,560 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 17:37:43,597 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 17:37:43,659 [127.0.0.1:58117] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 17:37:43,660 [127.0.0.1:58117] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 17:37:43,660 [127.0.0.1:58117] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 17:37:43,732 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 17:37:43,733 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 17:37:43,734 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 17:38:07,482 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 17:38:58,123 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 17:39:01,534 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:39:01,817 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 17:39:01,856 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 17:39:01,856 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 17:39:01,859 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 17:39:01,860 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 17:39:01,861 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 17:39:01,862 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 17:39:01,863 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 17:39:01,864 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 17:39:01,864 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 17:39:01,866 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 17:39:01,867 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 17:39:01,867 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 17:39:01,868 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 17:39:01,870 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 17:39:01,872 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 17:39:01,873 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 17:39:01,873 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 17:39:01,879 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 17:39:01,883 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 17:39:01,884 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 17:39:01,886 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 17:39:01,888 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 17:39:02,006 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 17:39:02,007 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 17:39:02,014 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 17:39:02,017 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 17:39:59,080 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 17:39:59,081 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 17:39:59,081 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 17:40:31,153 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 17:40:31,153 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+2015-03-24 17:40:31,153 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 17:41:45,401 [MQ Session Task] DEBUG root                           - received a move request...: 10
+2015-03-24 17:41:46,832 [MQ Session Task] DEBUG root                           - received a move request...: 10
+2015-03-24 17:42:02,035 [MQ Session Task] DEBUG root                           - received a move request...: 10
+2015-03-24 17:42:12,217 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 17:43:37,773 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-58112-1427218663010-1:0) is shutting down
+2015-03-24 17:43:38,606 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:43:38,610 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 17:43:38,614 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 17:43:38,625 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-58112-1427218663010-1:0) stopped
+2015-03-24 18:38:01,316 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 18:38:01,316 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 18:38:01,480 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 18:38:01,565 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 18:38:01,732 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 18:38:01,734 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 18:38:01,764 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.03 seconds.
+2015-03-24 18:38:02,013 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 18:38:02,018 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 18:38:02,054 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 18:38:02,054 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-61664-1427222281341-1:0) started
+2015-03-24 18:38:02,058 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 18:38:02,113 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 18:38:02,156 [127.0.0.1:61667] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 18:38:02,157 [127.0.0.1:61667] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 18:38:02,157 [127.0.0.1:61667] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 18:38:02,329 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 18:38:02,341 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 18:38:02,342 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 18:38:02,351 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:38:02,354 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:38:02,356 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:38:12,627 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 18:38:30,244 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:38:30,531 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:38:30,576 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 18:38:30,576 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 18:38:30,578 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 18:38:30,578 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 18:38:30,580 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 18:38:30,581 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 18:38:30,582 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 18:38:30,582 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 18:38:30,582 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 18:38:30,584 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 18:38:30,586 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 18:38:30,586 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 18:38:30,587 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 18:38:30,590 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 18:38:30,590 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 18:38:30,592 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 18:38:30,593 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 18:38:30,593 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 18:38:30,605 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 18:38:30,606 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 18:38:30,608 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 18:38:30,609 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 18:38:30,710 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 18:38:30,711 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 18:38:30,717 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 18:38:30,720 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 18:38:39,966 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 18:38:39,967 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 18:38:39,967 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 18:39:38,728 [MQ Session Task] DEBUG root                           - received a discourse mesage... 10
+2015-03-24 18:39:38,728 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+2015-03-24 18:39:38,728 [MQ Session Task] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+2015-03-24 18:43:27,053 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-61664-1427222281341-1:0) is shutting down
+2015-03-24 18:43:32,088 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 18:43:32,089 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 18:43:32,088 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 18:43:32,102 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-61664-1427222281341-1:0) stopped
+2015-03-24 18:46:12,593 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 18:46:12,594 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 18:46:12,768 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 18:46:12,810 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 18:46:12,893 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 18:46:12,894 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 18:46:12,920 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.025 seconds.
+2015-03-24 18:46:13,225 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 18:46:13,230 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 18:46:13,283 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 18:46:13,283 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-62507-1427222772630-1:0) started
+2015-03-24 18:46:13,287 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 18:46:13,320 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 18:46:13,387 [127.0.0.1:62513] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 18:46:13,388 [127.0.0.1:62513] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 18:46:13,388 [127.0.0.1:62513] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 18:46:13,464 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 18:46:13,465 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 18:46:13,466 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 18:46:23,193 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:46:23,840 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:47:10,429 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:47:10,711 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:47:10,722 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 18:47:10,723 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 18:47:10,725 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 18:47:10,725 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 18:47:10,727 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 18:47:10,727 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 18:47:10,728 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 18:47:10,729 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 18:47:10,729 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 18:47:10,730 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 18:47:10,731 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 18:47:10,732 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 18:47:10,732 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 18:47:10,734 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 18:47:10,736 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 18:47:10,737 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 18:47:10,739 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 18:47:10,740 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 18:47:10,751 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 18:47:10,753 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 18:47:10,759 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 18:47:10,760 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 18:47:33,354 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-62507-1427222772630-1:0) is shutting down
+2015-03-24 18:47:38,302 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 18:47:38,318 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 18:47:38,322 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 18:47:38,334 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-62507-1427222772630-1:0) stopped
+2015-03-24 18:47:47,971 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 18:47:47,972 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 18:47:48,144 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 18:47:48,201 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 18:47:48,305 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 18:47:48,307 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 18:47:48,340 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.033 seconds.
+2015-03-24 18:47:48,618 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 18:47:48,629 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 18:47:48,678 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 18:47:48,678 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-62589-1427222868002-1:0) started
+2015-03-24 18:47:48,682 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 18:47:48,720 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 18:47:48,784 [127.0.0.1:62594] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 18:47:48,785 [127.0.0.1:62594] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 18:47:48,785 [127.0.0.1:62594] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 18:47:48,857 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 18:47:48,858 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 18:47:48,859 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 18:47:49,306 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 18:47:57,155 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 18:48:06,944 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:48:07,247 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 18:48:07,260 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 18:48:07,260 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 18:48:07,262 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 18:48:07,263 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 18:48:07,264 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 18:48:07,264 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [WebCTChipRevelationConfig] class name: WebCTChipRevelationConfig
+2015-03-24 18:48:07,265 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 18:48:07,266 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [WebCTChipRevelationConfig] 
+2015-03-24 18:48:07,266 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 18:48:07,267 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 18:48:07,268 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 18:48:07,269 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 18:48:07,269 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 18:48:07,270 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 18:48:07,272 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 18:48:07,274 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 18:48:07,274 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 18:48:07,274 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 18:48:07,284 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 18:48:07,285 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 18:48:07,287 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 18:48:07,288 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 18:48:07,379 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 18:48:07,379 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 18:48:07,387 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 18:48:07,389 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 18:48:17,821 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 18:48:17,822 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.ChipsRevelationDiscourseMessage
+2015-03-24 18:48:17,822 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 18:54:27,753 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 18:57:37,881 [WT-EventQueue-0] DEBUG root                           - Game ended id = 0
+2015-03-24 19:19:34,317 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-62589-1427222868002-1:0) is shutting down
+2015-03-24 19:19:38,950 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:19:38,954 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 19:19:38,952 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:19:38,984 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-62589-1427222868002-1:0) stopped
+2015-03-24 19:39:05,292 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 19:39:05,293 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 19:39:05,460 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 19:39:05,512 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 19:39:05,632 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 19:39:05,633 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 19:39:05,658 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.024 seconds.
+2015-03-24 19:39:05,935 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 19:39:05,939 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 19:39:05,987 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 19:39:05,988 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-51440-1427225945320-1:0) started
+2015-03-24 19:39:05,994 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 19:39:06,077 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 19:39:06,149 [127.0.0.1:51444] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 19:39:06,149 [127.0.0.1:51444] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 19:39:06,149 [127.0.0.1:51444] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 19:39:06,227 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 19:39:06,230 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 19:39:06,236 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 19:39:08,648 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 19:39:08,661 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 19:39:41,830 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 19:39:55,180 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 19:39:55,463 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 19:39:55,505 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 19:39:55,506 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 19:39:55,507 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 19:39:55,508 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 19:39:55,510 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 19:39:55,510 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [BargainOnlyConfig] class name: BargainOnlyConfig
+2015-03-24 19:39:55,511 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 19:39:55,512 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [BargainOnlyConfig] 
+2015-03-24 19:39:55,512 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 19:39:55,514 [Thread-42      ] INFO  root                           - Admin: Sending "list games" command
+2015-03-24 19:39:55,515 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 19:39:55,515 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 19:39:55,515 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 19:39:55,517 [Thread-45      ] INFO  root                           - Admin: Sending "list configurations" command
+2015-03-24 19:39:55,519 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 19:39:55,519 [MQ Session Task] DEBUG root                           - ADMIN: received a message:  ADD_CONFIGURATION
+2015-03-24 19:39:55,519 [MQ Session Task] DEBUG root                           - ADMIN: successfully added configuration
+2015-03-24 19:39:55,521 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 19:39:55,531 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 19:39:55,533 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 19:39:55,535 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_GAMES
+2015-03-24 19:39:55,536 [MQ Session Task] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+2015-03-24 19:39:55,681 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 19:39:55,682 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 19:39:55,689 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 19:39:55,705 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 19:39:56,343 [Thread-22      ] INFO  BargainOnlyConfig 20 10        - Startup
+2015-03-24 19:39:56,385 [Thread-22      ] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+2015-03-24 19:39:56,385 [Thread-22      ] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+2015-03-24 19:42:58,132 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-51440-1427225945320-1:0) is shutting down
+2015-03-24 19:43:01,016 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:43:01,019 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:43:01,023 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 19:43:01,038 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-51440-1427225945320-1:0) stopped
+2015-03-24 19:44:03,102 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-24 19:44:03,103 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-24 19:44:03,271 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-24 19:44:03,311 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-24 19:44:03,388 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-24 19:44:03,390 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-24 19:44:03,425 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.035 seconds.
+2015-03-24 19:44:03,694 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-24 19:44:03,747 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-24 19:44:03,764 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-24 19:44:03,764 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-51695-1427226243129-1:0) started
+2015-03-24 19:44:03,778 [main           ] INFO  root                           - Started the JMS Server
+2015-03-24 19:44:03,818 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-24 19:44:03,890 [127.0.0.1:51701] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-24 19:44:03,890 [127.0.0.1:51701] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-24 19:44:03,891 [127.0.0.1:51701] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-24 19:44:03,968 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-24 19:44:03,969 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-24 19:44:03,970 [main           ] INFO  root                           - Starting spaces 1
+2015-03-24 19:44:08,753 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [10.154.152.216] of type 
+2015-03-24 19:44:23,150 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [10.154.152.216] of type 
+2015-03-24 19:44:48,159 [Thread-35      ] INFO  root                           - Connecting Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 19:44:48,444 [Thread-35      ] INFO  root                           - Connected Admin to Colored Trails Server...tcp://127.0.0.1:8088
+2015-03-24 19:44:48,483 [Thread-35      ] INFO  root                           - Admin: Sending config class
+2015-03-24 19:44:48,484 [Thread-35      ] INFO  root                           - Admin: Sending config class name
+2015-03-24 19:44:48,486 [MQ Session Task] INFO  root                           - Received message from admin: SET_CONFIGURATION
+2015-03-24 19:44:48,486 [MQ Session Task] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+2015-03-24 19:44:48,487 [Thread-39      ] INFO  root                           - Admin: Sending "new game" command
+2015-03-24 19:44:48,488 [MQ Session Task] DEBUG root                           - Administrator: adding configuration file [PhaseTestConfig] class name: PhaseTestConfig
+2015-03-24 19:44:48,489 [MQ Session Task] INFO  root                           - Received message from admin client:NEW_GAME
+2015-03-24 19:44:48,490 [MQ Session Task] DEBUG root                           - Administrator: newGame configName = [PhaseTestConfig] 
+2015-03-24 19:44:48,490 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [10]
+2015-03-24 19:44:48,492 [MQ Session Task] DEBUG root                           - Administrator: newGame adding Player: [20]
+2015-03-24 19:44:48,493 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- config file
+2015-03-24 19:44:48,493 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+2015-03-24 19:44:48,496 [MQ Session Task] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+2015-03-24 19:44:48,497 [MQ Session Task] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+2015-03-24 19:44:48,509 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+2015-03-24 19:44:48,510 [MQ Session Task] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+2015-03-24 19:44:48,609 [MQ Session Task] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+2015-03-24 19:44:48,610 [MQ Session Task] DEBUG root                           - sendGameStart
+2015-03-24 19:44:48,618 [MQ Session Task] DEBUG root                           - sendGameStart to controller
+2015-03-24 19:44:48,620 [MQ Session Task] DEBUG root                           - sending game id = 0
+2015-03-24 19:44:56,788 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 19:44:56,789 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+2015-03-24 19:44:56,789 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 19:46:07,714 [MQ Session Task] DEBUG root                           - received a discourse mesage... 20
+2015-03-24 19:46:07,714 [MQ Session Task] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+2015-03-24 19:46:07,714 [MQ Session Task] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+2015-03-24 19:49:08,047 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-51695-1427226243129-1:0) is shutting down
+2015-03-24 19:49:08,807 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:49:08,811 [54.152.216:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-24 19:49:08,815 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-24 19:49:08,826 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-51695-1427226243129-1:0) stopped

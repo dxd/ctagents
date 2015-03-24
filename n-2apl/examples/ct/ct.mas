@@ -1,5 +1,5 @@
 <apaplmas>
-  <environment name="space" file="envCT.jar"></environment>
+  <environment name="ctenv" file="envCT.jar"></environment>
   <agent name="agent10" file="pddAgent.2apl"/>
   
 </apaplmas>

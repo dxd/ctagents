@@ -162,9 +162,9 @@ public class EnvCT  extends Environment implements ExternalTool{
 		Time t = new Time();
 		//TimeEntry e = new TimeEntry();
 		clock++;
-		System.out.println(clock);
+		//System.out.println(clock);
 		t.setClock(clock);
-		space.write(t);
+		//space.write(t);
 
 		return clock;
 	}
@@ -193,7 +193,7 @@ public class EnvCT  extends Environment implements ExternalTool{
      * @param String agentname containing the name of the agent calling this method.
      */
      public void addAgent(String agentname) {
-    	register(agentname);
+    	//register(agentname);
     	 
     	agent = new GenericAgentImpl();
 		agents.put(agentname, agent);
@@ -687,6 +687,7 @@ public class EnvCT  extends Environment implements ExternalTool{
 
 
     public void makeProposal(String agentname, APLNum responder) {
+    	System.out.println("[ENV] trying to make a proposal: " + agentname);
         agents.get(agentname).makeProposal(responder.toInt());
     }
 
@@ -784,6 +785,7 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term sendProposal(String agentname, APLNum playerpin,
                                                     APLList requestedchips) {
+    	 System.out.println("[ENV] trying to send a proposal: " + agentname);
          ClientGameStatus cgs = agents.get(agentname).getGameStatus();
          LinkedList<Term> chips = requestedchips.toLinkedList();
        //  HashMap<String, Integer> proposal = new HashMap();
@@ -833,6 +835,7 @@ public class EnvCT  extends Environment implements ExternalTool{
      * @param messageid The message which is subject to the response
      */
     public void sendResponse(String agentname, APLIdent response, APLNum messageid) {
+    	System.out.println("[ENV] trying to send a response a: " + agentname);
         agents.get(agentname).sendResponse(response.toString(), messageid.toInt());
     }
 
