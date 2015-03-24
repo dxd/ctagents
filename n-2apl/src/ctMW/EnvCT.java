@@ -174,7 +174,8 @@ public class EnvCT  extends Environment implements ExternalTool{
 	 */
 	public EnvCT(){
 		super();
-		
+		MessageListener ml = new MessageListener(this);
+        new Thread(ml).start();
 		try { initializeGS(); initializeOOPL();} catch (Exception e) { e.printStackTrace(); }
 	}
 	
