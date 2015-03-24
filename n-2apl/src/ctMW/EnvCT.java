@@ -60,7 +60,7 @@ public class EnvCT  extends Environment implements ExternalTool{
 	private Prolog2Java p2j;
 	private GigaSpace space;
 	private DataEventSession session;
-	public static String[] agents1 = {"a1", "a2", "a3", "t1", "c1"};
+	public static String[] agents1 = {"agent10"};
 	private Utilities utilities;
 	
 	public GenericAgentImpl agent;

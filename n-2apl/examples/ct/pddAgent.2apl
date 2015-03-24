@@ -1,0 +1,62 @@
+Include: basic.2apl
+
+Beliefs:
+smallPackageType(1).
+
+BeliefUpdates:
+{possiblePartner(X,Y,OLD) or not possiblePartner(X,Y,OLD)}		ChoosePartner(X,Y,NEW)	{not possiblePartner(X,Y,OLD), possiblePartner(X,Y,NEW)}
+{goalPackage(TYPE,XOLD,YOLD) or not goalPackage(TYPE,XOLD,YOLD)}FindGoal(TYPE,X,Y)		{not goalPackage(TYPE,XOLD,YOLD), goalPackage(TYPE,X,Y)}
+
+PG-rules:
+reachedGoal <- not goalpackage(ID) | findGoal()
+reachedGoal <- goalpackage(TYPE,X,Y) | moveStepToGoal(TYPE)
+
+PC-rules:
+choosePartner(X,Y) <- closestPlayerTo(X,Y,L) | {
+	if B(L=[H|T]) then {
+		// TODO: work with trust or coalition value or chips or whatever
+		// for now: choose first one
+		ChoosePartner(X,Y,H)	
+	}
+	else ChoosePartner(X,Y,L)
+}
+
+findGoal() <- not goalPackage(TYPE,Z,W) and agentPos(X,Y) and smallPackageType(TYPE)| {
+	getGoalPos(TYPE);
+	if B(goalPos(TYPE,A,B)) then {
+		FindGoal(TYPE,A,B)
+	}
+}
+
+
+propose() <- goalPackage(TYPE,X,Y) | {
+	choosePartner(X,Y);
+	makeProposal()
+}
+
+// return name and chipset of proposal to
+makeProposal() <- possiblePartner(X,Y,PARTNER) and goalPackage(TYPE,X,Y) and goalPos(TYPE2,X2,Y2) and agentPin(AGENT) | {
+	getGoalId(TYPE,X,Y);
+	requestChips(PARTNER);
+	sendProposal(PARTNER)
+}
+
+makeResponse(ID) <- myChips(CHIPS) | {
+	// VARIABLES:
+	// TRUST
+	// OWN RESOURCES
+	// ALTERNATIVES
+	// REWARD?
+	// For now: always accept
+	sendResponse(accept,ID)
+}
+
+PR-rules:
+chooseProposedPlayer(X,Y); REST <- true | {
+	findPlayerClosestTo(X,Y)
+}
+
+makeResponse(ID) <- not myChips(CHIPS) | {
+	getMyChips();
+	makeResponse(ID)
+}
