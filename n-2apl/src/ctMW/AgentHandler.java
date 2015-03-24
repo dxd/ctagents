@@ -28,9 +28,9 @@ public class AgentHandler extends UnicastRemoteObject implements RemoteEventList
 	String agent;
 	HashMap<String, Timestamp> timestamps;
 	
-	public AgentHandler(EnvCT envGeoSense, String agent) throws RemoteException {
+	public AgentHandler(EnvCT envCT, String agent) throws RemoteException {
 		
-		this.envCT = envGeoSense;
+		this.envCT = envCT;
 		this.agent = agent;
 		timestamps = new HashMap<String,Timestamp>();
     }
