@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import mwspaces.FairMaxAgent;
 import mwspaces.GenericAgentImpl;
 import net.jini.core.transaction.TransactionException;
 import oopl.DistributedOOPL;
@@ -63,8 +64,8 @@ public class EnvCT  extends Environment implements ExternalTool{
 	public static String[] agents1 = {"agent10"};
 	private Utilities utilities;
 	
-	public GenericAgentImpl agent;
-	protected static Map<String, GenericAgentImpl> agents = new HashMap();
+	public FairMaxAgent agent;
+	protected static Map<String, FairMaxAgent> agents = new HashMap();
 	
 	/*
 	 * Just for testing.
@@ -797,7 +798,7 @@ public class EnvCT  extends Environment implements ExternalTool{
          String[] ctcolors = new String[ctclr.size()];
          ctclr.toArray(ctcolors);
 
-         HashMap<String, String> colorsmap = new HashMap();
+         HashMap<String, String> colorsmap = new HashMap<String, String>();
 
          // link the normal ct colors to their lower case versions
          for (String color: ctcolors) {

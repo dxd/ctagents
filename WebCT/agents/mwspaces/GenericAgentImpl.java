@@ -932,7 +932,7 @@ public class GenericAgentImpl implements GenericAgent {
             }
         }
 
-        int messageId = getMessageIdCounter();
+        int messageId = -1;
 
         logger.log(Level.INFO, "[GAI] Id for this message (proposal): " + messageId);
 
