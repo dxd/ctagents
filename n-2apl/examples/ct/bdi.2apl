@@ -56,7 +56,9 @@ PG-rules:
 
 propose <- phase(communicationphase) | makeProposal()
 
-respond <- received(TYPE,ID,open) and phase(communicationphase) | makeResponse(ID)
+//respond <- received(TYPE,ID,open) and phase(communicationphase) | makeResponse(ID)
+
+received(TYPE,ID,closed) <- phase(communicationphase) | makeResponse(ID)
 
 initialized <- event(game_initialized) | {
     dropgoal(initialized);
@@ -64,7 +66,7 @@ initialized <- event(game_initialized) | {
 }
 
 update <- event(phasechange) | update()
-
+update <- phase(communicationphase) and role(X,proposer) | makeProposal()
 
 PC-rules:
 event(FUNCTION, NAME) <- true | {
@@ -261,7 +263,8 @@ sendProposal(PIN, CHIPS) <- true | {
 	Sent(proposal,X,open)
 }
 
-makeProposal()<- chipsRedundant(CHIPS) and opponentPin(PIN) | {
+makeProposal()<- opponentPin(PIN) and agentId(ID) | {
+	GetchipsRedundant(ID,CHIPS);
 	sendProposal(PIN, CHIPS)
 }
 
