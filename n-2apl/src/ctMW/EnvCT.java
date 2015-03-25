@@ -116,7 +116,7 @@ public class EnvCT  extends Environment implements ExternalTool{
 	
 		
 		public void initializeOOPL() throws RemoteException {
-			registerOrg();
+			//registerOrg();
 			p2j = new Prolog2Java();
 			// Starting the normative system:
 			oopl = new DistributedOOPL(); // Create interpreter object
@@ -176,7 +176,8 @@ public class EnvCT  extends Environment implements ExternalTool{
 		super();
 		MessageListener ml = new MessageListener(this);
         new Thread(ml).start();
-		try { initializeGS(); initializeOOPL();} catch (Exception e) { e.printStackTrace(); }
+		try { //initializeGS(); 
+		initializeOOPL();} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	
@@ -673,9 +674,10 @@ public class EnvCT  extends Environment implements ExternalTool{
     public Term getRole(String agentname, APLNum apl_id)
                         throws ExternalActionFailedException {
 
-        int id = apl_id.toInt();
-        String role = agents.get(agentname).getRole(id);
-        APLIdent apl_role = new APLIdent(role);
+        //int id = apl_id.toInt();
+        //String role = agents.get(agentname).getRole(id);
+        //TODO remove hack
+        APLIdent apl_role = new APLIdent("proposer");
         return apl_role;
 
     }

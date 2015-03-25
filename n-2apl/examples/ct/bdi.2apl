@@ -69,7 +69,7 @@ update <- event(phasechange) | update()
 PC-rules:
 event(FUNCTION, NAME) <- true | {
 	@ctenv( functionToList(FUNCTION), LIST); 
-	if B(LIST=[TYPE,ID]) then { 
+	if B(LIST=[actionresult([TYPE,ID])]) then { 
 		//Received a proposal
 		if B(TYPE=proposal) then {
 			ReceivedMessage(TYPE,ID,open);
@@ -77,13 +77,13 @@ event(FUNCTION, NAME) <- true | {
 			adopta(received(TYPE,ID,closed))
 		}
 	}
-	else if B(LIST=[TYPE,ID,RESPONSE]) then {	
+	else if B(LIST=[actionresult([TYPE,ID,RESPONSE])]) then {	
 		// Received a response
 		if B(TYPE=response) then {
 			ReceivedMessage(RESPONSE,ID)
 		}
 	}
-	else if B(LIST=[TYPE]) then {
+	else if B(LIST=[actionresult([TYPE])]) then {
 		// Received an event
 		ReceivedEvent(TYPE)
 	}	
@@ -106,18 +106,20 @@ extractPlayers(X,Y,LIST) <- true | {
 
 getId() <- true | {
 	@ctenv( getAgentId(), L1);
-	GetAgentId(L1)
+	B( L1 = [actionresult(X)]);
+	GetAgentId(X)
 }
 
 getPhase() <- true | {
 	@ctenv( getPhase(), L1);
-	GetPhase(L1)
+	B( L1 = [actionresult(X)]);
+	GetPhase(X)
 }
 
 
 getPos() <- true | {
 	@ctenv( getAgentPos(), L1);
-	B(L1=[X,Y]);
+	B( L1 = [actionresult(  [X,Y] )]);
 	GetAgentPos(X,Y)
 }
 
@@ -125,90 +127,106 @@ getPos() <- true | {
 // Returns the additional chips that the agent needs to reach its goal
 getChipsNeeded(OPPID) <- true | {
 	@ctenv( getChipsNeeded(OPPID), L1);
-	GetChipsNeeded(L1)
+	B( L1 = [actionresult(X)]);
+	GetChipsNeeded(X)
 }
 
 getChips() <- true | {
 	@ctenv( getAgentChips(), L1);
-	GetAgentChips(L1)
+	B( L1 = [actionresult(X)]);
+	GetAgentChips(X)
 }
 
 getChipsRedundant() <- agentId(ID) | {
     @ctenv( getChipsRedundant(ID), L1);
-	GetChipsRedundant(ID,L1)
+    B( L1 = [actionresult(X)]);
+	GetChipsRedundant(ID,X)
 }
 
 getOpponentChips() <- opponentPin(PIN) | {
 	@ctenv( getOpponentChips(PIN), L1);
-	GetOpponentChips(L1)
+	B( L1 = [actionresult(X)]);
+	GetOpponentChips(X)
 }
 
 getGoalId(TYPE,X,Y) <- true | {
 	@ctenv( getGoalId(TYPE,X,Y), L1);
-	GetGoalId(L1)
+	if B( L1 = [actionresult(ID)]) then
+		GetGoalId(ID)
 }
 
 getGoalId() <- goalPos(TYPE,X,Y) | {
 	@ctenv( getGoalId(TYPE,X,Y), L1);
-	GetGoalId(L1)
+	if B( L1 = [actionresult(ID)]) then
+		GetGoalId(ID)
 }
 
 getGoalPos(TYPE) <- true | {
 	@ctenv( getGoalPos(TYPE), L1);
-	B(L1=[X,Y]);
-	GetGoalPos(TYPE,X,Y)
+	if B( L1 = [actionresult([X,Y])]) then
+		GetGoalPos(TYPE,X,Y)
 }
 
 // TODO: can only deal with one opponent...
 getOpponentPin() <- true | {
 	@ctenv( getOpponentPin(), L1);
-	GetOpponentPin(L1)
+	B( L1 = [actionresult(X)]);
+	GetOpponentPin(X)
 }
 
 // TODO: can only deal with one opponent... 
 getOpponentId() <- true | {
 	@ctenv( getOpponentId(), L1);
-	GetOpponentId(L1)
+	B( L1 = [actionresult(X)]);
+	GetOpponentId(X)
 }
 
 // TODO: can only deal with one opponent...
 getOpponentPos() <- true | {
 	@ctenv( getOpponentPos(), L1);
-	B(L1=[X,Y]);
+	B( L1 = [actionresult([X,Y])]);
 	GetOpponentPos(X,Y)	
 }
 
 getPin() <- true | {
-	@ctenv( getAgentPin(), PIN);
-	GetAgentPin(PIN)
+	@ctenv( getAgentPin(), L1);
+	B( L1 = [actionresult(X)]);
+	GetAgentPin(X)
 }
 
 
 
 
 getRole(ID) <- true | {
-	@ctenv( getRole(ID), ROLE);
-	GetRole(ID, ROLE)
+	@ctenv( getRole(ID), L1);
+	if B( L1 = [actionresult(X)]) then
+		{GetRole(ID, X)}
+	else 
+		{GetRole(ID,proposer)}
 }
 
 getScoreAfterExchange(ID,MSGID) <- true | {
 	@ctenv( getScoreAfterExchange(ID,MSGID), L1);
-	GetScoreAfterExchange(ID,L1)
+	B( L1 = [actionresult(X)]);
+	GetScoreAfterExchange(ID,X)
 }
 
 getScoreAfterExchange(ID,CHIPS) <- true | {
 	@ctenv( getScoreAfterExchange(ID,CHIPS), L1);
-	GetScoreAfterExchange(ID,L1)
+	B( L1 = [actionresult(X)]);
+	GetScoreAfterExchange(ID,X)
 }
 
 getScore(ID) <- true | {
 	@ctenv( getScore(ID), L1);
-	GetScore(ID,L1)
+	B( L1 = [actionresult(X)]);
+	GetScore(ID,X)
 }	
 
 getScoreCurrentChips(ID) <- true | {
 	@ctenv( getScoreCurrentChips(ID), L1);
-	GetScoreCurrentChips(ID,L1)
+	B( L1 = [actionresult(X)]);
+	GetScoreCurrentChips(ID,X)
 }
 
 initialize() <- initialized(no) | {
@@ -219,25 +237,28 @@ initialize() <- initialized(no) | {
 	getPos();
 	getOpponentPos();
 	getGoalPos(0); 
-	getGoalId();
+	if B(goalPos(TYPE,X,Y)) then getGoalId(TYPE,X,Y);
     if B(agentId(MYID)) then {getRole(MYID)} ;
 	Initialize() 
 }
 
 moveStepToGoal(TYPE) <- agentPos(AX,AY) and goalId(ID) | {
 	@ctenv( moveStepToGoal(AX,AY,ID), L1);
-	MoveStepToGoal(L1)
+	B( L1 = [actionresult(X)]);
+	MoveStepToGoal(X)
 }
 
 // TODO: give a goalidentifier to requestChips
 requestChips(OPPPIN) <- opponentId(OPPID) | {
-	@ctenv(requestChips(OPPPIN,OPPID), LIST);
-	RequestChips(OPPID,LIST)
+	@ctenv(requestChips(OPPPIN,OPPID), L1);
+	B( L1 = [actionresult(X)]);
+	RequestChips(OPPID,X)
 }
 
 sendProposal(PIN, CHIPS) <- true | {
 	@ctenv( sendProposal(PIN,CHIPS), ID);
-	Sent(proposal,ID,open)
+	B( L1 = [actionresult(X)]);
+	Sent(proposal,X,open)
 }
 
 makeProposal()<- chipsRedundant(CHIPS) and opponentPin(PIN) | {
@@ -266,51 +287,4 @@ update() <- agentId(MYID) | {
 	getPhase();
     getRole(MYID);
     if B(event(phasechange)) then Updated()
-}
-
-
-PR-rules:
-@ctenv( moveStepToGoal(X,Y,Z,W), L1); REST <- true | {
-	MoveStepToGoal(no);
-	update();
-	REST
-}
-
-makeProposal(); REST <- true | {
-	REST
-}
-
-sendResponse(); REST <- true | {
-    REST
-}
-
-
-RemoveClosePlayer(X,Y); REST <- true | {
-	REST
-}
-
-getRole(ID); REST <- true | {
-    REST
-}
-
-extractPlayers(LIST); REST <- true | {
-	REST
-}
-
-sendProposal(PIN,CHIPS); REST <- true | {
-	REST
-}
-
-@ctenv(sendProposal(PIN,CHIPS), L1); Sent(X,Y,Z); REST <- true | {
-	Failed(sendProposal);
-	REST
-}
-
-@ctenv(requestChips(PIN,ID), L1); RequestChips(PARTNER,LIST); REST <- true | {
-	Failed(requestChips);
-	REST
-}
-
-Updated(); REST <- true | {
-    REST
 }
