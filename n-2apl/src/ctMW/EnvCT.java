@@ -15,15 +15,17 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mwspaces.FairMaxAgent;
-import mwspaces.GenericAgentImpl;
 import net.jini.core.transaction.TransactionException;
 import oopl.DistributedOOPL;
 import oopl.GUI.GUI;
 import tuplespace.*;
 import tuplespace.Prohibition;
 import tuplespace.Sanction;
+import RecipExperiment.RecipConstants;
 import apapl.Environment;
 import apapl.ExternalActionFailedException;
 import apapl.data.*;
@@ -40,15 +42,30 @@ import com.gigaspaces.events.DataEventSession;
 import com.gigaspaces.events.EventSessionConfig;
 import com.gigaspaces.events.EventSessionFactory;
 
+import ctagents.recipagents.PhaseWaiter;
+import ctagents.recipagents.RecipAgentAdaptor;
+import edu.harvard.eecs.airg.coloredtrails.agent.ColoredTrailsClientImpl;
+import edu.harvard.eecs.airg.coloredtrails.alglib.BestUse;
+import edu.harvard.eecs.airg.coloredtrails.alglib.ShortestPaths;
 import edu.harvard.eecs.airg.coloredtrails.client.ClientGameStatus;
+import edu.harvard.eecs.airg.coloredtrails.shared.Scoring;
+import edu.harvard.eecs.airg.coloredtrails.shared.ScoringUtility;
+import edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage;
+import edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage;
+import edu.harvard.eecs.airg.coloredtrails.shared.discourse.DiscourseMessage;
 import edu.harvard.eecs.airg.coloredtrails.shared.types.ChipSet;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.Goal;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.Path;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.Phases;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.PlayerStatus;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.RowCol;
 
 
 /*
  * Extends Environment to be compatible with 2APL and implements ExternalTool to 
  * be compatible with my Prolog engine. 
  */
-public class EnvCT  extends Environment implements ExternalTool{
+public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdaptor{
 	//public static JavaSpace space; // shared data
 	public int clock = 0;
 	public DistributedOOPL oopl; // norm interpreter
@@ -64,8 +81,14 @@ public class EnvCT  extends Environment implements ExternalTool{
 	public static String[] agents1 = {"agent10"};
 	private Utilities utilities;
 	
-	public FairMaxAgent agent;
-	protected static Map<String, FairMaxAgent> agents = new HashMap();
+	private ColoredTrailsClientImpl client;
+	/** indicates whether game state has been initialized */
+//	private boolean game_initialized = false;
+//	private ChipSet sending;
+	ClientGameStatus cgs = null;
+    private double bestScore = -1;
+	//private Hashtable messages;
+	//protected static Map<String, FairMaxAgent> agents = new HashMap();
 	
 	/*
 	 * Just for testing.
@@ -179,17 +202,23 @@ public class EnvCT  extends Environment implements ExternalTool{
         new Thread(ml).start();
 		try { //initializeGS(); 
 		initializeOOPL();} catch (Exception e) { e.printStackTrace(); }
+		initializeCThook();
 	}
 	
-	
+
+
 	/////////////////////////CT
 	public void throwEvents(APLFunction event, String ... receivers) {
         throwEvent(event, receivers);
     }
+	
+	private void initializeCThook() {
+		client = new ColoredTrailsClientImpl(this.getClass().getCanonicalName());
 		
+	}
 
 	/**
-     * Add a new agent to the game by creating a new CT GenericAgentImpl object.
+     * Add a new agent to the game by creating a new CT FairMaxAgent object.
 	 * @Override inherited method from Environment class.
      * Is called immediately after initialization.
      * @param String agentname containing the name of the agent calling this method.
@@ -197,16 +226,21 @@ public class EnvCT  extends Environment implements ExternalTool{
      public void addAgent(String agentname) {
     	//register(agentname);
     	 
-    	agent = new GenericAgentImpl();
-		agents.put(agentname, agent);
-		System.out.println("[ENV] Added agent to list of agents: " + agents);
+    	//FairMaxAgent agent = new FairMaxAgent();
+		//agents.put(agentname, agent);
+		//System.out.println("[ENV] Added agent to list of agents: " + agents);
 
         // agents.get(agentname).setClientName(agentname);
         // TODO:
         // hack to overcome naming convention problem
-        agents.get(agentname).setClientName("10");
+        setClientName("10");
 
-        agents.get(agentname).start();
+        start();
+        
+        client.addDiscourseMessageEventListener(this);
+        client.addPhasesAdvancedEventListener(this);
+        client.addGameStartEventListener(this);
+        client.addGameEndedEventListener(this);
 		System.out.println("[ENV] Added a new agent to the game by the name of "
                 + agentname + ".");   
 	}
@@ -217,12 +251,13 @@ public class EnvCT  extends Environment implements ExternalTool{
          int opponentid = oppid.toInt();
         // String goalid = id.toString();
          int opponentpin = opppin.toInt();
-         ChipSet chips = agents.get(agentname).requestChips(opponentpin, opponentid);
+         ChipSet myChips = cgs.getMyPlayer().getChips();
+         //ChipSet chips = myChips.getMissingChips(cs)
 
-         Term apllist = convertChipSet(chips);
+         //Term apllist = convertChipSet(chips);
 
-         System.out.println("[ENV] REQUEST CHIPS: RETURNING LIST");
-         return apllist; 
+         //System.out.println("[ENV] REQUEST CHIPS: RETURNING LIST");
+         return null; 
      }
 
 
@@ -341,12 +376,22 @@ public class EnvCT  extends Environment implements ExternalTool{
          int p = pin.toInt();
          //System.out.println("[ENV] Name (PIN!) of the player who's chipset we want: " +p);
 
-         ChipSet chips = agents.get(agentname).getChips(p);
+         ChipSet chips = cgs.getPlayerByPerGameId(getPerGameID(p)).getChips();
          Term aplterm = convertChipSet(chips);
          return aplterm;
      }
 
-
+     private int getPerGameID(int pin) {
+ 		
+ 		ClientGameStatus cgs = client.getGameStatus();
+ 		for( PlayerStatus player : cgs.getPlayers() ) {
+ 			int playerID = player.getPin();
+ 			if( playerID != pin )
+ 				return player.getPerGameId();
+ 		}
+ 		throw new RuntimeException("Responder ID not found.");
+ 		//return -1;
+ 	}
 
      /**
       * Return a list of chips of the agent
@@ -355,12 +400,9 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getAgentChips(String agentname) throws ExternalActionFailedException {
 
-         int p = agents.get(agentname).getAgentPin();
+         int p = this.cgs.getMyPlayer().getPin();
          //System.out.println("[ENV] Name (PIN!) of the player who's chipset we want: " +p);
-
-         ChipSet chips = agents.get(agentname).getChips(p);
-         Term aplterm = convertChipSet(chips);
-         return aplterm;
+         return getOpponentChips(agentname, new APLNum(p));
      }
 
 
@@ -371,7 +413,13 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getChipsNeeded(String agentname, APLNum opponentid) throws ExternalActionFailedException {
          int opp_id = opponentid.toInt();
-         ChipSet missing = agents.get(agentname).getChipsNeeded(opp_id);
+         ChipSet myChips = cgs.getMyPlayer().getChips();
+         ArrayList<Path> shortestPaths = ShortestPaths.getShortestPathsToFirstGoal(cgs.getMyPlayer().getPosition(),
+					cgs.getBoard(), cgs.getScoring());
+		Path chosenPath = shortestPaths.remove(0); // Get the best path available
+		ChipSet requiredChipsForPath = chosenPath.getRequiredChips(cgs.getBoard());
+		ChipSet missing = myChips.getMissingChips(requiredChipsForPath);
+         //ChipSet missing = agents.get(agentname).getChipsNeeded(opp_id);
          System.out.println("[ENV] Received the missing chipset: " + missing);
 
          Term aplterm = convertChipSet(missing);
@@ -385,11 +433,15 @@ public class EnvCT  extends Environment implements ExternalTool{
       * @param agentname
       */
      public Term getChipsRedundant(String agentname, APLIdent agentid) throws ExternalActionFailedException {
-         String id = agentid.toString();
-         ChipSet redundant = agents.get(agentname).getChipsRedundant(id);
-         System.out.println("[ENV] Received the redundant chipset: " + redundant);
+    	 ChipSet myChips = cgs.getMyPlayer().getChips();
+    	 ArrayList<Path> shortestPaths = ShortestPaths.getShortestPathsToFirstGoal(cgs.getMyPlayer().getPosition(),
+					cgs.getBoard(), cgs.getScoring());
+		Path chosenPath = shortestPaths.remove(0); // Get the best path available
+		ChipSet requiredChipsForPath = chosenPath.getRequiredChips(cgs.getBoard());
+ 		ChipSet extra = myChips.getExtraChips(requiredChipsForPath);
+         System.out.println("[ENV] Received the redundant chipset: " + extra);
 
-         Term aplterm = convertChipSet(redundant);
+         Term aplterm = convertChipSet(extra);
 
          return aplterm;
      }
@@ -403,7 +455,7 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getAgentId(String agentname)
             throws ExternalActionFailedException {
-        int id = agents.get(agentname).getAgentId();
+        int id = cgs.getPerGameId();
 
         APLNum aplid = new APLNum(id);
 		return aplid;
@@ -418,12 +470,19 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getOpponentId(String agentname)
             throws ExternalActionFailedException {
-        int id = agents.get(agentname).getOpponentId();
+    	
+    			int proposerID = cgs.getPerGameId();
+    			ClientGameStatus cgs = client.getGameStatus();
+    			for( PlayerStatus player : cgs.getPlayers() ) {
+    				int playerID = player.getPerGameId();
+    				if( playerID != proposerID )
+    					return new APLNum(playerID);
+    			}
+    			throw new RuntimeException("Responder ID not found.");
+    			//return -1;
+    		}
 
-        APLNum aplid = new APLNum(id);
-		return aplid;
-
-	}
+	
 
            /**
       * Get the pin of an agent that is not this agent
@@ -433,9 +492,9 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getOpponentPin(String agentname)
             throws ExternalActionFailedException {
-        int pin = agents.get(agentname).getOpponentPin();
+        int pin = Integer.parseInt(getOpponentId(agentname).toString());
 
-        APLNum aplid = new APLNum(pin);
+        APLNum aplid = new APLNum(cgs.getPlayerByPerGameId(pin).getPin());
 		return aplid;
 
 	}
@@ -452,10 +511,12 @@ public class EnvCT  extends Environment implements ExternalTool{
 	public Term getOpponentPos(String agentname)
                             throws ExternalActionFailedException {
         APLList agentPos;
+        int id = Integer.parseInt(getOpponentId(agentname).toString());
+        RowCol rc = cgs.getPlayerByPerGameId(id).getPosition();
         try {
-            int col = agents.get(agentname).getOpponentPosCol();
+            int col = rc.col;
             //System.out.println("[ENV] " + agentname + " received AgentPosCol: " + col);
-            int row = agents.get(agentname).getOpponentPosRow();
+            int row = rc.row;
             //System.out.println("[ENV] " + agentname + " received AgentPosRow: " + row);
             agentPos = new APLList(new Term[] {
                 new APLNum(col), new APLNum(row)
@@ -477,7 +538,7 @@ public class EnvCT  extends Environment implements ExternalTool{
     public Term getPhase(String agentname)
             throws ExternalActionFailedException {
 
-        String phase = agents.get(agentname).getPhase();
+        String phase = cgs.getPhases().getCurrentPhaseName();
         if (phase.contains(" ")) {
             String[] ph = phase.toLowerCase().split(" ");
             phase = ph[0] + ph[1];
@@ -489,23 +550,14 @@ public class EnvCT  extends Environment implements ExternalTool{
     }
 
 
-    public Term getScoreAfterExchange(String agentname, APLNum id, APLNum apl_msgid) {
-        int perId = id.toInt();
-        int msgid = apl_msgid.toInt();
-        int score = agents.get(agentname).getScoreAfterExchange(perId, msgid);
-
-        APLNum aplscore = new APLNum(score);
-        return aplscore;
-    }
-
-
+  
     /**
      * TODO: extract to chipset conversion in seperate method
      * */
     public Term getScoreAfterExchange(String agentname, APLNum id, APLList requestedchips) {
         int perId = id.toInt();
 
-         ClientGameStatus cgs = agents.get(agentname).getGameStatus();
+        
          LinkedList<Term> chips = requestedchips.toLinkedList();
        //  HashMap<String, Integer> proposal = new HashMap();
          ChipSet chipset = new ChipSet();
@@ -539,9 +591,9 @@ public class EnvCT  extends Environment implements ExternalTool{
              chipset.add(originalcolor, amount);
          }
          
-        int score = agents.get(agentname).getScoreAfterExchange(perId, chipset);
+        //int score = agents.get(agentname).getScoreAfterExchange(perId, chipset);
 
-        APLNum aplscore = new APLNum(score);
+        APLNum aplscore = new APLNum(0);
         return aplscore;
     }
 
@@ -551,21 +603,13 @@ public class EnvCT  extends Environment implements ExternalTool{
      */
     public Term getScore(String agentname, APLNum id) {
         int p = id.toInt();
-        int score = agents.get(agentname).getScore(p);
+        int score = cgs.getPlayerByPerGameId(p).getScore();
 
         APLNum aplscore = new APLNum(score);
         return aplscore;
     }
 
     // 
-    public Term getScoreCurrentChips(String agentname, APLNum apl_id) {
-        int id = apl_id.toInt();
-        int score = agents.get(agentname).getScoreCurrentChips(id);
-
-        APLNum aplscore = new APLNum(score);
-        return aplscore;
-
-    }
     
 
 
@@ -579,7 +623,7 @@ public class EnvCT  extends Environment implements ExternalTool{
       */
      public Term getAgentPin(String agentname)
             throws ExternalActionFailedException {
-        int pin = agents.get(agentname).getAgentPin();
+        int pin = cgs.getMyPlayer().getPin();
 
         APLNum aplpin = new APLNum(pin);
 		return aplpin;
@@ -607,10 +651,11 @@ public class EnvCT  extends Environment implements ExternalTool{
 	public Term getAgentPos(String agentname)
                             throws ExternalActionFailedException {
         APLList agentPos;
+        RowCol rc = cgs.getMyPlayer().getPosition();
         try {
-            int col = agents.get(agentname).getAgentPosCol();
+            int col = rc.col;
             //System.out.println("[ENV] " + agentname + " received AgentPosCol: " + col);
-            int row = agents.get(agentname).getAgentPosRow();
+            int row = rc.row;
             //System.out.println("[ENV] " + agentname + " received AgentPosRow: " + row);
             agentPos = new APLList(new Term[] {
                 new APLNum(col), new APLNum(row)
@@ -642,10 +687,20 @@ public class EnvCT  extends Environment implements ExternalTool{
         int x = xcoor.toInt();
         int y = ycoor.toInt();
 
-        String agentid = agents.get(agentname).getGoalId(t, x, y);
+        RowCol goalloc = new RowCol(x, y);
+        Set<Goal> goals = cgs.getBoard().getGoals();
+        String id = null;
 
-        APLIdent id = new APLIdent(agentid);
-        return id; 
+        for (Goal g : goals) {
+            if (g.getLocation().equals(goalloc)) {
+                id = g.getID();
+                break;
+            }
+        }
+
+       
+        return new APLIdent(id);
+        
     }
 
     // Return the position of a goal of a specific type
@@ -655,10 +710,11 @@ public class EnvCT  extends Environment implements ExternalTool{
         int t = type.toInt();
 
         APLList goalPos;
+        RowCol rc = cgs.getBoard().getGoalLocations(t).get(0);
         try {
-            int col = agents.get(agentname).getGoalPosCol(t);
+            int col = rc.col;
             //System.out.println("[ENV] " + agentname + " received GoalPosCol: " + col);
-            int row = agents.get(agentname).getGoalPosRow(t);
+            int row = rc.row;
             //System.out.println("[ENV] " + agentname + " received GoalPosRow: " + row);
             goalPos = new APLList(new Term[] {
                 new APLNum(col), new APLNum(row)
@@ -675,10 +731,11 @@ public class EnvCT  extends Environment implements ExternalTool{
     public Term getRole(String agentname, APLNum apl_id)
                         throws ExternalActionFailedException {
 
-        //int id = apl_id.toInt();
-        //String role = agents.get(agentname).getRole(id);
-        //TODO remove hack
-        APLIdent apl_role = new APLIdent("proposer");
+        int id = apl_id.toInt();
+        String role = cgs.getMyPlayer().getRole();
+
+    	
+        APLIdent apl_role = new APLIdent(role);
         return apl_role;
 
     }
@@ -691,7 +748,31 @@ public class EnvCT  extends Environment implements ExternalTool{
 
     public void makeProposal(String agentname, APLNum responder) {
     	System.out.println("[ENV] trying to make a proposal: " + agentname);
-        agents.get(agentname).makeProposal(responder.toInt());
+    	 System.out.println("I'm the proposer, wheeeeee");
+    	 int id = responder.toInt();
+         ArrayList<ChipSet> exchange = (ArrayList<ChipSet>) strategy(null,id);
+         ChipSet senderChips;
+         ChipSet recipientChips;
+
+         if(exchange == null) {
+             System.out.println("No beneficial " +
+                                 "exchanges found among the ones that are beneficial for the responder");
+         }
+         else {
+             System.out.println("EXCHANGE: " + exchange);
+             senderChips = exchange.get(0);
+             recipientChips = exchange.get(1);
+             BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
+                             cgs.getPerGameId(), id, -1, senderChips, recipientChips);
+//             sending = senderChips;
+             
+             PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
+             waiter.doWait(RecipConstants.minProposeTime, RecipConstants.maxProposeTime);
+             
+             
+            client.communication.sendDiscourseRequest(proposal);
+
+         }
     }
 
     /**
@@ -709,75 +790,32 @@ public class EnvCT  extends Environment implements ExternalTool{
         int agentx = ax.toInt();
         int agenty = ay.toInt();
         String goalid = id.toString();
-		boolean upToDate = agents.get(agentname).moveStepToGoal(agentx, agenty, goalid);
+        ClientGameStatus cgs = client.getGameStatus();
+        Scoring scoring = cgs.getScoring();
+        ArrayList<Path> shortestPaths = ShortestPaths.getShortestPathsToFirstGoal(cgs.getMyPlayer().getPosition(),
+					cgs.getBoard(), scoring);
         
-        // check whether info was up to date and agent was able to move
-        if (!upToDate) {
-            throw new ExternalActionFailedException("[ENV] Goalposition and Agentposition were out of date. Unable to move");
-        }
-        else {
-            // convert to String
-            String uTDString = new Boolean(upToDate).toString();
-            APLIdent uTD = new APLIdent(uTDString);
+
+        // Get the best path available
+        Path chosenPath = shortestPaths.remove(0); // why remove(0)??
+        
+
+        // Send move request
+		client.communication.sendMoveRequest(chosenPath.getPoint(1));
+        
+     
+            APLIdent uTD = new APLIdent("true");
             System.out.println("[ENV] moveStepToGoal returns: " + uTD);
             return uTD; 
-        }
+        
     }
 
-	
-	public void start(String agentname) {
-		agents.get(agentname).start();
-	}
-	
-	public void gameStarted(String agentname) {
-		System.out.println("[ENV] Game started!");
-	}
-	
-	public void gameEnded(String agentname) {
-		
-	}
 
 
-	/**
-	 * Remove an agent (identified by the String agentname).
-     * @param String agentname containing the name of the agent calling this method.
-	 */
-    public void removeAgent(String agentname) {
-    }
 
-	/**
-	 * Function for test purposes only.
-	 * @param String s with the name of the agent.
-	 * @param APLIdent containing a message.
-	 * @throws ExternalActionFailedException when the function cannot
-	 * be executed.
-	 */
-     public void sayHello(String s, APLIdent aplident)
-            throws ExternalActionFailedException {
-        System.out.println("[ENV] says hello world");
 
-        String type = "hallo";
-        int id = 10;
-        APLFunction event = new APLFunction("message", new APLIdent(type),
-                                                                new APLNum(id));
 
-        System.out.println("[ENV] The following message will be sent to 2APL: " + event);
-		throwEvent(event, s);
 
-    }
-
-    /**
-     *
-     * @param agentname
-     * @return
-     */
-// HACK! UNDO LATER
-//     public Term selfSufficiency(String agentname) {
-//         int ss = agents.get(agentname).selfSufficiency();
-//
-//         APLNum selfsuf = new APLNum(ss);
-//         return selfsuf;
-//     }
 
 
      /**
@@ -789,7 +827,7 @@ public class EnvCT  extends Environment implements ExternalTool{
      public Term sendProposal(String agentname, APLNum playerpin,
                                                     APLList requestedchips) {
     	 System.out.println("[ENV] trying to send a proposal: " + agentname);
-         ClientGameStatus cgs = agents.get(agentname).getGameStatus();
+
          LinkedList<Term> chips = requestedchips.toLinkedList();
        //  HashMap<String, Integer> proposal = new HashMap();
          ChipSet chipset = new ChipSet();
@@ -823,8 +861,14 @@ public class EnvCT  extends Environment implements ExternalTool{
              chipset.add(originalcolor, amount);
          }
 
-         int messageId = agents.get(agentname).sendProposal(playerpin.toInt(), chipset);
+         BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
+                 cgs.getGameId(), playerpin.toInt(), -1, new ChipSet(), chipset);
 
+     		client.communication.sendDiscourseRequest(proposal);
+
+     
+             
+         int messageId = proposal.getMessageId();
          APLNum msgId = new APLNum(messageId);
          return msgId; 
      }
@@ -832,24 +876,16 @@ public class EnvCT  extends Environment implements ExternalTool{
 
 
     /**
+     * BROKEN
      * Informs the sender that the proposal has or has not been accepted.
      * @param agentname The name of the agent requesting the send action
      * @param response Acceptance or rejection of the proposal
      * @param messageid The message which is subject to the response
      */
     public void sendResponse(String agentname, APLIdent response, APLNum messageid) {
-    	System.out.println("[ENV] trying to send a response a: " + agentname);
-        agents.get(agentname).sendResponse(response.toString(), messageid.toInt());
+   
     }
 
-
-    /**
-	* Change the agent's name.
-	* @param String agentname containing the name of the agent calling this method.
-	*/
-	public void setAgentName(String agentname) {
-		agents.get(agentname).setClientName(agentname);
-	}
     
 	//////////////////////////////
 	
@@ -1148,5 +1184,209 @@ System.out.println("-------------------------last log tuples end----------------
 return;
 	}
 
+    /**
+	 * Called when a game ends
+	 */
+	public void gameEnded() {
+		System.out.println("Game ended ");
+		System.out.println("My PlayerStatus is: " + client.getGameStatus().getMyPlayer());
+	}
+	
+	/**
+	 * Called when a game starts
+	 */
+	public void gameStarted() {
+		System.out.println("#########################Game started");
+		
+                System.out.println("[MSG] Let all the agents know the game is initialized...");
+                String initialize = "game_initialized";
+                APLFunction event = new APLFunction("message",
+                               new APLIdent(initialize));
+                throwEvents(event);
+                //this.allInitialized = true;       
+	}
+	
+	/**
+	 * Called by the server when the game configuration class' run() method completes
+	 */
+        //NEVER CALLED
+	public void gameInitialized()
+	{
+//		System.out.println("#########################Game Initialized");
+//		game_initialized = true;
+//		
+//		
+//		String phaseName = cgs.getPhases().getCurrentPhaseName();
+//		System.out.println("AGENT " + client.getClientName() + ": current phase name: " + phaseName);
+//		System.out.println("we have " + client.getGameStatus().getBoard().getGoals().size() + " goals");
+	}
+
+	/**
+	 * Gets the client name
+	 */
+	public String getClientName() {
+		return client.getPin();
+	}
+
+    /**
+    * Called when a discourse message is received
+    * @param dm discourse message received
+    */
+    public void onReceipt(DiscourseMessage dm) {
+        System.out.println("Received a " + dm.getClass() );
+        // check if it is a basic proposal discourse message
+        String type = dm.getMsgType();
+        System.out.println("[MSG] Message is of type: " + type);
+
+        APLFunction event;
+
+//        if (type.equals("response")) {
+//            Boolean accepted = (Boolean) dm...get("accepted");
+//            if (accepted) {response = "accept";}
+//            else {response = "reject";}
+//
+//            event = new APLFunction("message",
+//                    new APLIdent(type), new APLNum(message),
+//                    new APLIdent(response));
+//        }
+//
+//        else {
+            event = new APLFunction("message",
+                       new APLIdent(type), new APLNum(dm.getMessageId()));
+//        }
+        // return message event to the 2APL agent
+        throwEvents(event);
+        
+        
+       
+            if(dm instanceof BasicProposalDiscourseMessage) {
+                BasicProposalDiscourseMessage proposal = (BasicProposalDiscourseMessage) dm;
+
+                BasicProposalDiscussionDiscourseMessage responseMessage = new BasicProposalDiscussionDiscourseMessage(proposal );
+                // check if the proposal is beneficial
+                
+                boolean offerResponse = RespondStrategy(ChipSet.subChipSets(proposal.getChipsSentByResponder(), proposal.getChipsSentByProposer() ),dm.getFromPerGameId());
+                
+                PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
+                waiter.doWait(RecipConstants.minRespondTime, RecipConstants.maxRespondTime);
+                    
+                // check if the proposal is beneficial
+                if( offerResponse ) {
+                    //response.setSubjectMsgId(subjectMsgId);
+                    responseMessage.acceptOffer();
+                } else {
+                    //response.setSubjectMsgId(subjectMsgId);
+                    responseMessage.rejectOffer();
+                }
+                
+                
+                    
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(FairMaxAgent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                client.communication.sendDiscourseRequest(responseMessage);
+            }
+        }
+    
+    
+
+
+    /**
+     * Called when a phase advances
+     */
+    public void phaseAdvanced(Phases ph) {
+        Scoring scoring = cgs.getScoring();
+        String phaseName = cgs.getPhases().getCurrentPhaseName();
+        if(bestScore == -1) {
+            BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);     // calculate the best use of player's chips
+            bestScore = bu.getBestState().getScore();
+        }
+
+        if(phaseName.equals("Offer Phase")) {
+           
+        }
+    }
+	
+	/**
+	 * Sets the client name
+	 * @param name client name
+	 */
+	public void setClientName(String name) {
+		client.setPin(name);
+	}
+
+	/**
+	 * Starts the client
+	 */
+	public void start() {
+		client.start();
+	}
+
+
+	
+	/**
+	 * Strategy of the proposer
+	 * @param o null
+	 * @param id 
+	 * @return An exchange to propose
+	 */
+        public Object strategy(Object o, int id) {
+            // Get all possible unique exchanges between the players
+            Set<ArrayList<ChipSet>> allExchanges = ChipSet.getAllExchanges(
+                            cgs.getMyPlayer().getChips(), cgs.getPlayerByPerGameId(id).getChips());
+
+            System.out.println("Total number of unique exchanges: " + allExchanges.size());
+            ArrayList<ChipSet> mostBeneficialExchange = null;
+
+            //basic sanity checking
+            System.out.println("my player info: " + cgs.getMyPlayer().toString());
+
+            ScoringUtility SU = new ScoringUtility(cgs, cgs.getPerGameId(), id);
+            ChipSet offer = SU.getFairMaxOffer();
+            ChipSet propChips = ChipSet.getNegation(offer);
+            ChipSet respChips = new ChipSet(offer);
+            for(String color : propChips.getColors()){
+                if(propChips.getNumChips(color) < 0)
+                    propChips.set(color, 0);
+            }
+
+            for(String color : respChips.getColors()){
+                if(respChips.getNumChips(color) < 0)
+                    respChips.set(color, 0);
+            }
+
+            mostBeneficialExchange = new ArrayList<ChipSet>();
+            mostBeneficialExchange.add(propChips);
+            mostBeneficialExchange.add(respChips);
+
+            return mostBeneficialExchange;
+	}
+	 
+    public boolean RespondStrategy(ChipSet proposal,int id) {
+//        // our input is a proposal
+//        System.out.println("Received proposal: " + proposal);
+//
+//        BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);
+//        double MyDefaultScore = bu.getBestState().getScore();
+//
+//        bu = new BestUse(cgs, cgs.getPlayerByPerGameId(OppPerGameId), scoring, 0);
+//        double OppDefaultScore = bu.getBestState().getScore();
+//
+//        if(payoff(proposal) > MyDefaultScore*OppDefaultScore)
+//            return(true);
+//        else
+//            return(false);
+        
+        ScoringUtility SU = new ScoringUtility(cgs, id, cgs.getPerGameId());
+//        double oppBenefit = SU.getOfferScore(proposal, OppPerGameId) - SU.getDefaultScore(OppPerGameId);
+        double myBenefit = SU.getOfferScore(proposal, cgs.getPerGameId()) - SU.getDefaultScore(cgs.getPerGameId());
+        if(  (myBenefit > 0))
+            return(true);
+        else
+            return(false);
+        
+    }
 	
 }

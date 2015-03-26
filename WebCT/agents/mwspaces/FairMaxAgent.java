@@ -48,7 +48,7 @@ import java.util.logging.Logger;
  * @author ilke
  */
 public class FairMaxAgent implements RecipAgentAdaptor{
-	private ColoredTrailsClientImpl client;
+	public ColoredTrailsClientImpl client;
 	/** indicates whether game state has been initialized */
 //	private boolean game_initialized = false;
 //	private ChipSet sending;

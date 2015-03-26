@@ -25,7 +25,9 @@ package ctagents.recipagents.FairMaxAgent;
 import RecipExperiment.RecipConstants;
 import ctagents.recipagents.PhaseWaiter;
 import ctagents.recipagents.RecipAgentAdaptor;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Set;
 
 import edu.harvard.eecs.airg.coloredtrails.agent.ColoredTrailsClientImpl;
@@ -36,9 +38,11 @@ import edu.harvard.eecs.airg.coloredtrails.shared.ScoringUtility;
 import edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage;
 import edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage;
 import edu.harvard.eecs.airg.coloredtrails.shared.discourse.DiscourseMessage;
+import edu.harvard.eecs.airg.coloredtrails.shared.types.CTStateContainer;
 import edu.harvard.eecs.airg.coloredtrails.shared.types.ChipSet;
 import edu.harvard.eecs.airg.coloredtrails.shared.types.Phases;
 import edu.harvard.eecs.airg.coloredtrails.shared.types.PlayerStatus;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +52,7 @@ import java.util.logging.Logger;
  * @author ilke
  */
 public class FairMaxAgent implements RecipAgentAdaptor{
-	private ColoredTrailsClientImpl client;
+	public ColoredTrailsClientImpl client;
 	/** indicates whether game state has been initialized */
 //	private boolean game_initialized = false;
 //	private ChipSet sending;
@@ -56,7 +60,10 @@ public class FairMaxAgent implements RecipAgentAdaptor{
 	private int OppPerGameId;
 	private int MyPerGameId;
 	ClientGameStatus cgs = null;
-        private double bestScore = -1;
+    private double bestScore = -1;
+	private Hashtable messages;
+    
+
 	
 	public FairMaxAgent() {
 		client = new ColoredTrailsClientImpl(this.getClass().getCanonicalName());
@@ -152,6 +159,33 @@ public class FairMaxAgent implements RecipAgentAdaptor{
             }
         }
     }
+    
+    public void sendResponse(String r, int messageid) {
+        // retrieve original proposal
+         Hashtable info = (Hashtable) messages.get(messageid);
+         DiscourseMessage dm = (DiscourseMessage) info.get("original");
+
+         // retrieve original proposal
+         BasicProposalDiscourseMessage originalproposal =
+                                 (BasicProposalDiscourseMessage) dm;
+
+         // create message for response
+         BasicProposalDiscussionDiscourseMessage response =
+ 			    new BasicProposalDiscussionDiscourseMessage( originalproposal );
+
+    
+         if (r.equals("reject")) {
+             response.rejectOffer();
+            // logger.log(Level.INFO, "[GAI] Rejected offer!");
+         }
+         else if (r.equals("accept")) {
+             response.acceptOffer();
+            // logger.log(Level.INFO, "[GAI] Accepted offer!");
+         }
+
+         client.communication.sendDiscourseRequest(response);
+
+     }
 
     /**
      * Called when a phase advances
