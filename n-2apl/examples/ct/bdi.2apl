@@ -241,6 +241,7 @@ initialize() <- initialized(no) | {
 	getGoalPos(0); 
 	if B(goalPos(TYPE,X,Y)) then getGoalId(TYPE,X,Y);
     if B(agentId(MYID)) then {getRole(MYID)} ;
+    getPhase();
 	Initialize() 
 }
 
@@ -258,14 +259,20 @@ requestChips(OPPPIN) <- opponentId(OPPID) | {
 }
 
 sendProposal(PIN, CHIPS) <- true | {
-	@ctenv( sendProposal(PIN,CHIPS), ID);
+	@ctenv( sendProposal(PIN,CHIPS), L1);
+	B( L1 = [actionresult(X)]);
+	Sent(proposal,X,open)
+}
+
+sendProposal() <- true | {
+	@ctenv( sendProposal(), L1);
 	B( L1 = [actionresult(X)]);
 	Sent(proposal,X,open)
 }
 
 makeProposal()<- opponentPin(PIN) and agentId(ID) | {
-	GetchipsRedundant(ID,CHIPS);
-	sendProposal(PIN, CHIPS)
+	//GetchipsRedundant(ID,CHIPS);
+	sendProposal()
 }
 
 makeResponse(MSGID) <- true | {
