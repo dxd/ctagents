@@ -4,20 +4,22 @@
 # October 2008.
 
 ######################### Section Variable declarations ##############
-
+HOME="/Users/dxd/git/ct"
 CTROOT="./WebCT"
 CTJARPATH="$CTROOT/dist"									# Path to ct3.jar.
 CTJAR="$CTJARPATH/ct3.jar"									# The actual jar.
-APLROOT=“./n-2apl"
+APLROOT="./n-2apl"
 APLJARPATH="$APLROOT"										# Path to the 2APL jar.
 APLJAR="$APLROOT/release/2apl.jar"							# The 2APL jar file.
 APLMASDIR="./examples/ct"
-APLSERVER="java -jar 2apl.jar"
-CTSERVER="java -jar $CTJAR -s --server_localport" 			# Takes a <port> as argument.
+APLSERVER="java -jar ./release/2apl.jar -nojade ./examples/ct/ct.mas"
+CTSERVER="ant -f $CTROOT/build.xml runserver" 			# Takes a <port> as argument.
 CTADMIN="java -jar $CTJAR -a"  #  -Dconfigfile=$CONFIG" 	# Takes $CONFIG as input (<).
 CTCONFIG="$ROOT/lib/adminconfig/GG.txt" 					# Path to  config file.
 CTCLIENT="java -jar $CTJAR -c ctgui.original.GUI"			#  --pin 10  --client_hostip $2
 DATE="`/bin/date +%Y%m%d-%H:%M`"
+TOMCAT="/Users/dxd/Downloads/apache-tomcat-7.0.57/bin"
+TOMCATRUN="./catalina.sh start -Dcatalina.base=/Users/dxd/Documents/workspace2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0 -Dcatalina.home=/Library/Tomcat -Dwtp.deploy=/Users/dxd/Documents/workspace2 -Djava.endorsed.dirs=/Library/Tomcat/endorsed"
 ######################### Section Functions #########################
 
 usage_exit() {
@@ -61,7 +63,7 @@ check_sanity() {
  	fi
 	if [ ! -d $CTROOT/logsh ] ; then 
 		echo "The logs directory in $CTROOT does not exist. Trying to create it..."
-		if $(mkdir -p $CTROOT/logsh/CTserver $CTROOT/logsh/CTClient $CTROOT/logsh/CTAdmin $CTROOT/logsh/CTAgent) ; then
+		if $(mkdir -p $CTROOT/logsh/CTserverTC $CTROOT/logsh/CTserver $CTROOT/logsh/CTClient $CTROOT/logsh/CTAdmin $CTROOT/logsh/CTAgent) ; then
 			echo "...succesfully created the logs directories in $CTROOT."
 		else 
 			error_exit "Failed to create the logs directories. Make sure you have the right permissions."
@@ -78,12 +80,13 @@ check_sanity() {
 }
 
 start_ctserver() {
- 	if (cd $CTJARPATH) ; then
-	 	echo "cd to $CTJARPATH succeeded."
+  #   kill `pidof $CTJAR` 2>/dev/null
+ 	if (cd $CTROOT) ; then
+	 	echo "cd to $CTROOT succeeded."
 	fi
- 	if [ -f $CTJAR ] ; then 
+ 	if [ -f $CTROOT/build.xml ] ; then
 		echo "Trying to start the CT server..."
-  		$CTSERVER $1 >> $CTROOT/logsh/CTserver/CTserverlog$DATE.log 2>&1 &
+  		$CTSERVER >> $CTROOT/logsh/CTserver/CTserverlog$DATE.log 2>&1 &
   		echo "... CT server has been started."
   		export SERVER_PID=$!
   		echo "The server has process ID: $SERVER_PID."
@@ -128,19 +131,28 @@ stop_ctserver() {
  		log_error "$DATE: The CT server was not running."
 		error_exit "Could not stop the server, for it was not running."
 		}
- fi
+    fi
 }
 
 start_aplserver() {
 	echo "Trying to start the 2APL main container..."
-	# if [ -f $APLMASDIR/$1 ] ; then
+	# if [ -f $APLMASDIR/ct.mas ] ; then
 			cd $APLROOT && echo "Succesfull cd to $APLROOT."
 			$APLSERVER >> ./logsh/APLServer/aplserverlog$DATE.log 2>&1 & #-mas $APLMASDIR/$1
-			echo "...the 2APL main container has been started." # " with the specified mas file $1."
+			echo "...the 2APL main container has been started." # " with the specified mas file."
+            cd $HOME
 	#	else 
-	#		error_exit "No mas file was found at $APLMASDIR/$1"
+	#		error_exit "No mas file was found at $APLMASDIR/"
 	# fi
 	
+}
+
+start_tomcat() {
+    cd $TOMCAT
+    pwd
+    $TOMCATRUN >> $HOME/WebCT/logsh/CTserverTC/CTserverlog$DATE.log 2>&1 &
+    echo "tomcat has started."
+
 }
 
 ######################### Section getopts ######################
@@ -168,7 +180,7 @@ a ) start_ctagent $OPTARG ;;
 c ) start_ctclient $OPTARG ;;
 s ) start_ctserver $OPTARG ;;
 A ) start_ctadmin $OPTARG ;;
-k ) stop_ctserver ;;
+k ) start_aplserver;start_ctserver;start_tomcat ;;
 t ) echo blaat ;;
 2 ) start_aplserver ;;
 * ) usage_exit ;;

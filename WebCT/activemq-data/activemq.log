@@ -2401,3 +2401,444 @@ java.io.EOFException
 	at java.lang.Thread.run(Thread.java:695)
 2015-03-30 17:08:11,491 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
 2015-03-30 17:08:11,530 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-57215-1427731615907-1:0) stopped
+2015-03-30 21:48:59,071 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:48:59,072 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:48:59,534 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:48:59,798 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:49:00,178 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:49:00,179 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:49:00,268 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.089 seconds.
+2015-03-30 21:49:00,895 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:49:00,935 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:49:00,937 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:49:00,937 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-52856-1427748539268-1:0) started
+2015-03-30 21:49:00,996 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:49:01,351 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:49:01,426 [127.0.0.1:52861] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:49:01,427 [127.0.0.1:52861] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:49:01,427 [127.0.0.1:52861] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:49:01,525 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:49:01,527 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:49:01,533 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:49:19,630 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-52856-1427748539268-1:0) is shutting down
+2015-03-30 21:49:21,166 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:49:21,167 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:49:21,331 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:49:21,348 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:49:21,350 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:49:21,392 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:49:21,394 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:49:21,395 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:49:21,396 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:49:25,942 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:49:25,943 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:49:26,030 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-52856-1427748539268-1:0) stopped
+2015-03-30 21:49:56,690 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:49:56,691 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:49:56,898 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:49:56,955 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:49:57,028 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:49:57,030 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:49:57,072 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.042 seconds.
+2015-03-30 21:49:57,300 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:49:57,303 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:49:57,340 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:49:57,340 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-52940-1427748596724-1:0) started
+2015-03-30 21:49:57,344 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:49:57,382 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:49:57,431 [127.0.0.1:52944] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:49:57,431 [127.0.0.1:52944] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:49:57,431 [127.0.0.1:52944] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:49:57,495 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:49:57,496 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:49:57,497 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:50:03,987 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-52940-1427748596724-1:0) is shutting down
+2015-03-30 21:50:05,354 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:50:05,354 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:50:05,545 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:50:05,568 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:50:05,570 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:50:05,612 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:50:05,614 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:50:05,615 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:50:05,615 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:50:07,346 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:50:07,347 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:50:07,360 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-52940-1427748596724-1:0) stopped
+2015-03-30 21:55:12,662 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:55:12,663 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:55:12,840 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:55:12,888 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:55:12,957 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:55:12,958 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:55:13,167 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.209 seconds.
+2015-03-30 21:55:13,409 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:55:13,451 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:55:13,452 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:55:13,452 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53299-1427748912696-1:0) started
+2015-03-30 21:55:13,455 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:55:13,494 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:55:13,542 [127.0.0.1:53303] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:55:13,543 [127.0.0.1:53303] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:55:13,543 [127.0.0.1:53303] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:55:13,613 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:55:13,614 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:55:13,614 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:55:16,429 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-53299-1427748912696-1:0) is shutting down
+2015-03-30 21:55:17,791 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:55:17,791 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:55:17,968 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:55:17,988 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:55:17,990 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:55:18,033 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:55:18,035 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:55:18,036 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:55:18,037 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:55:18,455 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:55:18,456 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:55:18,476 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53299-1427748912696-1:0) stopped
+2015-03-30 21:55:42,841 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:55:42,842 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:55:43,027 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:55:43,074 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:55:43,148 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:55:43,149 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:55:43,180 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.031 seconds.
+2015-03-30 21:55:43,383 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:55:43,422 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:55:43,424 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:55:43,424 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53348-1427748942876-1:0) started
+2015-03-30 21:55:43,427 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:55:43,463 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:55:43,512 [127.0.0.1:53352] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:55:43,512 [127.0.0.1:53352] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:55:43,512 [127.0.0.1:53352] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:55:43,573 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:55:43,574 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:55:43,575 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:55:52,828 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-53348-1427748942876-1:0) is shutting down
+2015-03-30 21:55:54,309 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:55:54,311 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:55:54,475 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:55:54,494 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:55:54,496 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:55:54,539 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:55:54,541 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:55:54,542 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:55:54,543 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:55:58,428 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:55:58,429 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:55:58,438 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53348-1427748942876-1:0) stopped
+2015-03-30 21:57:45,706 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:57:45,707 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:57:45,873 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:57:45,929 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:57:45,997 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:57:45,999 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:57:46,035 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.036 seconds.
+2015-03-30 21:57:46,262 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:57:46,306 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:57:46,308 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:57:46,309 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53492-1427749065735-1:0) started
+2015-03-30 21:57:46,312 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:57:46,350 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:57:46,398 [127.0.0.1:53496] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:57:46,399 [127.0.0.1:53496] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:57:46,399 [127.0.0.1:53496] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:57:46,462 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:57:46,464 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:57:46,464 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:57:49,167 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-53492-1427749065735-1:0) is shutting down
+2015-03-30 21:57:50,532 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:57:50,533 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:57:50,725 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:57:50,747 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:57:50,750 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:57:50,791 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:57:50,793 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:57:50,794 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:57:50,795 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:57:51,311 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:57:51,312 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:57:51,346 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53492-1427749065735-1:0) stopped
+2015-03-30 21:58:45,031 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:58:45,032 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:58:45,227 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:58:45,273 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 21:58:45,344 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 21:58:45,345 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 21:58:45,381 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.036 seconds.
+2015-03-30 21:58:45,571 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 21:58:45,604 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 21:58:45,605 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 21:58:45,605 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53570-1427749125072-1:0) started
+2015-03-30 21:58:45,608 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:58:45,640 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 21:58:45,693 [127.0.0.1:53574] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 21:58:45,693 [127.0.0.1:53574] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 21:58:45,693 [127.0.0.1:53574] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 21:58:45,752 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:58:45,753 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:58:45,754 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:58:55,127 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-53570-1427749125072-1:0) is shutting down
+2015-03-30 21:58:56,509 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 21:58:56,510 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 21:58:56,699 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 21:58:56,720 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 21:58:56,724 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 21:58:56,764 [main           ] FATAL root                           - Error starting the Main Topic:javax.jms.JMSException: Could not connect to broker URL: tcp://kafka.local:8088. Reason: java.net.ConnectException: Connection refused
+2015-03-30 21:58:56,767 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 21:58:56,768 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 21:58:56,768 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 21:59:00,612 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 21:59:00,614 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 21:59:00,632 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-53570-1427749125072-1:0) stopped
+2015-03-30 22:08:40,563 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:08:40,564 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:08:40,742 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:08:40,791 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 22:08:40,860 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 22:08:40,861 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 22:08:40,957 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.096 seconds.
+2015-03-30 22:08:41,155 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 22:08:41,200 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 22:08:41,202 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 22:08:41,202 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-54224-1427749720597-1:0) started
+2015-03-30 22:08:41,206 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:08:41,242 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 22:08:41,291 [127.0.0.1:54230] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 22:08:41,291 [127.0.0.1:54230] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 22:08:41,292 [127.0.0.1:54230] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 22:08:41,352 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:08:41,354 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:08:41,354 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:09:42,992 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:09:42,993 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:09:43,160 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:09:43,179 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:09:43,181 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:09:43,284 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:09:43,285 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:09:43,286 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:11:08,258 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:11:08,259 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:11:08,454 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:11:08,472 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:11:08,474 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:11:08,572 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:11:08,573 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:11:08,574 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:13:55,014 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:13:55,015 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:13:55,198 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:13:55,215 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:13:55,217 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:13:55,332 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:13:55,333 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:13:55,334 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:14:16,724 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-54224-1427749720597-1:0) is shutting down
+2015-03-30 22:14:21,244 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:14:21,247 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:14:21,249 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 22:14:21,250 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:14:21,251 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:14:21,262 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-54224-1427749720597-1:0) stopped
+2015-03-30 22:16:04,384 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:16:04,386 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:16:04,555 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:16:04,600 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 22:16:04,667 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 22:16:04,669 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 22:16:04,710 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.041 seconds.
+2015-03-30 22:16:04,943 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 22:16:04,978 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 22:16:04,979 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 22:16:04,980 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-54774-1427750164420-1:0) started
+2015-03-30 22:16:04,983 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:16:05,019 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 22:16:05,078 [127.0.0.1:54779] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 22:16:05,079 [127.0.0.1:54779] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 22:16:05,079 [127.0.0.1:54779] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 22:16:05,141 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:16:05,142 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:16:05,143 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:17:04,422 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:17:04,423 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:17:04,613 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:17:04,630 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:17:04,632 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:17:04,735 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:17:04,736 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:17:04,737 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:18:42,000 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:18:42,002 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:18:42,175 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:18:42,192 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:18:42,195 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:18:42,294 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:18:42,295 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:18:42,296 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:19:38,350 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:19:38,351 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:19:38,557 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:19:38,576 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:19:38,578 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:19:38,676 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:19:38,677 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:19:38,678 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:22:05,737 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:22:05,738 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:22:05,911 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:22:05,980 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:22:05,987 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:22:06,145 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:22:06,147 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:22:06,147 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:23:50,953 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:23:50,954 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:23:51,137 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:23:51,160 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:23:51,163 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:23:51,308 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:23:51,309 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:23:51,310 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:24:38,837 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:24:38,838 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:24:39,012 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:24:39,109 [main           ] FATAL root                           - Error starting the JMS Broker: java.io.IOException: Control file 'activemq-data/localhost/journal/data-control' could not be locked.
+2015-03-30 22:24:39,111 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:24:39,684 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:24:39,685 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:24:40,181 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:25:25,824 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-54774-1427750164420-1:0) is shutting down
+2015-03-30 22:25:30,086 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,090 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,091 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,094 [MQ ShutdownHook] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+2015-03-30 22:25:30,093 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,094 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,095 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,096 [/127.0.0.1:8088] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+	at java.lang.Thread.run(Thread.java:695)
+2015-03-30 22:25:30,335 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-54774-1427750164420-1:0) stopped
+2015-03-30 22:27:24,870 [main           ] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+2015-03-30 22:27:24,871 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2015-03-30 22:27:25,696 [main           ] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+2015-03-30 22:27:25,975 [main           ] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+2015-03-30 22:27:26,415 [main           ] INFO  AMQPersistenceAdapter          - Active data files: []
+2015-03-30 22:27:26,439 [main           ] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+2015-03-30 22:27:26,541 [main           ] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.101 seconds.
+2015-03-30 22:27:27,364 [main           ] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+2015-03-30 22:27:27,422 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+2015-03-30 22:27:27,462 [main           ] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+2015-03-30 22:27:27,462 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-55532-1427750845422-1:0) started
+2015-03-30 22:27:27,566 [main           ] INFO  root                           - Started the JMS Server
+2015-03-30 22:27:27,865 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2015-03-30 22:27:28,015 [127.0.0.1:55539] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+2015-03-30 22:27:28,015 [127.0.0.1:55539] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+2015-03-30 22:27:28,015 [127.0.0.1:55539] INFO  BrokerService                  - Successfully deleted temporary storage
+2015-03-30 22:27:28,384 [main           ] INFO  root                           - Controller Interface has been started
+2015-03-30 22:27:28,386 [Thread-1       ] INFO  root                           - ColoredTrails is now running...
+2015-03-30 22:27:28,403 [main           ] INFO  root                           - Starting spaces 1
+2015-03-30 22:27:30,013 [MQ Session Task] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [192.168.0.3] of type 
