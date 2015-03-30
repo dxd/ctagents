@@ -132,8 +132,8 @@ public class BargainOnlyConfig extends GameConfigDetailsRunnable implements Phas
         int tempID = ProposerID;
         ProposerID = ResponderID;
         ResponderID = tempID;
-        gs.getPlayerByPerGameId(ProposerID).setRole("Proposer");
-        gs.getPlayerByPerGameId(ResponderID).setRole("Responder");
+        gs.getPlayerByPerGameId(ProposerID).setRole("proposer");
+        gs.getPlayerByPerGameId(ResponderID).setRole("responder");
     }
 
     public void setPermissions() {
@@ -270,8 +270,8 @@ public class BargainOnlyConfig extends GameConfigDetailsRunnable implements Phas
             //Prepare roles for next game
             ProposerID	=	Round % 2;
             ResponderID = (ProposerID == 0 ? 1 : 0);
-            gs.getPlayerByPerGameId(ResponderID).setRole("Responder");
-            gs.getPlayerByPerGameId(ProposerID).setRole("Proposer");
+            gs.getPlayerByPerGameId(ResponderID).setRole("responder");
+            gs.getPlayerByPerGameId(ProposerID).setRole("proposer");
             loadGame(games.get(Round));
             DialogueExchanges = 0;
             gs.sendArbitraryMessage("NEWROUND");
@@ -534,8 +534,8 @@ public class BargainOnlyConfig extends GameConfigDetailsRunnable implements Phas
             xpsset.add(new PlayerStatus(1,-1));
             xgs.setPlayers(xpsset);
     
-            xgs.getPlayerByPerGameId(0).setRole("Proposer");
-            xgs.getPlayerByPerGameId(1).setRole("Responder");
+            xgs.getPlayerByPerGameId(0).setRole("proposer");
+            xgs.getPlayerByPerGameId(1).setRole("responder");
 
             GamePalette gp = new GamePalette();
             gp.add("RGBRed");

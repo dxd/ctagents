@@ -54,7 +54,7 @@ initialize()
 
 PG-rules:
 
-propose <- phase(communicationphase) | makeProposal()
+//propose <- phase(communicationphase) and not sent(Pp,ID,open) | makeProposal()
 
 //respond <- received(TYPE,ID,open) and phase(communicationphase) | makeResponse(ID)
 
@@ -66,7 +66,7 @@ initialized <- event(game_initialized) | {
 }
 
 update <- event(phasechange) | update()
-update <- phase(communicationphase) and role(X,proposer) | makeProposal()
+update <- phase(communicationphase) and role(X,proposer) and not sent(Pp,ID,open) | makeProposal()
 
 PC-rules:
 event(FUNCTION, NAME) <- true | {
@@ -201,10 +201,8 @@ getPin() <- true | {
 
 getRole(ID) <- true | {
 	@ctenv( getRole(ID), L1);
-	if B( L1 = [actionresult(X)]) then
-		{GetRole(ID, X)}
-	else 
-		{GetRole(ID,proposer)}
+	B( L1 = [actionresult(X)]);
+	GetRole(ID, X)
 }
 
 getScoreAfterExchange(ID,MSGID) <- true | {

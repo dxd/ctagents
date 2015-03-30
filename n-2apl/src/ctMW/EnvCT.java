@@ -18,7 +18,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mwspaces.FairMaxAgent;
 import net.jini.core.transaction.TransactionException;
 import oopl.DistributedOOPL;
 import oopl.GUI.GUI;
@@ -103,28 +102,7 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
      * A kickoff function to begin the system.
      */
     public void initializeGS() throws RemoteException {
-    	try {
-        	File file = new File("./log/"+ new Date(System.currentTimeMillis()) +".log");
-
-            // Create file if it does not exist
-            boolean success = file.createNewFile();
-            if (success) {
-                // File did not exist and was created
-            } else {
-                // File already exists
-            }
-            
-            PrintStream printStream;
-    		try {
-    			printStream = new PrintStream(new FileOutputStream(file));
-    			System.setOut(printStream);
-    		} catch (FileNotFoundException e1) {
-    			// TODO Auto-generated catch block
-    			e1.printStackTrace();
-    		}
-        } catch (IOException e) {
-        	
-        }
+    	
     	//IJSpace ispace = new UrlSpaceConfigurer("jini://*/*/myGrid").space();
         // use gigaspace wrapper to for simpler API
         //this.space = new GigaSpaceConfigurer(ispace).gigaSpace();
@@ -202,7 +180,28 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
 		super();
 		try { //initializeGS(); 
 		initializeOOPL();} catch (Exception e) { e.printStackTrace(); }
+		try {
+        	File file = new File("./log/"+ new Date(System.currentTimeMillis()) +".log");
 
+            // Create file if it does not exist
+            boolean success = file.createNewFile();
+            if (success) {
+                // File did not exist and was created
+            } else {
+                // File already exists
+            }
+            
+            PrintStream printStream;
+    		try {
+    			printStream = new PrintStream(new FileOutputStream(file));
+    			System.setOut(printStream);
+    		} catch (FileNotFoundException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+        } catch (IOException e) {
+        	
+        }
 	}
 	
 
@@ -211,7 +210,207 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
 	public void throwEvents(APLFunction event, String ... receivers) {
         throwEvent(event, receivers);
     }
+
+    /**
+	 * Called when a game ends
+	 */
+	public void gameEnded() {
+		System.out.println("Game ended ");
+		System.out.println("My PlayerStatus is: " + client.getGameStatus().getMyPlayer());
+		 APLFunction event = new APLFunction("message",
+	                new APLIdent("game_ended"));
+	        throwEvents(event);
+	}
+
 	
+	/**
+	 * Called by the server when the game configuration class' run() method completes
+	 */
+        //NEVER CALLED
+	public void gameInitialized()
+	{
+		System.out.println("#########################Game Initialized");
+		//game_initialized = true;
+		
+		
+		String phaseName = cgs.getPhases().getCurrentPhaseName();
+		System.out.println("AGENT " + client.getName() + ": current phase name: " + phaseName);
+		System.out.println("we have " + client.getGameStatus().getBoard().getGoals().size() + " goals");
+		System.out.println("we have " + client.getGameStatus().getScoring() + " scoring");
+	}
+
+	/**
+	 * Gets the client name
+	 */
+	public String getClientName() {
+		return client.getPin();
+	}
+
+    /**
+    * Called when a discourse message is received
+    * @param dm discourse message received
+    */
+    public void onReceipt(DiscourseMessage dm) {
+        System.out.println("Received a " + dm.getClass() );
+        // check if it is a basic proposal discourse message
+        String type = dm.getMsgType();
+        System.out.println("[MSG] Message is of type: " + type);
+        
+        if (dm.getToPerGameId() == cgs.getPerGameId() && (dm instanceof BasicProposalDiscourseMessage)) {
+        	BasicProposalDiscourseMessage proposal = (BasicProposalDiscourseMessage) dm;
+        if (type.equals("response")) {
+        	BasicProposalDiscussionDiscourseMessage response = (BasicProposalDiscussionDiscourseMessage) dm;
+        	System.out.println("AGENT " + ": got response to offer");
+        	APLFunction event = null;
+			if(!response.accepted() ) {
+				// The proposal is rejected and we still have more paths to propose, make an offer
+				event = new APLFunction("message",
+	                    new APLIdent(type), new APLNum(dm.getMessageId()),
+	                    new APLIdent("reject"));
+			}
+			else if(response.accepted()) {
+				// The proposal is accepted
+				event = new APLFunction("message",
+	                    new APLIdent(type), new APLNum(dm.getMessageId()),
+	                    new APLIdent("accept"));
+			}
+			throwEvents(event);
+        }
+        else if (type.equals("basicproposal")) {
+        	 BasicProposalDiscussionDiscourseMessage responseMessage = new BasicProposalDiscussionDiscourseMessage(proposal );
+             // check if the proposal is beneficial
+             
+             boolean offerResponse = RespondStrategy(ChipSet.subChipSets(proposal.getChipsSentByResponder(), proposal.getChipsSentByProposer() ),dm.getFromPerGameId());
+             System.out.println("Received a proposal ");
+             PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
+             waiter.doWait(RecipConstants.minRespondTime, RecipConstants.maxRespondTime);
+                 
+             // check if the proposal is beneficial
+             if( offerResponse ) {
+                 //response.setSubjectMsgId(subjectMsgId);
+                 responseMessage.acceptOffer();
+             } else {
+                 //response.setSubjectMsgId(subjectMsgId);
+                 responseMessage.rejectOffer();
+             }
+     
+             client.communication.sendDiscourseRequest(responseMessage);
+        }
+        
+        }
+           
+       // System.out.println("Received a message not for me");
+               
+          
+        }
+       
+        
+    
+    
+
+
+    /**
+     * Called when a phase advances
+     */
+    public void phaseAdvanced(Phases ph) {
+        Scoring scoring = cgs.getScoring();
+        String phaseName = cgs.getPhases().getCurrentPhaseName();
+        if(bestScore == -1) {
+            BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);     // calculate the best use of player's chips
+            bestScore = bu.getBestState().getScore();
+        }
+
+        APLFunction event = new APLFunction("message",
+                new APLIdent("phasechange"));
+        throwEvents(event);
+        if(phaseName.equals("Offer Phase")) {
+           
+        }
+    }
+	
+	/**
+	 * Sets the client name
+	 * @param name client name
+	 */
+	public void setClientName(String name) {
+		client.setPin(name);
+	}
+
+	/**
+	 * Starts the client
+	 */
+	public void start() {
+		client.start();
+	}
+
+
+	
+	/**
+	 * Strategy of the proposer
+	 * @param o null
+	 * @param id 
+	 * @return An exchange to propose
+	 */
+        public ArrayList<ChipSet> strategy( int id) {
+            // Get all possible unique exchanges between the players
+            Set<ArrayList<ChipSet>> allExchanges = ChipSet.getAllExchanges(
+                            cgs.getMyPlayer().getChips(), cgs.getPlayerByPerGameId(id).getChips());
+
+            //System.out.println("Total number of unique exchanges: " + allExchanges.size());
+            ArrayList<ChipSet> mostBeneficialExchange = null;
+
+            //basic sanity checking
+            System.out.println("my player info: " + cgs.getMyPlayer().toString());
+            System.out.println("my opponent info: " + cgs.getPlayerByPerGameId(id).toString());
+           // System.out.println("scoring: " + cgs.getScoring());
+
+            ScoringUtility SU = new ScoringUtility(cgs, cgs.getPerGameId(), id);
+           // System.out.println("here " );
+            ChipSet offer = SU.getFairMaxOffer();
+            //System.out.println("offer: " + offer.toString());
+            ChipSet propChips = ChipSet.getNegation(offer);
+            ChipSet respChips = new ChipSet(offer);
+            for(String color : propChips.getColors()){
+                if(propChips.getNumChips(color) < 0)
+                    propChips.set(color, 0);
+            }
+
+            for(String color : respChips.getColors()){
+                if(respChips.getNumChips(color) < 0)
+                    respChips.set(color, 0);
+            }
+
+            mostBeneficialExchange = new ArrayList<ChipSet>();
+            mostBeneficialExchange.add(propChips);
+            mostBeneficialExchange.add(respChips);
+
+            return mostBeneficialExchange;
+	}
+	 
+    public boolean RespondStrategy(ChipSet proposal,int id) {
+//        // our input is a proposal
+//        System.out.println("Received proposal: " + proposal);
+//
+//        BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);
+//        double MyDefaultScore = bu.getBestState().getScore();
+//
+//        bu = new BestUse(cgs, cgs.getPlayerByPerGameId(OppPerGameId), scoring, 0);
+//        double OppDefaultScore = bu.getBestState().getScore();
+//
+//        if(payoff(proposal) > MyDefaultScore*OppDefaultScore)
+//            return(true);
+//        else
+//            return(false);
+        
+        ScoringUtility SU = new ScoringUtility(cgs, id, cgs.getPerGameId());
+//        double oppBenefit = SU.getOfferScore(proposal, OppPerGameId) - SU.getDefaultScore(OppPerGameId);
+        double myBenefit = SU.getOfferScore(proposal, cgs.getPerGameId()) - SU.getDefaultScore(cgs.getPerGameId());
+        if(  (myBenefit >= 0))
+            return(true);
+        else
+            return(false);
+        
+    }
 	public void gameStarted() {
 		System.out.println("#########################Game started");
 		cgs = client.getGameStatus();
@@ -854,8 +1053,8 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
          }
          else {
              System.out.println("EXCHANGE: " + exchange);
-             senderChips = exchange.get(0);
-             recipientChips = exchange.get(1);
+             senderChips = exchange.get(1);
+             recipientChips = exchange.get(0);
              BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
                              cgs.getPerGameId(), OppPerGameId, -1, senderChips, recipientChips);
 //             sending = senderChips;
@@ -882,54 +1081,54 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
       * @param playerpin Pin of the player the agent will propose to
       * @param requestedchips Requested chips of opponent player
       */
-     public Term sendProposal(String agentname, APLNum playerpin,
-                                                    APLList requestedchips) {
-    	 System.out.println("[ENV] trying to send a proposal: " + agentname);
-
-         LinkedList<Term> chips = requestedchips.toLinkedList();
-       //  HashMap<String, Integer> proposal = new HashMap();
-         ChipSet chipset = new ChipSet();
-
-         Set<String> ctclr = cgs.getBoard().getColors();
-         String[] ctcolors = new String[ctclr.size()];
-         ctclr.toArray(ctcolors);
-
-         HashMap<String, String> colorsmap = new HashMap<String, String>();
-
-         // link the normal ct colors to their lower case versions
-         for (String color: ctcolors) {
-             String colorLC = color.toLowerCase();
-             colorsmap.put(colorLC, color);
-         }
-         
-         for (int i = 0; i<chips.size(); i++) {
-             APLList item = (APLList) chips.get(i);
-             LinkedList<Term> itemlist = item.toLinkedList();
-
-             // modify color
-             APLIdent colorapl = (APLIdent) itemlist.get(0);
-             String clr = colorapl.toString();
-             String originalcolor = colorsmap.get(clr);
-
-             // modify amount of chips
-             APLNum amountapl = (APLNum) itemlist.get(1);
-             int amount = amountapl.toInt();
-
-             // add to the proposal chips
-             chipset.add(originalcolor, amount);
-         }
-
-         BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
-                 cgs.getGameId(), playerpin.toInt(), -1, new ChipSet(), chipset);
-
-     		client.communication.sendDiscourseRequest(proposal);
-
-     
-             
-         int messageId = proposal.getMessageId();
-         APLNum msgId = new APLNum(messageId);
-         return msgId; 
-     }
+//     public Term sendProposal(String agentname, APLNum playerpin,
+//                                                    APLList requestedchips) {
+//    	 System.out.println("[ENV] trying to send a proposal: " + agentname);
+//
+//         LinkedList<Term> chips = requestedchips.toLinkedList();
+//       //  HashMap<String, Integer> proposal = new HashMap();
+//         ChipSet chipset = new ChipSet();
+//
+//         Set<String> ctclr = cgs.getBoard().getColors();
+//         String[] ctcolors = new String[ctclr.size()];
+//         ctclr.toArray(ctcolors);
+//
+//         HashMap<String, String> colorsmap = new HashMap<String, String>();
+//
+//         // link the normal ct colors to their lower case versions
+//         for (String color: ctcolors) {
+//             String colorLC = color.toLowerCase();
+//             colorsmap.put(colorLC, color);
+//         }
+//         
+//         for (int i = 0; i<chips.size(); i++) {
+//             APLList item = (APLList) chips.get(i);
+//             LinkedList<Term> itemlist = item.toLinkedList();
+//
+//             // modify color
+//             APLIdent colorapl = (APLIdent) itemlist.get(0);
+//             String clr = colorapl.toString();
+//             String originalcolor = colorsmap.get(clr);
+//
+//             // modify amount of chips
+//             APLNum amountapl = (APLNum) itemlist.get(1);
+//             int amount = amountapl.toInt();
+//
+//             // add to the proposal chips
+//             chipset.add(originalcolor, amount);
+//         }
+//
+//         BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
+//                 cgs.getGameId(), playerpin.toInt(), -1, new ChipSet(), chipset);
+//
+//     		client.communication.sendDiscourseRequest(proposal);
+//
+//     
+//             
+//         int messageId = proposal.getMessageId();
+//         APLNum msgId = new APLNum(messageId);
+//         return msgId; 
+//     }
 
 
 
@@ -1242,204 +1441,5 @@ System.out.println("-------------------------last log tuples end----------------
 return;
 	}
 
-    /**
-	 * Called when a game ends
-	 */
-	public void gameEnded() {
-		System.out.println("Game ended ");
-		System.out.println("My PlayerStatus is: " + client.getGameStatus().getMyPlayer());
-	}
-
-	
-	/**
-	 * Called by the server when the game configuration class' run() method completes
-	 */
-        //NEVER CALLED
-	public void gameInitialized()
-	{
-		System.out.println("#########################Game Initialized");
-		//game_initialized = true;
-		
-		
-		String phaseName = cgs.getPhases().getCurrentPhaseName();
-		System.out.println("AGENT " + client.getName() + ": current phase name: " + phaseName);
-		System.out.println("we have " + client.getGameStatus().getBoard().getGoals().size() + " goals");
-		System.out.println("we have " + client.getGameStatus().getScoring() + " scoring");
-	}
-
-	/**
-	 * Gets the client name
-	 */
-	public String getClientName() {
-		return client.getPin();
-	}
-
-    /**
-    * Called when a discourse message is received
-    * @param dm discourse message received
-    */
-    public void onReceipt(DiscourseMessage dm) {
-        System.out.println("Received a " + dm.getClass() );
-        // check if it is a basic proposal discourse message
-        String type = dm.getMsgType();
-        System.out.println("[MSG] Message is of type: " + type);
-
-        APLFunction event;
-
-//        if (type.equals("response")) {
-//            Boolean accepted = (Boolean) dm...get("accepted");
-//            if (accepted) {response = "accept";}
-//            else {response = "reject";}
-//
-//            event = new APLFunction("message",
-//                    new APLIdent(type), new APLNum(message),
-//                    new APLIdent(response));
-//        }
-//
-//        else {
-            event = new APLFunction("message",
-                       new APLIdent(type), new APLNum(dm.getMessageId()));
-//        }
-        // return message event to the 2APL agent
-        throwEvents(event);
-        
-        
-       
-            if(dm instanceof BasicProposalDiscourseMessage) {
-                BasicProposalDiscourseMessage proposal = (BasicProposalDiscourseMessage) dm;
-
-                BasicProposalDiscussionDiscourseMessage responseMessage = new BasicProposalDiscussionDiscourseMessage(proposal );
-                // check if the proposal is beneficial
-                
-                boolean offerResponse = RespondStrategy(ChipSet.subChipSets(proposal.getChipsSentByResponder(), proposal.getChipsSentByProposer() ),dm.getFromPerGameId());
-                
-                PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
-                waiter.doWait(RecipConstants.minRespondTime, RecipConstants.maxRespondTime);
-                    
-                // check if the proposal is beneficial
-                if( offerResponse ) {
-                    //response.setSubjectMsgId(subjectMsgId);
-                    responseMessage.acceptOffer();
-                } else {
-                    //response.setSubjectMsgId(subjectMsgId);
-                    responseMessage.rejectOffer();
-                }
-                
-                
-                    
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(FairMaxAgent.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                client.communication.sendDiscourseRequest(responseMessage);
-            }
-        }
-    
-    
-
-
-    /**
-     * Called when a phase advances
-     */
-    public void phaseAdvanced(Phases ph) {
-        Scoring scoring = cgs.getScoring();
-        String phaseName = cgs.getPhases().getCurrentPhaseName();
-        if(bestScore == -1) {
-            BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);     // calculate the best use of player's chips
-            bestScore = bu.getBestState().getScore();
-        }
-
-        APLFunction event = new APLFunction("message",
-                new APLIdent("phasechange"));
-        throwEvents(event);
-        if(phaseName.equals("Offer Phase")) {
-           
-        }
-    }
-	
-	/**
-	 * Sets the client name
-	 * @param name client name
-	 */
-	public void setClientName(String name) {
-		client.setPin(name);
-	}
-
-	/**
-	 * Starts the client
-	 */
-	public void start() {
-		client.start();
-	}
-
-
-	
-	/**
-	 * Strategy of the proposer
-	 * @param o null
-	 * @param id 
-	 * @return An exchange to propose
-	 */
-        public ArrayList<ChipSet> strategy( int id) {
-            // Get all possible unique exchanges between the players
-            Set<ArrayList<ChipSet>> allExchanges = ChipSet.getAllExchanges(
-                            cgs.getMyPlayer().getChips(), cgs.getPlayerByPerGameId(id).getChips());
-
-            //System.out.println("Total number of unique exchanges: " + allExchanges.size());
-            ArrayList<ChipSet> mostBeneficialExchange = null;
-
-            //basic sanity checking
-           // System.out.println("my player info: " + cgs.getMyPlayer().toString());
-           // System.out.println("my opponent info: " + cgs.getPlayerByPerGameId(id).toString());
-           // System.out.println("scoring: " + cgs.getScoring());
-
-            ScoringUtility SU = new ScoringUtility(cgs, cgs.getPerGameId(), id);
-           // System.out.println("here " );
-            ChipSet offer = SU.getFairMaxOffer();
-            //System.out.println("offer: " + offer.toString());
-            ChipSet propChips = ChipSet.getNegation(offer);
-            ChipSet respChips = new ChipSet(offer);
-            for(String color : propChips.getColors()){
-                if(propChips.getNumChips(color) < 0)
-                    propChips.set(color, 0);
-            }
-
-            for(String color : respChips.getColors()){
-                if(respChips.getNumChips(color) < 0)
-                    respChips.set(color, 0);
-            }
-
-            mostBeneficialExchange = new ArrayList<ChipSet>();
-            mostBeneficialExchange.add(propChips);
-            mostBeneficialExchange.add(respChips);
-
-            return mostBeneficialExchange;
-	}
-	 
-    public boolean RespondStrategy(ChipSet proposal,int id) {
-//        // our input is a proposal
-//        System.out.println("Received proposal: " + proposal);
-//
-//        BestUse bu = new BestUse(cgs, cgs.getMyPlayer(), scoring, 0);
-//        double MyDefaultScore = bu.getBestState().getScore();
-//
-//        bu = new BestUse(cgs, cgs.getPlayerByPerGameId(OppPerGameId), scoring, 0);
-//        double OppDefaultScore = bu.getBestState().getScore();
-//
-//        if(payoff(proposal) > MyDefaultScore*OppDefaultScore)
-//            return(true);
-//        else
-//            return(false);
-        
-        ScoringUtility SU = new ScoringUtility(cgs, id, cgs.getPerGameId());
-//        double oppBenefit = SU.getOfferScore(proposal, OppPerGameId) - SU.getDefaultScore(OppPerGameId);
-        double myBenefit = SU.getOfferScore(proposal, cgs.getPerGameId()) - SU.getDefaultScore(cgs.getPerGameId());
-        if(  (myBenefit > 0))
-            return(true);
-        else
-            return(false);
-        
-    }
 	
 }
