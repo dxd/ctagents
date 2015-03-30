@@ -246,6 +246,39 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
 		return client.getPin();
 	}
 
+
+
+
+	 public Term sendProposal(String agentname) {
+		 ArrayList<ChipSet> exchange = (ArrayList<ChipSet>) strategy(OppPerGameId);
+        ChipSet senderChips;
+        ChipSet recipientChips;
+
+        if(exchange == null) {
+            System.out.println("No beneficial " +
+                                "exchanges found among the ones that are beneficial for the responder");
+            return new APLNum(-1);
+        }
+        else {
+            System.out.println("EXCHANGE: " + exchange);
+            senderChips = exchange.get(1);
+            recipientChips = exchange.get(0);
+            BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
+                            cgs.getPerGameId(), OppPerGameId, -1, senderChips, recipientChips);
+//            sending = senderChips;
+            
+            PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
+            waiter.doWait(RecipConstants.minProposeTime, RecipConstants.maxProposeTime);
+            
+            
+           client.communication.sendDiscourseRequest(proposal);
+          
+           int messageId = proposal.getMessageId();
+           System.out.println("message id: " + messageId);
+           APLNum msgId = new APLNum(messageId);
+           return msgId; 
+        }
+	 }
     /**
     * Called when a discourse message is received
     * @param dm discourse message received
@@ -1033,47 +1066,7 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
             System.out.println("[ENV] moveStepToGoal returns: " + uTD);
             return uTD; 
         
-    }
-
-
-
-
-
-
-
-	 public Term sendProposal(String agentname) {
-		 ArrayList<ChipSet> exchange = (ArrayList<ChipSet>) strategy(OppPerGameId);
-         ChipSet senderChips;
-         ChipSet recipientChips;
-
-         if(exchange == null) {
-             System.out.println("No beneficial " +
-                                 "exchanges found among the ones that are beneficial for the responder");
-             return new APLNum(-1);
-         }
-         else {
-             System.out.println("EXCHANGE: " + exchange);
-             senderChips = exchange.get(1);
-             recipientChips = exchange.get(0);
-             BasicProposalDiscourseMessage proposal= new BasicProposalDiscourseMessage(
-                             cgs.getPerGameId(), OppPerGameId, -1, senderChips, recipientChips);
-//             sending = senderChips;
-             
-             PhaseWaiter waiter = new PhaseWaiter(cgs.getPhases());
-             waiter.doWait(RecipConstants.minProposeTime, RecipConstants.maxProposeTime);
-             
-             
-            client.communication.sendDiscourseRequest(proposal);
-           
-            int messageId = proposal.getMessageId();
-            System.out.println("message id: " + messageId);
-            APLNum msgId = new APLNum(messageId);
-            return msgId; 
-         }
-     
-             
-         
-	 }
+	}
 
      /**
       * Send a proposal to a player
@@ -1131,17 +1124,17 @@ public class EnvCT  extends Environment implements ExternalTool, RecipAgentAdapt
 //     }
 
 
-
-    /**
-     * BROKEN
-     * Informs the sender that the proposal has or has not been accepted.
-     * @param agentname The name of the agent requesting the send action
-     * @param response Acceptance or rejection of the proposal
-     * @param messageid The message which is subject to the response
-     */
-    public void sendResponse(String agentname, APLIdent response, APLNum messageid) {
-   
-    }
+//
+//    /**
+//     * BROKEN
+//     * Informs the sender that the proposal has or has not been accepted.
+//     * @param agentname The name of the agent requesting the send action
+//     * @param response Acceptance or rejection of the proposal
+//     * @param messageid The message which is subject to the response
+//     */
+//    public void sendResponse(String agentname, APLIdent response, APLNum messageid) {
+//   
+//    }
 
     
 	//////////////////////////////
