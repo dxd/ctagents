@@ -7,11 +7,11 @@ runserver:
      [java] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
      [java] INFO  AMQPersistenceAdapter          - Active data files: []
      [java] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
-     [java] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.101 seconds.
+     [java] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.246 seconds.
      [java] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
      [java] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
      [java] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
-     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-55532-1427750845422-1:0) started
+     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-60920-1427792368015-1:0) started
      [java] INFO  root                           - Started the JMS Server
      [java] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
      [java] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
@@ -21,10 +21,9 @@ runserver:
      [java] INFO  root                           - ColoredTrails is now running...
      [java] INFO  root                           - Starting spaces 1
      [java] zatim dobry
-     [java] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [192.168.0.3] of type Adding client state for 10
-     [java] 
-     [java] Client 10 disconnected!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     [java] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-55532-1427750845422-1:0) is shutting down
+     [java] Adding client state for 10
+     [java] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [192.168.0.3] of type 
+     [java] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-60920-1427792368015-1:0) is shutting down
      [java] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
      [java] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
      [java] java.io.EOFException
@@ -33,7 +32,8 @@ runserver:
      [java] 	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
      [java] 	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
      [java] 	at java.lang.Thread.run(Thread.java:695)
-     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-55532-1427750845422-1:0) stopped
+     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-60920-1427792368015-1:0) stopped
+     [java] Java Result: 143
 
 BUILD SUCCESSFUL
-Total time: 17 minutes 4 seconds
+Total time: 27 minutes 18 seconds

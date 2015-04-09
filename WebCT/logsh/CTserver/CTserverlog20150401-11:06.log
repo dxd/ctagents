@@ -1,0 +1,864 @@
+Buildfile: /Users/dxd/git/ct/WebCT/build.xml
+
+runserver:
+     [java] INFO  BrokerService                  - ActiveMQ null JMS Message Broker (localhost) is starting
+     [java] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+     [java] INFO  AMQPersistenceAdapter          - AMQStore starting using directory: activemq-data/localhost
+     [java] INFO  KahaStore                      - Kaha Store using data directory /Users/dxd/git/ct/WebCT/activemq-data/localhost/kr-store
+     [java] INFO  AMQPersistenceAdapter          - Active data files: []
+     [java] INFO  AMQPersistenceAdapter          - Journal Recovery Started from: DataManager:(data-)
+     [java] INFO  AMQPersistenceAdapter          - Recovered 0 operations from redo log in 0.986 seconds.
+     [java] INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(activemq-data/localhost)
+     [java] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://kafka.local:8088
+     [java] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Started
+     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-50379-1427882803327-1:0) started
+     [java] INFO  root                           - Started the JMS Server
+     [java] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+     [java] INFO  BrokerService                  - About to delete any non-persistent messages that may have overflowed to disk ...
+     [java] INFO  KahaStore                      - Kaha Store successfully deleted data directory activemq-data/localhost/tmp_storage
+     [java] INFO  BrokerService                  - Successfully deleted temporary storage
+     [java] INFO  root                           - Controller Interface has been started
+     [java] INFO  root                           - ColoredTrails is now running...
+     [java] INFO  root                           - Starting spaces 1
+     [java] zatim dobry
+     [java] INFO  root                           - Colored Trails Server received a subcription message from client: 10 [192.168.0.2] of type 
+     [java] Adding client state for 10
+     [java] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [192.168.0.2] of type 
+     [java] INFO  root                           - Colored Trails Server received a subcription message from client: 20 [192.168.0.2] of type 
+     [java] Adding client state for 20
+     [java] Adding client state for 20
+     [java] Received message to add config class from: admin
+     [java] INFO  root                           - Received message from admin: SET_CONFIGURATION
+     [java] INFO  root                           - Received message from admin client:ADD_CONFIGURATION
+     [java] DEBUG root                           - Administrator: adding configuration file [BargainOnlyConfig] class name: BargainOnlyConfig
+     [java] INFO  root                           - Received message from admin client:NEW_GAME
+     [java] DEBUG root                           - Administrator: newGame configName = [BargainOnlyConfig] 
+     [java] DEBUG root                           - Administrator: newGame adding Player: [10]
+     [java] DEBUG root                           - Administrator: newGame adding Player: [20]
+     [java] DEBUG root                           - ServerData addNewGame -- config file
+     [java] DEBUG root                           - ServerData addNewGame -- Starting ServerGameStatus
+     [java] DEBUG root                           - ServerData addNewGame -- Starting a new game with id: 0
+     [java] DEBUG root                           - ClientCommands creating new Topic: ct3.game.0
+     [java] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [10]
+     [java] DEBUG root                           - sending sendClientSubscribeToGameMessage: for game [0] and player [20]
+     [java] INFO  root                           - Received message from admin client:LIST_GAMES
+     [java] INFO  root                           - Received message from admin client:LIST_CONFIGURATIONS
+     [java] received client subscribed successfully message
+     [java] received client subscribed successfully message
+     [java] received client subscribed successfully message
+     [java] All players subscribed to game, trying to start
+     [java] INFO  root                           - Sending reply to controller: NEW_GAME_REPLY
+     [java] DEBUG root                           - sendGameStart
+     [java] DEBUG root                           - sendGameStart to controller
+     [java] DEBUG root                           - sending game id = 0
+     [java] Game Init Players: 10 vs 20
+     [java] output:java.io.ObjectOutputStream@734b84c7
+     [java] Logging into [CT_BO_Log-10-20.34.log]
+     [java] sending response required to client
+     [java] sent message for response required ActiveMQTextMessage {commandId = 0, responseRequired = false, messageId = ID:kafka.local-50379-1427882803327-3:1:1:1:3, originalDestination = null, originalTransactionId = null, producerId = null, destination = topic://ct3.game.0, transactionId = null, expiration = 0, timestamp = 1427882877492, arrival = 0, correlationId = null, replyTo = null, persistent = false, type = null, priority = 4, groupID = null, groupSequence = 0, targetConsumerId = null, compressed = false, userID = null, content = null, marshalledProperties = null, dataStructure = null, redeliveryCounter = 0, size = 0, properties = {game_command=showmoodpanel, command=RESPONSEREQUIRED, type=client}, readOnlyProperties = false, readOnlyBody = false, droppable = false, text = null}
+     [java] received RESPONSE REQUIRED REPLY
+     [java] (Game 0) setting up game: 0
+     [java] received RESPONSE REQUIRED REPLY
+     [java] received RESPONSE REQUIRED REPLY
+     [java] (Game 0) setting up game: 1
+     [java] (Game 0) setting up game: 2
+     [java] (Game 0) setting up game: 3
+     [java] (Game 0) setting up game: 4
+     [java] Trying to log: playerconnections
+     [java] Trying to log: players
+     [java] INFO  BargainOnlyConfig 20 10        - Startup
+     [java] Let the game begin...
+     [java] Our game id= 0
+     [java] Loading game config -1
+     [java] ---- Sending Scoring Change ----
+     [java] Trying to log: round0
+     [java] Trying to log: timeStampStartRound0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+     [java] setPhases in GameStatus
+     [java] A New Phase Began: Communication Phase
+     [java] ------------------ Round: 0 ------------------
+     [java] Trying to log: newround
+     [java] Trying to log: newphase
+     [java] Assigning nn scores
+     [java] Player: 10  NonNegoScore: 140.0
+     [java] Trying to log: nnP
+     [java] Player: 20  NonNegoScore: 35.0
+     [java] Trying to log: nnR
+     [java] DEBUG root                           - received a discourse mesage... 20
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 9048
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposal
+     [java] INFO  BargainOnlyConfig 20 10        - From: 1 : pin 20
+     [java] INFO  BargainOnlyConfig 20 10        - To: 0 : pin 10
+     [java] We have an offer
+     [java] Result of chip comparison: true
+     [java] Trying to log: offer0.0
+     [java] Trying to log: timeStampOffer0.0
+     [java] Player: 10  Offer Flavor: 140.0
+     [java] Trying to log: flavorP0.0
+     [java] Player: 20  Offer Flavor: 35.0
+     [java] Trying to log: flavorR0.0
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+     [java] DEBUG root                           - received a discourse mesage... 10
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: -1
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposal
+     [java] INFO  BargainOnlyConfig 20 10        - From: 0 : pin 10
+     [java] INFO  BargainOnlyConfig 20 10        - To: 1 : pin 20
+     [java] We have an offer
+     [java] Result of chip comparison: false
+     [java] Dropping invalid offer
+     [java] DEBUG root                           - received a discourse mesage... 10
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 9048
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposaldiscussion
+     [java] INFO  BargainOnlyConfig 20 10        - From: 0 : pin 10
+     [java] INFO  BargainOnlyConfig 20 10        - To: 1 : pin 20
+     [java] ---- BasicProposalDiscussionDiscourseMessage ----
+     [java] Trying to log: offerresponse0.0
+     [java] Trying to log: timeStampOfferresponse0.0
+     [java] &&&&&&&&&&&&& We have an accepted offer, chips before: &&&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':0 'RGBGreen':2 'purple1':1 'orange1':2 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':2 'orange1':0 }
+     [java] Initiating Automatic Chip Transfer
+     [java] Proposer:  1
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] Responder: 0
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] EXECUTING AUTOMATIC CHIP TRANSFER
+     [java] &&&&&&&&&&&&&& Chips After &&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':0 'RGBGreen':2 'purple1':1 'orange1':2 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':2 'orange1':0 }
+     [java] A Phase Ended: Communication Phase
+     [java] Trying to log: timeStampEndRound0
+     [java] AUTOMATIC MOVEMEMT
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':0 'RGBGreen':2 'purple1':1 'orange1':2 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 3  Col: 3  Color: purple1
+     [java] chipset after step{ chips  'RGBRed':0 'RGBGreen':2 'purple1':0 'orange1':2 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:3,C:3).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':2 'purple1':0 'orange1':2 }.
+     [java] Score: 140.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:3,C:2).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':2 'purple1':1 'orange1':2 }.
+     [java] Score: 35.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [3][2] [3][3]
+     [java] 
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':2 'RGBGreen':1 'purple1':2 'orange1':0 }
+     [java] player is allowed to move
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:1).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':2 'orange1':0 }.
+     [java] Score: 35.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [1][1]
+     [java] 
+     [java] Assigning scores after 0 dialogue exchanges
+     [java] Player: 10  Score: 140
+     [java] Trying to log: offerP
+     [java] Player: 20  Score: 35
+     [java] Trying to log: offerR
+     [java] A New Phase Began: Movement Phase
+     [java] Trying to log: newphase
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+     [java] A Phase Ended: Movement Phase
+     [java] A New Phase Began: Feedback Phase
+     [java] Trying to log: newphase
+     [java] A Phase Ended: Feedback Phase
+     [java] Loading game config -1
+     [java] ---- Sending Scoring Change ----
+     [java] Trying to log: round1
+     [java] Trying to log: timeStampStartRound1
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+     [java] A New Phase Began: Communication Phase
+     [java] ------------------ Round: 1 ------------------
+     [java] Trying to log: newround
+     [java] Trying to log: newphase
+     [java] Assigning nn scores
+     [java] Player: 10  NonNegoScore: 5.0
+     [java] Trying to log: nnR
+     [java] Player: 20  NonNegoScore: 130.0
+     [java] Trying to log: nnP
+     [java] DEBUG root                           - received a discourse mesage... 20
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 2584
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposal
+     [java] INFO  BargainOnlyConfig 20 10        - From: 1 : pin 20
+     [java] INFO  BargainOnlyConfig 20 10        - To: 0 : pin 10
+     [java] We have an offer
+     [java] Result of chip comparison: true
+     [java] Trying to log: offer1.0
+     [java] Trying to log: timeStampOffer1.0
+     [java] Player: 10  Offer Flavor: 5.0
+     [java] Trying to log: flavorR1.0
+     [java] Player: 20  Offer Flavor: 130.0
+     [java] Trying to log: flavorP1.0
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+     [java] DEBUG root                           - received a discourse mesage... 10
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 2584
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposaldiscussion
+     [java] INFO  BargainOnlyConfig 20 10        - From: 0 : pin 10
+     [java] INFO  BargainOnlyConfig 20 10        - To: 1 : pin 20
+     [java] ---- BasicProposalDiscussionDiscourseMessage ----
+     [java] Trying to log: offerresponse1.0
+     [java] Trying to log: timeStampOfferresponse1.0
+     [java] &&&&&&&&&&&&& We have an accepted offer, chips before: &&&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':3 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':2 'purple1':0 'orange1':1 }
+     [java] Initiating Automatic Chip Transfer
+     [java] Proposer:  1
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] Responder: 0
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] EXECUTING AUTOMATIC CHIP TRANSFER
+     [java] &&&&&&&&&&&&&& Chips After &&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':3 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':2 'purple1':0 'orange1':1 }
+     [java] A Phase Ended: Communication Phase
+     [java] Trying to log: timeStampEndRound1
+     [java] AUTOMATIC MOVEMEMT
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':3 }
+     [java] player is allowed to move
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:3,C:0).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':3 }.
+     [java] Score: 5.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [3][0]
+     [java] 
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':2 'RGBGreen':2 'purple1':0 'orange1':1 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 1  Col: 1  Color: RGBGreen
+     [java] chipset after step{ chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':1 }
+     [java] Step point: 1  Row: 1  Col: 2  Color: RGBRed
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':1 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:2).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':1 }.
+     [java] Score: 130.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:1).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':1 }.
+     [java] Score: 25.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:0,C:1).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':2 'purple1':0 'orange1':1 }.
+     [java] Score: 20.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [0][1] [1][1] [1][2]
+     [java] 
+     [java] Assigning scores after 0 dialogue exchanges
+     [java] Player: 10  Score: 5
+     [java] Trying to log: offerR
+     [java] Player: 20  Score: 130
+     [java] Trying to log: offerP
+     [java] A New Phase Began: Movement Phase
+     [java] Trying to log: newphase
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+     [java] A Phase Ended: Movement Phase
+     [java] A New Phase Began: Feedback Phase
+     [java] Trying to log: newphase
+     [java] A Phase Ended: Feedback Phase
+     [java] Loading game config -1
+     [java] ---- Sending Scoring Change ----
+     [java] Trying to log: round2
+     [java] Trying to log: timeStampStartRound2
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+     [java] A New Phase Began: Communication Phase
+     [java] ------------------ Round: 2 ------------------
+     [java] Trying to log: newround
+     [java] Trying to log: newphase
+     [java] Assigning nn scores
+     [java] Player: 10  NonNegoScore: 140.0
+     [java] Trying to log: nnP
+     [java] Player: 20  NonNegoScore: 35.0
+     [java] Trying to log: nnR
+     [java] DEBUG root                           - received a discourse mesage... 20
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 2935
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposal
+     [java] INFO  BargainOnlyConfig 20 10        - From: 1 : pin 20
+     [java] INFO  BargainOnlyConfig 20 10        - To: 0 : pin 10
+     [java] We have an offer
+     [java] Result of chip comparison: true
+     [java] Trying to log: offer2.0
+     [java] Trying to log: timeStampOffer2.0
+     [java] Player: 10  Offer Flavor: 140.0
+     [java] Trying to log: flavorP2.0
+     [java] Player: 20  Offer Flavor: 35.0
+     [java] Trying to log: flavorR2.0
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+     [java] DEBUG root                           - received a discourse mesage... 10
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 2935
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposaldiscussion
+     [java] INFO  BargainOnlyConfig 20 10        - From: 0 : pin 10
+     [java] INFO  BargainOnlyConfig 20 10        - To: 1 : pin 20
+     [java] ---- BasicProposalDiscussionDiscourseMessage ----
+     [java] Trying to log: offerresponse2.0
+     [java] Trying to log: timeStampOfferresponse2.0
+     [java] &&&&&&&&&&&&& We have an accepted offer, chips before: &&&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':3 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':1 'RGBGreen':2 'purple1':2 'orange1':0 }
+     [java] Initiating Automatic Chip Transfer
+     [java] Proposer:  1
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] Responder: 0
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] EXECUTING AUTOMATIC CHIP TRANSFER
+     [java] &&&&&&&&&&&&&& Chips After &&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':3 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':1 'RGBGreen':2 'purple1':2 'orange1':0 }
+     [java] A Phase Ended: Communication Phase
+     [java] Trying to log: timeStampEndRound2
+     [java] AUTOMATIC MOVEMEMT
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':3 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 3  Col: 3  Color: RGBGreen
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':0 'purple1':0 'orange1':3 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:3,C:3).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':0 'purple1':0 'orange1':3 }.
+     [java] Score: 140.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:2,C:3).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':3 }.
+     [java] Score: 35.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [2][3] [3][3]
+     [java] 
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':1 'RGBGreen':2 'purple1':2 'orange1':0 }
+     [java] player is allowed to move
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:0,C:2).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':2 'purple1':2 'orange1':0 }.
+     [java] Score: 35.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [0][2]
+     [java] 
+     [java] Assigning scores after 0 dialogue exchanges
+     [java] Player: 10  Score: 140
+     [java] Trying to log: offerP
+     [java] Player: 20  Score: 35
+     [java] Trying to log: offerR
+     [java] A New Phase Began: Movement Phase
+     [java] Trying to log: newphase
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+     [java] A Phase Ended: Movement Phase
+     [java] A New Phase Began: Feedback Phase
+     [java] Trying to log: newphase
+     [java] A Phase Ended: Feedback Phase
+     [java] Loading game config -1
+     [java] ---- Sending Scoring Change ----
+     [java] Trying to log: round3
+     [java] Trying to log: timeStampStartRound3
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+     [java] A New Phase Began: Communication Phase
+     [java] ------------------ Round: 3 ------------------
+     [java] Trying to log: newround
+     [java] Trying to log: newphase
+     [java] Assigning nn scores
+     [java] Player: 10  NonNegoScore: 10.0
+     [java] Trying to log: nnR
+     [java] Player: 20  NonNegoScore: 130.0
+     [java] Trying to log: nnP
+     [java] DEBUG root                           - received a discourse mesage... 20
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 3868
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposal
+     [java] INFO  BargainOnlyConfig 20 10        - From: 1 : pin 20
+     [java] INFO  BargainOnlyConfig 20 10        - To: 0 : pin 10
+     [java] We have an offer
+     [java] Result of chip comparison: true
+     [java] Trying to log: offer3.0
+     [java] Trying to log: timeStampOffer3.0
+     [java] Player: 10  Offer Flavor: 10.0
+     [java] Trying to log: flavorR3.0
+     [java] Player: 20  Offer Flavor: 130.0
+     [java] Trying to log: flavorP3.0
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscourseMessage
+     [java] DEBUG root                           - FROM: 1 TO: 0(PIN: 10)
+     [java] DEBUG root                           - received a discourse mesage... 10
+     [java] INFO  BargainOnlyConfig 20 10        - Received Discourse Message 
+     [java] INFO  BargainOnlyConfig 20 10        - Class: class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] INFO  BargainOnlyConfig 20 10        - Id: 3868
+     [java] INFO  BargainOnlyConfig 20 10        - Type: basicproposaldiscussion
+     [java] INFO  BargainOnlyConfig 20 10        - From: 0 : pin 10
+     [java] INFO  BargainOnlyConfig 20 10        - To: 1 : pin 20
+     [java] ---- BasicProposalDiscussionDiscourseMessage ----
+     [java] Trying to log: offerresponse3.0
+     [java] Trying to log: timeStampOfferresponse3.0
+     [java] &&&&&&&&&&&&& We have an accepted offer, chips before: &&&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':2 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':2 }
+     [java] Initiating Automatic Chip Transfer
+     [java] Proposer:  1
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] Responder: 0
+     [java] Sending: { chips  'RGBRed':0 'RGBGreen':0 'purple1':0 'orange1':0 }
+     [java] EXECUTING AUTOMATIC CHIP TRANSFER
+     [java] &&&&&&&&&&&&&& Chips After &&&&&&&&&&&&&&&&&
+     [java] player pin: 10
+     [java] player chips: { chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':2 }
+     [java] player pin: 20
+     [java] player chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':2 }
+     [java] A Phase Ended: Communication Phase
+     [java] Trying to log: timeStampEndRound3
+     [java] AUTOMATIC MOVEMEMT
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':2 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 1  Col: 2  Color: orange1
+     [java] chipset after step{ chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':1 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:1,C:2).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':1 }.
+     [java] Score: 10.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:2,C:2).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':2 }.
+     [java] Score: 5.
+     [java] Team: -1.
+     [java] 
+     [java] Path 1:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:2,C:1).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':2 'purple1':0 'orange1':2 }.
+     [java] Score: 10.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:2,C:2).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':3 'purple1':0 'orange1':2 }.
+     [java] Score: 5.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [2][2] [1][2]
+     [java] 
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':2 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 2  Col: 0  Color: RGBGreen
+     [java] chipset after step{ chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':2 }
+     [java] Step point: 1  Row: 1  Col: 0  Color: RGBRed
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':0 'purple1':0 'orange1':2 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:0).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':0 'purple1':0 'orange1':2 }.
+     [java] Score: 130.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:2,C:0).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':0 'purple1':0 'orange1':2 }.
+     [java] Score: 25.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:3,C:0).
+     [java] Chips: { chips  'RGBRed':2 'RGBGreen':1 'purple1':0 'orange1':2 }.
+     [java] Score: 20.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [3][0] [2][0] [1][0]
+     [java] 
+     [java] Assigning scores after 0 dialogue exchanges
+     [java] Player: 10  Score: 10
+     [java] Trying to log: offerR
+     [java] Player: 20  Score: 130
+     [java] Trying to log: offerP
+     [java] A New Phase Began: Movement Phase
+     [java] Trying to log: newphase
+     [java] DEBUG root                           - sendGameDiscourseMessage class edu.harvard.eecs.airg.coloredtrails.shared.discourse.BasicProposalDiscussionDiscourseMessage
+     [java] DEBUG root                           - FROM: 0 TO: 1(PIN: 20)
+     [java] A Phase Ended: Movement Phase
+     [java] A New Phase Began: Feedback Phase
+     [java] Trying to log: newphase
+     [java] A Phase Ended: Feedback Phase
+     [java] Loading game config -1
+     [java] ---- Sending Scoring Change ----
+     [java] Trying to log: round4
+     [java] Trying to log: timeStampStartRound4
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 10 pergameId: 0
+     [java] INFO  BargainOnlyConfig 20 10        - Player:  pin: 20 pergameId: 1
+     [java] A New Phase Began: Communication Phase
+     [java] ------------------ Round: 4 ------------------
+     [java] Trying to log: newround
+     [java] Trying to log: newphase
+     [java] Assigning nn scores
+     [java] Player: 10  NonNegoScore: -10.0
+     [java] Trying to log: nnP
+     [java] Player: 20  NonNegoScore: 130.0
+     [java] Trying to log: nnR
+     [java] A Phase Ended: Communication Phase
+     [java] Trying to log: timeStampEndRound4
+     [java] AUTOMATIC MOVEMEMT
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':1 'RGBGreen':2 'purple1':1 'orange1':1 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 1  Col: 2  Color: purple1
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':2 'purple1':0 'orange1':1 }
+     [java] Step point: 1  Row: 1  Col: 1  Color: RGBGreen
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':1 }
+     [java] Step point: 2  Row: 1  Col: 0  Color: orange1
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':0 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:1,C:0).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':0 }.
+     [java] Score: -10.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:1,C:1).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':0 'orange1':1 }.
+     [java] Score: -15.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:1,C:2).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':2 'purple1':0 'orange1':1 }.
+     [java] Score: -20.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 0.
+     [java] PIN: 10.
+     [java] Pos: (R:1,C:3).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':2 'purple1':1 'orange1':1 }.
+     [java] Score: -25.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [1][3] [1][2] [1][1] [1][0]
+     [java] 
+     [java] begin path move
+     [java] player chipeset{ chips  'RGBRed':1 'RGBGreen':1 'purple1':2 'orange1':1 }
+     [java] player is allowed to move
+     [java] Step point: 0  Row: 0  Col: 0  Color: purple1
+     [java] chipset after step{ chips  'RGBRed':1 'RGBGreen':1 'purple1':1 'orange1':1 }
+     [java] Step point: 1  Row: 0  Col: 1  Color: RGBRed
+     [java] chipset after step{ chips  'RGBRed':0 'RGBGreen':1 'purple1':1 'orange1':1 }
+     [java] Path 0:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:0,C:1).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':1 'purple1':1 'orange1':1 }.
+     [java] Score: 130.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:0,C:0).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':1 'orange1':1 }.
+     [java] Score: 25.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:0).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':2 'orange1':1 }.
+     [java] Score: 20.
+     [java] Team: -1.
+     [java] 
+     [java] Path 1:
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:0,C:1).
+     [java] Chips: { chips  'RGBRed':0 'RGBGreen':0 'purple1':2 'orange1':1 }.
+     [java] Score: 130.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:1).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':0 'purple1':2 'orange1':1 }.
+     [java] Score: 25.
+     [java] Team: -1.
+     [java] Game Player...
+     [java] PerGameId: 1.
+     [java] PIN: 20.
+     [java] Pos: (R:1,C:0).
+     [java] Chips: { chips  'RGBRed':1 'RGBGreen':1 'purple1':2 'orange1':1 }.
+     [java] Score: 20.
+     [java] Team: -1.
+     [java] 
+     [java] 
+     [java] Path: [1][0] [0][0] [0][1]
+     [java] 
+     [java] Assigning scores after 0 dialogue exchanges
+     [java] Player: 10  Score: -10
+     [java] Trying to log: offerP
+     [java] Player: 20  Score: 130
+     [java] Trying to log: offerR
+     [java] A New Phase Began: Movement Phase
+     [java] Trying to log: newphase
+     [java] A Phase Ended: Movement Phase
+     [java] A New Phase Began: Feedback Phase
+     [java] Trying to log: newphase
+     [java] Ending game
+     [java] Loop status: false
+     [java] DEBUG root                           - Game ended id = 0
+     [java] Trying to log: done
+     [java] Client 20 disconnected!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     [java] Client 10 disconnected!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     [java] Apr 1, 2015 12:45:18 PM edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands clientDisconnected
+     [java] SEVERE: null
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: java.net.SocketException: Broken pipe
+     [java] java.net.SocketException: Broken pipe
+     [java] 	at java.net.SocketOutputStream.socketWrite0(Native Method)
+     [java] 	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:92)
+     [java] 	at java.net.SocketOutputStream.write(SocketOutputStream.java:136)
+     [java] 	at org.apache.activemq.transport.tcp.TcpBufferedOutputStream.flush(TcpBufferedOutputStream.java:109)
+     [java] 	at java.io.DataOutputStream.flush(DataOutputStream.java:106)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.oneway(TcpTransport.java:119)
+     [java] javax.jms.JMSException: Broken pipe
+     [java] 	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:46)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.writeCheck(InactivityMonitor.java:81)
+     [java] 	at org.apache.activemq.ActiveMQConnection.syncSendPacket(ActiveMQConnection.java:1211)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.access$100(InactivityMonitor.java:34)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor$2.run(InactivityMonitor.java:56)	at org.apache.activemq.ActiveMQSession.send(ActiveMQSession.java:1648)
+     [java] 	at org.apache.activemq.ActiveMQMessageProducer.send(ActiveMQMessageProducer.java:499)
+     [java] 
+     [java] 	at org.apache.activemq.ActiveMQMessageProducer.send(ActiveMQMessageProducer.java:375)
+     [java] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+     [java] 	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)	at edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands.clientDisconnected(CtrlCommands.java:390)
+     [java] 	at edu.harvard.eecs.airg.coloredtrails.server.ClientState.updateState(ClientState.java:38)
+     [java] 
+     [java] 	at edu.harvard.eecs.airg.coloredtrails.server.ServerData.run(ServerData.java:446)
+     [java] 	at java.util.TimerThread.mainLoop(Timer.java:512)	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+     [java] 
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+     [java] 	at java.util.TimerThread.run(Timer.java:462)
+     [java] Caused by: java.net.SocketException: Broken pipe	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+     [java] 
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+     [java] 	at java.net.SocketOutputStream.socketWrite0(Native Method)
+     [java] 	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:92)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+     [java] 	at java.net.SocketOutputStream.write(SocketOutputStream.java:136)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] 	at org.apache.activemq.transport.tcp.TcpBufferedOutputStream.flush(TcpBufferedOutputStream.java:109)
+     [java] 	at java.io.DataOutputStream.flush(DataOutputStream.java:106)
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: org.apache.activemq.transport.InactivityIOException: Channel was inactive for too long.
+     [java] org.apache.activemq.transport.InactivityIOException: Channel was inactive for too long.	at org.apache.activemq.transport.tcp.TcpTransport.oneway(TcpTransport.java:119)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.writeCheck(InactivityMonitor.java:81)
+     [java] 
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.readCheck(InactivityMonitor.java:102)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.access$100(InactivityMonitor.java:34)	at org.apache.activemq.transport.InactivityMonitor.access$000(InactivityMonitor.java:34)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor$1.run(InactivityMonitor.java:50)
+     [java] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+     [java] 
+     [java] 	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+     [java] 	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor$2.run(InactivityMonitor.java:56)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: java.net.SocketException: Connection reset
+     [java] java.net.SocketException: Connection reset
+     [java] 	at java.net.SocketInputStream.read(SocketInputStream.java:168)
+     [java] 	at org.apache.activemq.transport.tcp.TcpBufferedInputStream.fill(TcpBufferedInputStream.java:49)
+     [java] 	at org.apache.activemq.transport.tcp.TcpBufferedInputStream.read(TcpBufferedInputStream.java:56)
+     [java] 	at java.io.DataInputStream.readInt(DataInputStream.java:370)
+     [java] 	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: javax.jms.JMSException: Broken pipe
+     [java] javax.jms.JMSException: Broken pipe
+     [java] 	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:58)
+     [java] 	at org.apache.activemq.ActiveMQConnection.asyncSendPacket(ActiveMQConnection.java:1187)
+     [java] 	at org.apache.activemq.ActiveMQSession.asyncSendPacket(ActiveMQSession.java:1749)
+     [java] 	at org.apache.activemq.ActiveMQMessageConsumer.afterMessageIsConsumed(ActiveMQMessageConsumer.java:700)
+     [java] 	at org.apache.activemq.ActiveMQMessageConsumer.dispatch(ActiveMQMessageConsumer.java:871)
+     [java] 	at org.apache.activemq.ActiveMQSessionExecutor.dispatch(ActiveMQSessionExecutor.java:122)
+     [java] 	at org.apache.activemq.ActiveMQSessionExecutor.iterate(ActiveMQSessionExecutor.java:189)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner.runTask(PooledTaskRunner.java:115)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner.access$100(PooledTaskRunner.java:26)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner$1.run(PooledTaskRunner.java:44)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] Caused by: java.net.SocketException: Broken pipe
+     [java] 	at java.net.SocketOutputStream.socketWrite0(Native Method)
+     [java] 	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:92)
+     [java] 	at java.net.SocketOutputStream.write(SocketOutputStream.java:136)
+     [java] 	at org.apache.activemq.transport.tcp.TcpBufferedOutputStream.flush(TcpBufferedOutputStream.java:109)
+     [java] 	at java.io.DataOutputStream.flush(DataOutputStream.java:106)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.oneway(TcpTransport.java:119)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.oneway(InactivityMonitor.java:147)
+     [java] 	at org.apache.activemq.transport.TransportFilter.oneway(TransportFilter.java:80)
+     [java] 	at org.apache.activemq.transport.WireFormatNegotiator.oneway(WireFormatNegotiator.java:93)
+     [java] 	at org.apache.activemq.transport.MutexTransport.oneway(MutexTransport.java:44)
+     [java] 	at org.apache.activemq.transport.ResponseCorrelator.oneway(ResponseCorrelator.java:56)
+     [java] 	at org.apache.activemq.ActiveMQConnection.asyncSendPacket(ActiveMQConnection.java:1185)
+     [java] 	... 11 more
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: javax.jms.JMSException: The transport is not running.
+     [java] javax.jms.JMSException: The transport is not running.
+     [java] 	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:58)
+     [java] 	at org.apache.activemq.ActiveMQConnection.asyncSendPacket(ActiveMQConnection.java:1187)
+     [java] 	at org.apache.activemq.ActiveMQSession.asyncSendPacket(ActiveMQSession.java:1749)
+     [java] 	at org.apache.activemq.ActiveMQMessageConsumer.afterMessageIsConsumed(ActiveMQMessageConsumer.java:700)
+     [java] 	at org.apache.activemq.ActiveMQMessageConsumer.dispatch(ActiveMQMessageConsumer.java:871)
+     [java] 	at org.apache.activemq.ActiveMQSessionExecutor.dispatch(ActiveMQSessionExecutor.java:122)
+     [java] 	at org.apache.activemq.ActiveMQSessionExecutor.iterate(ActiveMQSessionExecutor.java:189)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner.runTask(PooledTaskRunner.java:115)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner.access$100(PooledTaskRunner.java:26)
+     [java] 	at org.apache.activemq.thread.PooledTaskRunner$1.run(PooledTaskRunner.java:44)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] Caused by: java.io.IOException: The transport is not running.
+     [java] 	at org.apache.activemq.transport.TransportSupport.checkStarted(TransportSupport.java:103)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.oneway(TcpTransport.java:117)
+     [java] 	at org.apache.activemq.transport.InactivityMonitor.oneway(InactivityMonitor.java:147)
+     [java] 	at org.apache.activemq.transport.TransportFilter.oneway(TransportFilter.java:80)
+     [java] 	at org.apache.activemq.transport.WireFormatNegotiator.oneway(WireFormatNegotiator.java:93)
+     [java] 	at org.apache.activemq.transport.MutexTransport.oneway(MutexTransport.java:44)
+     [java] 	at org.apache.activemq.transport.ResponseCorrelator.oneway(ResponseCorrelator.java:56)
+     [java] 	at org.apache.activemq.ActiveMQConnection.asyncSendPacket(ActiveMQConnection.java:1185)
+     [java] 	... 11 more
+     [java] WARN  ActiveMQConnection             - Async exception with no exception listener: java.io.EOFException
+     [java] java.io.EOFException
+     [java] 	at java.io.DataInputStream.readInt(DataInputStream.java:375)
+     [java] 	at org.apache.activemq.openwire.OpenWireFormat.unmarshal(OpenWireFormat.java:269)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.readCommand(TcpTransport.java:156)
+     [java] 	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:136)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+     [java] 	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+     [java] 	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+     [java] 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+     [java] 	at java.lang.Thread.run(Thread.java:695)
+     [java] Apr 1, 2015 12:45:25 PM edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands clientDisconnectedClient 20 disconnected!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     [java] SEVERE: null
+     [java] 
+     [java] javax.jms.IllegalStateException: The Session is closed
+     [java] 	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:661)
+     [java] 	at org.apache.activemq.ActiveMQSession.configureMessage(ActiveMQSession.java:647)
+     [java] 	at org.apache.activemq.ActiveMQSession.createTextMessage(ActiveMQSession.java:380)
+     [java] 	at edu.harvard.eecs.airg.coloredtrails.server.CtrlCommands.clientDisconnected(CtrlCommands.java:386)
+     [java] 	at edu.harvard.eecs.airg.coloredtrails.server.ClientState.updateState(ClientState.java:38)
+     [java] 	at edu.harvard.eecs.airg.coloredtrails.server.ServerData.run(ServerData.java:446)
+     [java] 	at java.util.TimerThread.mainLoop(Timer.java:512)
+     [java] 	at java.util.TimerThread.run(Timer.java:462)
+     [java] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:kafka.local-50379-1427882803327-1:0) is shutting down
+     [java] INFO  TransportConnector             - Connector tcp://kafka.local:8088 Stopped
+     [java] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:kafka.local-50379-1427882803327-1:0) stopped
+
+BUILD SUCCESSFUL
+Total time: 9129 minutes 23 seconds

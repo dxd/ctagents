@@ -19,7 +19,8 @@ CTCONFIG="$ROOT/lib/adminconfig/GG.txt" 					# Path to  config file.
 CTCLIENT="java -jar $CTJAR -c ctgui.original.GUI"			#  --pin 10  --client_hostip $2
 DATE="`/bin/date +%Y%m%d-%H:%M`"
 TOMCAT="/Users/dxd/Downloads/apache-tomcat-7.0.57/bin"
-TOMCATRUN="./catalina.sh start -Dcatalina.base=/Users/dxd/Documents/workspace2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0 -Dcatalina.home=/Library/Tomcat -Dwtp.deploy=/Users/dxd/Documents/workspace2 -Djava.endorsed.dirs=/Library/Tomcat/endorsed"
+TOMCATRUN="./startup.sh start -Dcatalina.base=/Users/dxd/Documents/workspace2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0 -Dcatalina.home=/Library/Tomcat -Dwtp.deploy=/Users/dxd/Documents/workspace2 -Djava.endorsed.dirs=/Library/Tomcat/endorsed"
+SAFARI="/usr/bin/open -a Safari http://localhost:8080/WebCT/login.html?pin=20"
 ######################### Section Functions #########################
 
 usage_exit() {
@@ -127,14 +128,18 @@ stop_ctserver() {
 	echo "Trying to bring down the CT server..."
 	if (kill `pidof $CTJAR` 2>/dev/null) ; then
 		echo "... the server has been stopped."
+        sleep 1
  	else {
  		log_error "$DATE: The CT server was not running."
 		error_exit "Could not stop the server, for it was not running."
 		}
     fi
+
 }
 
 start_aplserver() {
+    kill `pidof 2apl.jar` 2>/dev/null
+    sleep 1
 	echo "Trying to start the 2APL main container..."
 	# if [ -f $APLMASDIR/ct.mas ] ; then
 			cd $APLROOT && echo "Succesfull cd to $APLROOT."
@@ -148,11 +153,19 @@ start_aplserver() {
 }
 
 start_tomcat() {
+    kill `pidof bootstrap` 2>/dev/null
+    sleep 1
     cd $TOMCAT
     pwd
     $TOMCATRUN >> $HOME/WebCT/logsh/CTserverTC/CTserverlog$DATE.log 2>&1 &
     echo "tomcat has started."
 
+}
+
+start_safari() {
+    kill `pidof safari` 2>/dev/null
+    sleep 5
+    $SAFARI
 }
 
 ######################### Section getopts ######################
@@ -180,7 +193,7 @@ a ) start_ctagent $OPTARG ;;
 c ) start_ctclient $OPTARG ;;
 s ) start_ctserver $OPTARG ;;
 A ) start_ctadmin $OPTARG ;;
-k ) start_aplserver;start_ctserver;start_tomcat ;;
+k ) stop_ctserver;start_aplserver;start_ctserver ;;
 t ) echo blaat ;;
 2 ) start_aplserver ;;
 * ) usage_exit ;;
